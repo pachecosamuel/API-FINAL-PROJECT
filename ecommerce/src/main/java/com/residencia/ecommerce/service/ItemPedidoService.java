@@ -30,7 +30,7 @@ public class ItemPedidoService {
 		return itemPedidoRepository.save(itemPedido);
 	}
 
-	public void deleteItemPedido(Integer id) {
+	public void deleteItemPedidoById(Integer id) {
 		itemPedidoRepository.deleteById(id);
 	}
 

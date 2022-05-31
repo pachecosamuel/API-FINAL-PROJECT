@@ -30,7 +30,7 @@ public class EnderecoService {
 		return enderecoRepository.save(endereco);
 	}
 
-	public void deleteEndereco(Integer id) {
+	public void deleteEnderecoById(Integer id) {
 		enderecoRepository.deleteById(id);
 	}
 

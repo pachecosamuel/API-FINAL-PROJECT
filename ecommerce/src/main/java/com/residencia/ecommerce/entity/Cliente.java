@@ -14,31 +14,87 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(name = "cliente")
-@JsonIdentityInfo(
-	    generator = ObjectIdGenerators.PropertyGenerator.class,
-	    property = "idCliente")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "idCliente")
 public class Cliente {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_cliente")
 	private Integer idCliente;
-	
+
 	@Column(name = "email", nullable = false, unique = true)
 	private String email;
-	
+
 	@Column(name = "nome_completo", nullable = false)
 	private String nomeCompleto;
-	
+
 	@Column(name = "cpf", nullable = false, unique = true, length = 11)
 	private String cpf;
-	
+
 	@Column(name = "telefone", nullable = false)
 	private String telefone;
-	
+
 	@Column(name = "data_nascimento", nullable = false)
 	private Date dataNascimento;
+
+	/* ID_ENDERECO VIRÁ COMO FOREIGN KEY REFERENCE ENDERECO 
+	@ManyToOne
+	@JoinColumn(name = "id_endereco", referencedColumnName = "id_endereco")
+	private Endereco endereco;*/
 	
-	/*  ID_ENDERECO VIRÁ COMO FOREIGN KEY REFERENCE ENDERECO*/
-	
+	/* ID PEDIDO VIRÁ COMO FOREIGN KEY MANY TO MANY 
+	@ManyToMany
+	@JoinTable(name = "cliente_pedido",
+			joinColumns = @JoinColumn(name = "cliente_fk"),
+			inverseJoinColumns = @JoinColumn(name = "pedido_fk"))
+	List<Pedido> pedidoList;*/
+
+	public Integer getIdCliente() {
+		return idCliente;
+	}
+
+	public void setIdCliente(Integer idCliente) {
+		this.idCliente = idCliente;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getNomeCompleto() {
+		return nomeCompleto;
+	}
+
+	public void setNomeCompleto(String nomeCompleto) {
+		this.nomeCompleto = nomeCompleto;
+	}
+
+	public String getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
+
+	public String getTelefone() {
+		return telefone;
+	}
+
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
+	}
+
+	public Date getDataNascimento() {
+		return dataNascimento;
+	}
+
+	public void setDataNascimento(Date dataNascimento) {
+		this.dataNascimento = dataNascimento;
+	}
+
 }

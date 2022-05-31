@@ -30,7 +30,7 @@ public class CategoriaService {
 		return categoriaRepository.save(categoria);
 	}
 
-	public void deleteCategoria(Integer id) {
+	public void deleteCategoriaById(Integer id) {
 		categoriaRepository.deleteById(id);
 	}
 

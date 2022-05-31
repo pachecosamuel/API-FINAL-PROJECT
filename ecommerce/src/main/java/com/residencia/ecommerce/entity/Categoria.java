@@ -12,21 +12,23 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(name = "categoria")
-@JsonIdentityInfo(
-	    generator = ObjectIdGenerators.PropertyGenerator.class,
-	    property = "idCategoria")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "idCategoria")
 public class Categoria {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_categoria")
 	private Integer idCategoria;
-	
+
 	@Column(name = "nome", nullable = false)
 	private String nomeCategoria;
-	
+
 	@Column(name = "descricao", nullable = false)
 	private String categoriaDescricao;
+	
+	/* id_categoria vai como FK para produto
+	@OneToMany(mappedBy = "categoria")
+	private List<Produto> produtoList; */
 
 	public Integer getIdCategoria() {
 		return idCategoria;
@@ -52,6 +54,14 @@ public class Categoria {
 		this.categoriaDescricao = categoriaDescricao;
 	}
 
+	/*public List<Produto> getProdutoList() {
+		return produtoList;
+	}
+
+	public void setProdutoList(List<Produto> produtoList) {
+		this.produtoList = produtoList;
+	}*/
 	
 	
+
 }

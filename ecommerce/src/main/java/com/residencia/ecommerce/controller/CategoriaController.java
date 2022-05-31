@@ -55,15 +55,15 @@ public class CategoriaController {
 	}
 
 	@DeleteMapping("/{id}")
-	public ResponseEntity<String> deleteCategoria(@PathVariable Integer id) {
+	public ResponseEntity<String> deleteCategoriaById(@PathVariable Integer id) {
 
 		Categoria categoria = categoriaService.findCategoriaById(id);
 
 		if (categoria == null)
 			throw new NoSuchElementFoundException(" " + id);
 		else
-			categoriaService.deleteCategoria(id);
-		return new ResponseEntity<>("...", HttpStatus.OK);
+			categoriaService.deleteCategoriaById(id);
+		return new ResponseEntity<>("Categoria deletada com sucesso.", HttpStatus.OK);
 
 	}
 
