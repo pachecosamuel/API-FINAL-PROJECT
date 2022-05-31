@@ -120,4 +120,6 @@ public class Endereco {
 		this.clienteList = clienteList;
 	}
 
+	
+
 }

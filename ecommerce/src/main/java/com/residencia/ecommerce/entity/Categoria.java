@@ -28,13 +28,35 @@ public class Categoria {
 
 	@Column(name = "descricao", nullable = false)
 	private String categoriaDescricao;
-	
-	/* id_categoria vai como FK para produto
-	@OneToMany(mappedBy = "categoria")
-	private List<Produto> produtoList; */
 
-	
-	
-	
+	public Integer getIdCategoria() {
+		return idCategoria;
+	}
+
+	public void setIdCategoria(Integer idCategoria) {
+		this.idCategoria = idCategoria;
+	}
+
+	public String getNomeCategoria() {
+		return nomeCategoria;
+	}
+
+	public void setNomeCategoria(String nomeCategoria) {
+		this.nomeCategoria = nomeCategoria;
+	}
+
+	public String getCategoriaDescricao() {
+		return categoriaDescricao;
+	}
+
+	public void setCategoriaDescricao(String categoriaDescricao) {
+		this.categoriaDescricao = categoriaDescricao;
+	}
+
+	/*
+	 * id_categoria vai como FK para produto
+	 * 
+	 * @OneToMany(mappedBy = "categoria") private List<Produto> produtoList;
+	 */
 
 }
