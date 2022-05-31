@@ -36,9 +36,9 @@ public class Pedido {
 	@Column(name = "", nullable = false)
 	private Boolean status;
 
-	/* id_pedido irá como FK para ItemPedido*/
+	/* id_pedido irá como FK para ItemPedido
 	@OneToMany(mappedBy = "pedido")
-	private List<ItemPedido> ItemPedidoList;
+	private List<ItemPedido> ItemPedidoList;*/
 	
 	
 	/* ID CLIENTE VIRÁ COMO FOREIGN KEY MANY TO MANY 

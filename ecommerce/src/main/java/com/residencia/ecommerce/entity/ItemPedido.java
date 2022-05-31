@@ -35,14 +35,19 @@ public class ItemPedido {
 	@Column(name = "valor_liquido", nullable = false)
 	private Float valorLiquido;
 
-	/* VIRÃO 2 FOREIGN KEYS UMA DE ID_PRODUTO E UMA DE ID_PEDIDO 
-	@ManyToOne
-	@JoinColumn(name = "id_produto", referencedColumnName = "id_produto")
-	private Produto produto;
-	
-	@ManyToOne
-	@JoinColumn(name = "id_pedido", referencedColumnName = "id_pedido")
-	private Pedido pedido;*/
+	/*
+	 * VIRÃO 2 FOREIGN KEYS UMA DE ID_PRODUTO E UMA DE ID_PEDIDO
+	 * 
+	 * @ManyToOne
+	 * 
+	 * @JoinColumn(name = "id_produto", referencedColumnName = "id_produto") private
+	 * Produto produto;
+	 * 
+	 * @ManyToOne
+	 * 
+	 * @JoinColumn(name = "id_pedido", referencedColumnName = "id_pedido") private
+	 * Pedido pedido;
+	 */
 
 	public Integer getIdItemPedido() {
 		return idItemPedido;
