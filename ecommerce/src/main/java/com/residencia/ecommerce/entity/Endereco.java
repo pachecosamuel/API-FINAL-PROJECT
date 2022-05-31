@@ -1,13 +1,11 @@
 package com.residencia.ecommerce.entity;
 
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
@@ -43,10 +41,6 @@ public class Endereco {
 
 	@Column(name = "uf", nullable = false)
 	private String uf;
-
-	/* id_endereco vai como FK para cliente */
-	@OneToMany(mappedBy = "endereco")
-	private List<Cliente> clienteList;
 
 	public Integer getIdEndereco() {
 		return idEndereco;
@@ -110,14 +104,6 @@ public class Endereco {
 
 	public void setUf(String uf) {
 		this.uf = uf;
-	}
-
-	public List<Cliente> getClienteList() {
-		return clienteList;
-	}
-
-	public void setClienteList(List<Cliente> clienteList) {
-		this.clienteList = clienteList;
 	}
 
 }
