@@ -17,34 +17,32 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 @Table(name = "endereco")
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "idEndereco")
 public class Endereco {
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_endereco")
 	private Integer idEndereco;
 
-	@Column(name = "cep", nullable = false)
+	@Column(name = "cep")
 	private String cep;
 
-	@Column(name = "rua", nullable = false)
+	@Column(name = "rua")
 	private String rua;
 
-	@Column(name = "bairro", nullable = false)
+	@Column(name = "bairro")
 	private String bairro;
 
-	@Column(name = "cidade", nullable = false)
+	@Column(name = "cidade")
 	private String cidade;
 
-	@Column(name = "numero", nullable = false)
+	@Column(name = "numero")
 	private Integer numeroEndereco;
 
-	@Column(name = "complemento", nullable = false)
+	@Column(name = "complemento")
 	private String complemento;
 
-	@Column(name = "uf", nullable = false)
+	@Column(name = "uf")
 	private String uf;
 
-	/* id_endereco vai como FK para cliente */
 	@OneToMany(mappedBy = "endereco")
 	private List<Cliente> clienteList;
 

@@ -25,37 +25,86 @@ public class Produto {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_produto")
 	private Integer idProduto;
-
-	@Column(name = "nome", nullable = false)
+	@Column(name = "nome")
 	private String nomeProduto;
-
-	@Column(name = "descricao", nullable = false, unique = true, length = 100)
+	@Column(name = "descricao")
 	private String descricaoProduto;
-
-	@Column(name = "qtd_estoque", nullable = false)
+	@Column(name = "qtd_estoque")
 	private Integer qtdEstoque;
-
-	@Column(name = "data_cadastro", nullable = false)
+	@Column(name = "data_cadastro")
 	private Date dataCadastroProduto;
-
-	@Column(name = "valor_unitario", nullable = false)
-	private Float valorUnitario;
-
-	@Column(name = "imagem", nullable = false)
+	@Column(name = "valor_unitario")
+	private Double valorUnitario;
+	@Column(name = "imagem")
 	private String descricaoImagem;
-	
-	/* id_produto irá como FK para ItemPedido*/
-	@OneToMany(mappedBy = "produto")
-	private List<ItemPedido> ItemPedidoList;
 
-	
-	/* ID CATEGORIA VIRÁ COMO FOREIGN KEY
 	@ManyToOne
 	@JoinColumn(name = "id_categoria", referencedColumnName = "id_categoria")
-	private Categoria Categoria; */
+	private Categoria categoria;
 
+	public Integer getIdProduto() {
+		return idProduto;
+	}
 
-	
-	
+	public void setIdProduto(Integer idProduto) {
+		this.idProduto = idProduto;
+	}
+
+	public String getNomeProduto() {
+		return nomeProduto;
+	}
+
+	public void setNomeProduto(String nomeProduto) {
+		this.nomeProduto = nomeProduto;
+	}
+
+	public String getDescricaoProduto() {
+		return descricaoProduto;
+	}
+
+	public void setDescricaoProduto(String descricaoProduto) {
+		this.descricaoProduto = descricaoProduto;
+	}
+
+	public Integer getQtdEstoque() {
+		return qtdEstoque;
+	}
+
+	public void setQtdEstoque(Integer qtdEstoque) {
+		this.qtdEstoque = qtdEstoque;
+	}
+
+	public Date getDataCadastroProduto() {
+		return dataCadastroProduto;
+	}
+
+	public void setDataCadastroProduto(Date dataCadastroProduto) {
+		this.dataCadastroProduto = dataCadastroProduto;
+	}
+
+	public Double getValorUnitario() {
+		return valorUnitario;
+	}
+
+	public void setValorUnitario(Double valorUnitario) {
+		this.valorUnitario = valorUnitario;
+	}
+
+	public String getDescricaoImagem() {
+		return descricaoImagem;
+	}
+
+	public void setDescricaoImagem(String descricaoImagem) {
+		this.descricaoImagem = descricaoImagem;
+	}
+
+	public Categoria getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
+	}
+
 
 }

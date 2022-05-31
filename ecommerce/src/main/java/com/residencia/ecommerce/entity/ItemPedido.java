@@ -21,30 +21,24 @@ public class ItemPedido {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_item_pedido")
 	private Integer idItemPedido;
-
-	@Column(name = "quantidade", nullable = false)
+	@Column(name = "quantidade")
 	private Integer quantidadeProduto;
-
-	@Column(name = "preco_venda", nullable = false)
-	private Float precoVenda;
-
-	@Column(name = "percentual_desconto", nullable = false)
-	private Float percentualDesconto;
-
-	@Column(name = "valor_bruto", nullable = false)
-	private Float valorBruto;
-
-	@Column(name = "valor_liquido", nullable = false)
-	private Float valorLiquido;
-
-	// VIRÃO 2 FOREIGN KEYS UMA DE ID_PRODUTO E UMA DE ID_PEDIDO
-	@ManyToOne
-	@JoinColumn(name = "id_produto", referencedColumnName = "id_produto")
-	private Produto produto;
+	@Column(name = "preco_venda")
+	private Integer precoVenda;
+	@Column(name = "percentual_desconto")
+	private Double percentualDesconto;
+	@Column(name = "valor_bruto")
+	private Double valorBruto;
+	@Column(name = "valor_liquido")
+	private Double valorLiquido;
 
 	@ManyToOne
 	@JoinColumn(name = "id_pedido", referencedColumnName = "id_pedido")
 	private Pedido pedido;
+
+	@ManyToOne
+	@JoinColumn(name = "id_produto", referencedColumnName = "id_produto")
+	private Produto produto;
 
 	public Integer getIdItemPedido() {
 		return idItemPedido;
@@ -62,36 +56,44 @@ public class ItemPedido {
 		this.quantidadeProduto = quantidadeProduto;
 	}
 
-	public Float getPrecoVenda() {
+	public Integer getPrecoVenda() {
 		return precoVenda;
 	}
 
-	public void setPrecoVenda(Float precoVenda) {
+	public void setPrecoVenda(Integer precoVenda) {
 		this.precoVenda = precoVenda;
 	}
 
-	public Float getPercentualDesconto() {
+	public Double getPercentualDesconto() {
 		return percentualDesconto;
 	}
 
-	public void setPercentualDesconto(Float percentualDesconto) {
+	public void setPercentualDesconto(Double percentualDesconto) {
 		this.percentualDesconto = percentualDesconto;
 	}
 
-	public Float getValorBruto() {
+	public Double getValorBruto() {
 		return valorBruto;
 	}
 
-	public void setValorBruto(Float valorBruto) {
+	public void setValorBruto(Double valorBruto) {
 		this.valorBruto = valorBruto;
 	}
 
-	public Float getValorLiquido() {
+	public Double getValorLiquido() {
 		return valorLiquido;
 	}
 
-	public void setValorLiquido(Float valorLiquido) {
+	public void setValorLiquido(Double valorLiquido) {
 		this.valorLiquido = valorLiquido;
+	}
+
+	public Pedido getPedido() {
+		return pedido;
+	}
+
+	public void setPedido(Pedido pedido) {
+		this.pedido = pedido;
 	}
 
 	public Produto getProduto() {
@@ -102,12 +104,6 @@ public class ItemPedido {
 		this.produto = produto;
 	}
 
-	public Pedido getPedido() {
-		return pedido;
-	}
 
-	public void setPedido(Pedido pedido) {
-		this.pedido = pedido;
-	}
 
 }
