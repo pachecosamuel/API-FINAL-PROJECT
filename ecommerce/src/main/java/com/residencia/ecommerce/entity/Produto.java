@@ -1,12 +1,16 @@
 package com.residencia.ecommerce.entity;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
@@ -40,79 +44,17 @@ public class Produto {
 	@Column(name = "imagem", nullable = false)
 	private String descricaoImagem;
 	
-	/* id_produto irá como FK para ItemPedido
+	/* id_produto irá como FK para ItemPedido*/
 	@OneToMany(mappedBy = "produto")
-	private List<ItemPedido> ItemPedidoList;*/
+	private List<ItemPedido> ItemPedidoList;
 
 	
-	/* ID CATEGORIA VIRÁ COMO FOREIGN KEY 
+	/* ID CATEGORIA VIRÁ COMO FOREIGN KEY
 	@ManyToOne
 	@JoinColumn(name = "id_categoria", referencedColumnName = "id_categoria")
-	private Categoria Categoria;*/
+	private Categoria Categoria; */
 
-	public Integer getIdProduto() {
-		return idProduto;
-	}
 
-	public void setIdProduto(Integer idProduto) {
-		this.idProduto = idProduto;
-	}
-
-	public String getNomeProduto() {
-		return nomeProduto;
-	}
-
-	public void setNomeProduto(String nomeProduto) {
-		this.nomeProduto = nomeProduto;
-	}
-
-	public String getDescricaoProduto() {
-		return descricaoProduto;
-	}
-
-	public void setDescricaoProduto(String descricaoProduto) {
-		this.descricaoProduto = descricaoProduto;
-	}
-
-	public Integer getQtdEstoque() {
-		return qtdEstoque;
-	}
-
-	public void setQtdEstoque(Integer qtdEstoque) {
-		this.qtdEstoque = qtdEstoque;
-	}
-
-	public Date getDataCadastroProduto() {
-		return dataCadastroProduto;
-	}
-
-	public void setDataCadastroProduto(Date dataCadastroProduto) {
-		this.dataCadastroProduto = dataCadastroProduto;
-	}
-
-	public Float getValorUnitario() {
-		return valorUnitario;
-	}
-
-	public void setValorUnitario(Float valorUnitario) {
-		this.valorUnitario = valorUnitario;
-	}
-
-	public String getDescricaoImagem() {
-		return descricaoImagem;
-	}
-
-	public void setDescricaoImagem(String descricaoImagem) {
-		this.descricaoImagem = descricaoImagem;
-	}
-
-	/*public Categoria getCategoria() {
-		return Categoria;
-	}
-
-	public void setCategoria(Categoria categoria) {
-		Categoria = categoria;
-	}*/
 	
 	
 
