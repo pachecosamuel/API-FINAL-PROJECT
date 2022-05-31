@@ -1,12 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
+<head>
+    <style>
+        li {
+            list-style: none;
+            text-align: center;
+        }
+    </style>
+</head>
 <body>
     <ul>
-        <li data-th-text="${idPedido}"></li>
-        <li data-th-text="${dataPedido}"></li>
-        <li data-th-text="${dataEntrega}"></li>
-        <li data-th-text="${dataEnvio}"></li>
-        <li data-th-text="${status}"></li>
+        <li data-th-text="ID do Pedido: ${idPedido}"></li>
+        <li data-th-text="Data do Pedido: ${dataPedido}"></li>
+        <li data-th-text="Data de Entrega: ${dataEntrega}"></li>
+        <li data-th-text="Data de Envio: ${dataEnvio}"></li>
+        <li data-th-text="Status do Pedido: ${status}"></li>
     </ul>
 </body>
 </html>
