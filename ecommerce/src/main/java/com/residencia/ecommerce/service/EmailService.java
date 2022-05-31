@@ -71,7 +71,19 @@ public class EmailService {
 
 	private String generateEmailHTML(Pedido pedido) {
 		Map<String, Object> variables = new HashMap<>();
-		variables.put("pedidotext", pedido);
+		variables.put("idPedido", pedido.getIdPedido());
+		variables.put("dataPedido", pedido.getDataPedido());
+		variables.put("dataEntrega", pedido.getDataEntrega());
+		variables.put("dataEnvio", pedido.getDataEnvio());
+
+		String status;
+		if (pedido.getStatus() == true) {
+			status = "ATIVO";
+		} else {
+			status = "INATIVO";
+		}
+
+		variables.put("status", status);
 
 		final String templateFileName = "pedido";
 		String output = this.templateEngine.process(templateFileName, new Context(Locale.getDefault(), variables));
