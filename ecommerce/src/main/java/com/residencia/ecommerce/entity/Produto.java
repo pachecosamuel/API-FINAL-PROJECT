@@ -123,6 +123,7 @@ public class Produto {
 
 	public void setCategoria(Categoria categoria) {
 		Categoria = categoria;
+
 	}
 
 }

@@ -110,5 +110,4 @@ public class ItemPedido {
 		this.pedido = pedido;
 	}
 
-	
 }
