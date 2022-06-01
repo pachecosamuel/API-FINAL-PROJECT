@@ -20,8 +20,10 @@ public class ItemPedidoDTO {
 	@NotNull(message = "Valor líquido não informado.")
 	private Float valorLiquido;
 
+    // Feito automaticamente pelo Service -- Mateus
 	private ProdutoDTO produtoDTO;
-
+  
+	// Feito automaticamente pelo Service -- Mateus
 	private PedidoDTO pedidoDTO;
 
 	public Integer getIdItemPedido() {
