@@ -38,15 +38,18 @@ public class ClienteService {
 	}
 
 	public Cliente updateCliente(Cliente cliente) {
-		for (Cliente clienteExistente : findAllCliente()) {
-			if (clienteExistente.getCpf() == cliente.getCpf()) {
-				throw new AlreadyExistsException("Já existe um Cliente cadastrado com o CPF: " + cliente.getCpf());
-			}
-
-			if (clienteExistente.getEmail() == cliente.getEmail()) {
-				throw new AlreadyExistsException("Já existe um Cliente cadastrado com o E-mail: " + cliente.getEmail());
+		if (cliente.getCpf() != null) {
+			for (Cliente clienteExistente : findAllCliente()) {
+				if (clienteExistente.getCpf() == cliente.getCpf()) {
+					throw new AlreadyExistsException("Já existe um Cliente cadastrado com o CPF: " + cliente.getCpf());
+				}
+	
+				if (clienteExistente.getEmail() == cliente.getEmail()) {
+					throw new AlreadyExistsException("Já existe um Cliente cadastrado com o E-mail: " + cliente.getEmail());
+				}
 			}
 		}
+		
 		return clienteRepository.save(cliente);
 	}
 
