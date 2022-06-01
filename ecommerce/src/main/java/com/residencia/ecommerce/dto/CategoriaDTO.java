@@ -1,11 +1,18 @@
 package com.residencia.ecommerce.dto;
 
+import javax.validation.constraints.NotBlank;
+
+import org.hibernate.validator.constraints.Length;
+
 public class CategoriaDTO {
 
 	private Integer idCategoria;
 
+	@NotBlank(message = "Nome categoria não informado.")
 	private String nomeCategoria;
 
+	@NotBlank(message = "Descrição da categoria não informada.")
+	@Length(max = 150, message = "A descrição deverá ter no máximo {150} caracteres")
 	private String categoriaDescricao;
 
 	public Integer getIdCategoria() {
