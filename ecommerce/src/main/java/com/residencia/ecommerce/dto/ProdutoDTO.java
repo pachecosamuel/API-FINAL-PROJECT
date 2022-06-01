@@ -2,6 +2,8 @@ package com.residencia.ecommerce.dto;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class ProdutoDTO {
 
 	private Integer idProduto;
@@ -12,9 +14,10 @@ public class ProdutoDTO {
 
 	private Integer qtdEstoque;
 
-	private Date dataCadastroProduto;
+	@JsonIgnore
+	private Date dataCadastroProduto = new Date();
 
-	private Float valorUnitario;
+	private Double valorUnitario;
 
 	private String descricaoImagem;
 
@@ -60,11 +63,11 @@ public class ProdutoDTO {
 		this.dataCadastroProduto = dataCadastroProduto;
 	}
 
-	public Float getValorUnitario() {
+	public Double getValorUnitario() {
 		return valorUnitario;
 	}
 
-	public void setValorUnitario(Float valorUnitario) {
+	public void setValorUnitario(Double valorUnitario) {
 		this.valorUnitario = valorUnitario;
 	}
 

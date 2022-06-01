@@ -2,11 +2,14 @@ package com.residencia.ecommerce.dto;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class PedidoDTO {
 
 	private Integer idPedido;
 
-	private Date dataPedido;
+	@JsonIgnore
+	private Date dataPedido = new Date();
 
 	private Date dataEntrega;
 
