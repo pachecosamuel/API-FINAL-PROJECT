@@ -2,20 +2,33 @@ package com.residencia.ecommerce.dto;
 
 import java.util.Date;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Length;
+
 public class ProdutoDTO {
 
 	private Integer idProduto;
 
+	@NotBlank(message = "Nome do produto não informado.")
 	private String nomeProduto;
 
+	@NotBlank(message = "Descrição do produto não informado.")
+	@Length(max = 100, message = "A descrição deverá ter no máximo {100} caracteres")
 	private String descricaoProduto;
 
+	@NotNull(message = "Quantidade em estoque não informada.")
 	private Integer qtdEstoque;
 
+	@NotNull(message = "Data não informada.")
 	private Date dataCadastroProduto;
 
+	@NotNull(message = "Valor unitário não informado")
 	private Float valorUnitario;
 
+	@NotBlank(message = "Descrição da imagem não informada.")
+	@Length(max = 100, message = "A descrição deverá ter no máximo {100} caracteres")
 	private String descricaoImagem;
 
 	private CategoriaDTO categoriaDTO;

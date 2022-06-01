@@ -2,16 +2,22 @@ package com.residencia.ecommerce.dto;
 
 import java.util.Date;
 
+import javax.validation.constraints.NotNull;
+
 public class PedidoDTO {
 
 	private Integer idPedido;
 
+	@NotNull(message = "Data do pedido não informado.")
 	private Date dataPedido;
 
+	@NotNull(message = "Data de entrega não informada.")
 	private Date dataEntrega;
 
+	@NotNull(message = "Data de envio não informado.")
 	private Date dataEnvio;
 
+	@NotNull(message = "Status do produto não informado.")
 	private Boolean status;
 
 	private ClienteDTO clienteDTO;
