@@ -42,7 +42,7 @@ public class Produto {
 	private Float valorUnitario;
 
 	@Column(name = "imagem", nullable = false)
-	private String descricaoImagem;
+	private String caminhoImagem;
 
 	/* id_produto irá como FK para ItemPedido */
 	@OneToMany(mappedBy = "produto")
@@ -101,12 +101,12 @@ public class Produto {
 		this.valorUnitario = valorUnitario;
 	}
 
-	public String getDescricaoImagem() {
-		return descricaoImagem;
+	public String getCaminhoImagem() {
+		return caminhoImagem;
 	}
 
-	public void setDescricaoImagem(String descricaoImagem) {
-		this.descricaoImagem = descricaoImagem;
+	public void setCaminhoImagem(String caminhoImagem) {
+		this.caminhoImagem = caminhoImagem;
 	}
 
 	public List<ItemPedido> getItemPedidoList() {

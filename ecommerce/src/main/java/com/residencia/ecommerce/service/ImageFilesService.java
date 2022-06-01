@@ -14,6 +14,14 @@ public class ImageFilesService {
 	@Value("${files.folder.path}")
 	private Path path;
 
+	public String getFilePathAsString(String fileName) throws IOException {
+		try {
+			return path.resolve(fileName).toRealPath().toString();
+		} catch (IOException e) {
+			throw new IOException("Erro ao gerar o nome de caminho do arquivo.");
+		}
+	}
+
 	public void saveFile(String fileName, MultipartFile file) throws IOException {
 		try {
 			Files.copy(file.getInputStream(), path.resolve(fileName), StandardCopyOption.REPLACE_EXISTING);
