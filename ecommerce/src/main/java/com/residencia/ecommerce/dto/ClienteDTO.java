@@ -8,7 +8,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.br.CPF;
-import org.springframework.boot.context.properties.bind.Name;
 
 public class ClienteDTO {
 	
