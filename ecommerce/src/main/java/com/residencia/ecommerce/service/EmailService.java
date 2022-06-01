@@ -68,7 +68,7 @@ public class EmailService {
 
 		mailSender.send(mimeMessage);
 	}
-
+	// Tem que testar!!! -- Mateus
 	private String generateEmailHTML(Pedido pedido) {
 		Map<String, Object> variables = new HashMap<>();
 		variables.put("idPedido", pedido.getIdPedido());
