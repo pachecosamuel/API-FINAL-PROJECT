@@ -31,7 +31,10 @@ public class PedidoService {
 	}
 
 	public void deletePedidoById(Integer id) {
-		pedidoRepository.deleteById(id);
+		findPedidoById(id).setStatus(false);
+		
+		// Ao invés de deletar um Pedido apenas irá mudar para Inativo.
+		// pedidoRepository.deleteById(id);
 	}
 
 }
