@@ -34,3 +34,4 @@ build/
 
 ### Spring Tools Suite 4 ###
 .metadata/
+ecommerce/src/main/resources/application.properties
