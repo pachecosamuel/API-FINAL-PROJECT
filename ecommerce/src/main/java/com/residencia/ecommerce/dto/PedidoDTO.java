@@ -4,12 +4,14 @@ import java.util.Date;
 
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class PedidoDTO {
 
 	private Integer idPedido;
 
-	@NotNull(message = "Data do pedido não informado.")
-	private Date dataPedido;
+	@JsonIgnore
+	private Date dataPedido = new Date();
 
 	@NotNull(message = "Data de entrega não informada.")
 	private Date dataEntrega;

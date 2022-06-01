@@ -7,6 +7,8 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class ProdutoDTO {
 
 	private Integer idProduto;
@@ -21,11 +23,11 @@ public class ProdutoDTO {
 	@NotNull(message = "Quantidade em estoque não informada.")
 	private Integer qtdEstoque;
 
-	@NotNull(message = "Data não informada.")
-	private Date dataCadastroProduto;
+	@JsonIgnore
+	private Date dataCadastroProduto = new Date();
 
 	@NotNull(message = "Valor unitário não informado")
-	private Float valorUnitario;
+	private Double valorUnitario;
 
 	@NotBlank(message = "Descrição da imagem não informada.")
 	@Length(max = 100, message = "A descrição deverá ter no máximo {100} caracteres")
@@ -73,11 +75,11 @@ public class ProdutoDTO {
 		this.dataCadastroProduto = dataCadastroProduto;
 	}
 
-	public Float getValorUnitario() {
+	public Double getValorUnitario() {
 		return valorUnitario;
 	}
 
-	public void setValorUnitario(Float valorUnitario) {
+	public void setValorUnitario(Double valorUnitario) {
 		this.valorUnitario = valorUnitario;
 	}
 

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.residencia.ecommerce.entity.Produto;
+import com.residencia.ecommerce.exception.AlreadyExistsException;
 import com.residencia.ecommerce.repository.ProdutoRepository;
 
 @Service
@@ -23,6 +24,11 @@ public class ProdutoService {
 	}
 
 	public Produto saveProduto(Produto produto) {
+		for (Produto produtoExistente : findAllProduto()) {
+			if (produtoExistente.getDescricaoProduto() == produto.getDescricaoProduto()) {
+				throw new AlreadyExistsException("Já existe um Produto cadastrado com a descrição passada");
+			}
+		}
 		return produtoRepository.save(produto);
 	}
 
