@@ -35,17 +35,17 @@ public class Pedido {
 	@Column(name = "data_envio", nullable = false)
 	private Date dataEnvio;
 
-	@Column(name = "", nullable = false)
+	@Column(name = "status", nullable = false)
 	private Boolean status;
-
-	/* id_pedido irá como FK para ItemPedido */
-	@OneToMany(mappedBy = "pedido")
-	private List<ItemPedido> ItemPedidoList;
 
 	/* FK DE CLIENTE VIRÁ PARA PEDIDO */
 	@ManyToOne
 	@JoinColumn(name = "id_cliente", referencedColumnName = "id_cliente")
 	private Cliente cliente;
+
+	/* id_pedido irá como FK para ItemPedido */
+	@OneToMany(mappedBy = "pedido")
+	private List<ItemPedido> ItemPedidoList;
 
 	public Integer getIdPedido() {
 		return idPedido;
