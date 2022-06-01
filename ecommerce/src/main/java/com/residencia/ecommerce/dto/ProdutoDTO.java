@@ -7,8 +7,6 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 public class ProdutoDTO {
 
 	private Integer idProduto;
@@ -23,15 +21,14 @@ public class ProdutoDTO {
 	@NotNull(message = "Quantidade em estoque não informada.")
 	private Integer qtdEstoque;
 
-	@JsonIgnore
-	private Date dataCadastroProduto = new Date();
+	// Feito automaticamente pelo Service -- Mateus
+	private Date dataCadastroProduto;
 
 	@NotNull(message = "Valor unitário não informado")
 	private Double valorUnitario;
 
-	@NotBlank(message = "Descrição da imagem não informada.")
-	@Length(max = 100, message = "A descrição deverá ter no máximo {100} caracteres")
-	private String descricaoImagem;
+	// Feito automaticamente pelo Service -- Mateus
+	private String caminhoImagem;
 
 	private CategoriaDTO categoriaDTO;
 
@@ -83,12 +80,12 @@ public class ProdutoDTO {
 		this.valorUnitario = valorUnitario;
 	}
 
-	public String getDescricaoImagem() {
-		return descricaoImagem;
+	public String getCaminhoImagem() {
+		return caminhoImagem;
 	}
 
-	public void setDescricaoImagem(String descricaoImagem) {
-		this.descricaoImagem = descricaoImagem;
+	public void setCaminhoImagem(String caminhoImagem) {
+		this.caminhoImagem = caminhoImagem;
 	}
 
 	public CategoriaDTO getCategoriaDTO() {

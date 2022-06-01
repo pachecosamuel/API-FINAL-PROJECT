@@ -1,5 +1,6 @@
 package com.residencia.ecommerce.dto;
 
+// Feito automaticamente pelo Service -- Mateus
 public class CepDTO {
     
     private Integer idEndereco;
