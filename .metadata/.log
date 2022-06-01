@@ -1977,3 +1977,102 @@ This warning can be switched off on the Team > Git > Confirmations and Warnings 
 
 !ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2022-05-31 20:52:55.105
 !MESSAGE executing callback sts4.classpath.TZuhTRJi SUCCESS [done]
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2022-05-31 21:11:45.332
+!MESSAGE exists = true open = true => deleted = false
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2022-05-31 21:11:45.906
+!MESSAGE classpath=116 entries
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2022-05-31 21:11:45.915
+!MESSAGE buffering callback sts4.classpath.TZuhTRJi ecommerce false 116
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2022-05-31 21:11:45.916
+!MESSAGE executing callback sts4.classpath.TZuhTRJi 1 batched events
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2022-05-31 21:11:47.250
+!MESSAGE executing callback sts4.classpath.TZuhTRJi SUCCESS [done]
+
+!ENTRY org.eclipse.jface 2 0 2022-05-31 21:12:48.260
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2022-05-31 21:12:48.260
+!MESSAGE A conflict occurred for CTRL+SHIFT+C:
+Binding(CTRL+SHIFT+C,
+	ParameterizedCommand(Command(org.eclipse.tm4e.languageconfiguration.togglelinecommentcommand,Toggle Line Comment,
+		,
+		Category(org.eclipse.tm4e.languageconfiguration.category,TM4E Language Configuration,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@3219b550,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.textEditorScope,,,system)
+Binding(CTRL+SHIFT+C,
+	ParameterizedCommand(Command(org.springframework.tooling.boot.ls.ToggleComment,Toggle Comment,
+		,
+		Category(org.springframework.ide.eclipse.commands,Spring Generic Text Editor,Spring Language Server Commands,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@26f93beb,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.textEditorScope,,,system)
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2022-05-31 21:12:56.058
+!MESSAGE exists = true open = true => deleted = false
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2022-05-31 21:12:56.136
+!MESSAGE classpath=110 entries
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2022-05-31 21:12:56.162
+!MESSAGE buffering callback sts4.classpath.TZuhTRJi ecommerce false 110
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2022-05-31 21:12:56.163
+!MESSAGE executing callback sts4.classpath.TZuhTRJi 1 batched events
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2022-05-31 21:12:56.787
+!MESSAGE executing callback sts4.classpath.TZuhTRJi SUCCESS [done]
+
+!ENTRY org.eclipse.ui 2 2 2022-05-31 21:15:16.839
+!MESSAGE Invalid property category path: org.springframework.ide.eclipse.beans.ui.properties.ProjectPropertyPage (bundle: org.springframework.ide.eclipse.xml.namespaces, propertyPage: org.springframework.ide.eclipse.beans.ui.namespaces.projectPropertyPage)
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2022-05-31 21:17:29.058
+!MESSAGE exists = true open = true => deleted = false
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2022-05-31 21:17:29.614
+!MESSAGE classpath=115 entries
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2022-05-31 21:17:29.646
+!MESSAGE buffering callback sts4.classpath.TZuhTRJi ecommerce false 115
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2022-05-31 21:17:29.647
+!MESSAGE executing callback sts4.classpath.TZuhTRJi 1 batched events
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2022-05-31 21:17:31.640
+!MESSAGE executing callback sts4.classpath.TZuhTRJi SUCCESS [done]
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2022-05-31 21:17:31.850
+!MESSAGE exists = true open = true => deleted = false
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2022-05-31 21:17:31.867
+!MESSAGE classpath=115 entries
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2022-05-31 21:17:31.875
+!MESSAGE buffering callback sts4.classpath.TZuhTRJi ecommerce false 115
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2022-05-31 21:17:31.876
+!MESSAGE executing callback sts4.classpath.TZuhTRJi 1 batched events
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2022-05-31 21:17:33.612
+!MESSAGE executing callback sts4.classpath.TZuhTRJi SUCCESS [done]
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2022-05-31 21:17:44.275
+!MESSAGE exists = true open = true => deleted = false
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2022-05-31 21:17:44.288
+!MESSAGE classpath=115 entries
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2022-05-31 21:17:44.299
+!MESSAGE buffering callback sts4.classpath.TZuhTRJi ecommerce false 115
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2022-05-31 21:17:44.301
+!MESSAGE executing callback sts4.classpath.TZuhTRJi 1 batched events
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2022-05-31 21:17:44.588
+!MESSAGE executing callback sts4.classpath.TZuhTRJi SUCCESS [done]

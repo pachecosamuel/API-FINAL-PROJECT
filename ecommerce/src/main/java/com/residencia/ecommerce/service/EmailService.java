@@ -75,6 +75,9 @@ public class EmailService {
 		variables.put("dataPedido", pedido.getDataPedido());
 		variables.put("dataEntrega", pedido.getDataEntrega());
 		variables.put("dataEnvio", pedido.getDataEnvio());
+		variables.put("idCliente", pedido.getCliente().getIdCliente());
+		variables.put("clienteNome", pedido.getCliente().getNomeCompleto());
+		variables.put("listaDeItems", pedido.getItemPedidoList());
 
 		String status;
 		if (pedido.getStatus() == true) {

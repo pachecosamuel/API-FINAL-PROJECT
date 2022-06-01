@@ -1,0 +1,61 @@
+#Server
+
+server.servlet.context-path		= /ecommerce
+#server.port						= 8000
+
+#Spring Config
+spring.main.allow-bean-definition-overriding = true
+
+#Database
+
+spring.jpa.properties.hibernate.dialect = org.hibernate.dialect.PostgreSQLDialect
+spring.jpa.hibernate.ddl-auto			= none
+spring.jpa.hibernate.show-sql			= true
+#spring.datasource.url					= jdbc:postgresql://172.25.0.2:5432/ecommerce
+spring.datasource.url					= jdbc:postgresql://localhost:5432/ecommerce
+spring.datasource.username				= postgres
+<<<<<<< HEAD
+spring.datasource.password				= parolaa2
+=======
+spring.datasource.password				= 123456
+>>>>>>> f74f8cbfc4903b8ec14268555f28254930190526
+
+
+#Hibernate
+
+logging.level.org.hibernate.SQL								= DEBUG
+#logging.level.org.hibernate.SQL								= INFO
+logging.level.org.hibernate.type.descriptor.sql.BasicBinder	= INFO
+logging.level.org.hibernate.type							= INFO
+
+
+#Files
+
+files.folder.path = /files
+spring.servlet.multipart.max-file-size = 100MB
+spring.servlet.multipart.max-request-size = 100MB
+spring.mvc.pathmatch.matching-strategy = ant-path-matcher
+
+
+#E-mail Properties
+
+spring.mail.default = godbless@godbless.com
+spring.mail.host = smtp.mailtrap.io
+spring.mail.port = 2525
+spring.mail.username = 85dcb471a232fa
+spring.mail.password = 8e5e44bd95661a
+spring.mail.properties.mail.smtp.auth = true
+spring.mail.properties.mail.smtp.starttls.enable = true
+spring.mail.properties.mail.smtp.starttls.required = true
+spring.mail.properties.mail.smtp.ssl.enable = false
+spring.mail.test-connection = true
+
+
+#Devtools
+
+spring.devtools.restart.enabled			= false
+
+
+#SwaggerUI
+
+springdoc.version = 1.0
