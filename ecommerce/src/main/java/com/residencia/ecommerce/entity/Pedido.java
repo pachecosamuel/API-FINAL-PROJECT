@@ -1,6 +1,7 @@
 package com.residencia.ecommerce.entity;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,7 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
@@ -41,6 +42,10 @@ public class Pedido {
 	@ManyToOne
 	@JoinColumn(name = "id_cliente", referencedColumnName = "id_cliente")
 	private Cliente cliente;
+
+	/* id_pedido irá como FK para ItemPedido */
+	@OneToMany(mappedBy = "pedido")
+	private List<ItemPedido> ItemPedidoList;
 
 	public Integer getIdPedido() {
 		return idPedido;
@@ -80,6 +85,14 @@ public class Pedido {
 
 	public void setStatus(Boolean status) {
 		this.status = status;
+	}
+
+	public List<ItemPedido> getItemPedidoList() {
+		return ItemPedidoList;
+	}
+
+	public void setItemPedidoList(List<ItemPedido> itemPedidoList) {
+		ItemPedidoList = itemPedidoList;
 	}
 
 	public Cliente getCliente() {
