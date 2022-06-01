@@ -9,16 +9,16 @@ public class ItemPedidoDTO {
 	private Integer quantidadeProduto;
 
 	@NotNull(message = "Preço de venda não informado.")
-	private Float precoVenda;
+	private Double precoVenda;
 
 	@NotNull(message = "Percentual de desconto não informado.")
-	private Float percentualDesconto;
+	private Double percentualDesconto;
 
 	@NotNull(message = "Valor bruto não informado.")
-	private Float valorBruto;
+	private Double valorBruto;
 
 	@NotNull(message = "Valor líquido não informado.")
-	private Float valorLiquido;
+	private Double valorLiquido;
 
     // Feito automaticamente pelo Service -- Mateus
 	private ProdutoDTO produtoDTO;
@@ -42,35 +42,35 @@ public class ItemPedidoDTO {
 		this.quantidadeProduto = quantidadeProduto;
 	}
 
-	public Float getPrecoVenda() {
+	public Double getPrecoVenda() {
 		return precoVenda;
 	}
 
-	public void setPrecoVenda(Float precoVenda) {
+	public void setPrecoVenda(Double precoVenda) {
 		this.precoVenda = precoVenda;
 	}
 
-	public Float getPercentualDesconto() {
+	public Double getPercentualDesconto() {
 		return percentualDesconto;
 	}
 
-	public void setPercentualDesconto(Float percentualDesconto) {
+	public void setPercentualDesconto(Double percentualDesconto) {
 		this.percentualDesconto = percentualDesconto;
 	}
 
-	public Float getValorBruto() {
+	public Double getValorBruto() {
 		return valorBruto;
 	}
 
-	public void setValorBruto(Float valorBruto) {
+	public void setValorBruto(Double valorBruto) {
 		this.valorBruto = valorBruto;
 	}
 
-	public Float getValorLiquido() {
+	public Double getValorLiquido() {
 		return valorLiquido;
 	}
 
-	public void setValorLiquido(Float valorLiquido) {
+	public void setValorLiquido(Double valorLiquido) {
 		this.valorLiquido = valorLiquido;
 	}
 

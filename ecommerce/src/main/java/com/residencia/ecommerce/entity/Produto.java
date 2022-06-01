@@ -39,7 +39,7 @@ public class Produto {
 	private Date dataCadastroProduto;
 
 	@Column(name = "valor_unitario", nullable = false)
-	private Float valorUnitario;
+	private Double valorUnitario;
 
 	@Column(name = "imagem", nullable = false)
 	private String caminhoImagem;
@@ -93,11 +93,11 @@ public class Produto {
 		this.dataCadastroProduto = dataCadastroProduto;
 	}
 
-	public Float getValorUnitario() {
+	public Double getValorUnitario() {
 		return valorUnitario;
 	}
 
-	public void setValorUnitario(Float valorUnitario) {
+	public void setValorUnitario(Double valorUnitario) {
 		this.valorUnitario = valorUnitario;
 	}
 
