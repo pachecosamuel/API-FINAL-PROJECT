@@ -20,7 +20,7 @@ public class CategoriaService {
 	CategoriaRepository categoriaRepository;
 
 	public List<CategoriaDTO> findAllCategoria() {
-		List<CategoriaDTO> listCategoriaDTO = new ArrayList();
+		List<CategoriaDTO> listCategoriaDTO = new ArrayList<CategoriaDTO>();
 
 		for (Categoria categoriaEntity : categoriaRepository.findAll()) {
 			listCategoriaDTO.add(converterEntidadeParaDto(categoriaEntity));

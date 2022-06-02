@@ -21,7 +21,7 @@ public class ClienteService {
 	EnderecoService enderecoService;
 
 	public List<ClienteDTO> findAllCliente() {
-		List<ClienteDTO> listClientesDTO = new ArrayList();
+		List<ClienteDTO> listClientesDTO = new ArrayList<ClienteDTO>();
 
 		for (Cliente clienteEntity : clienteRepository.findAll()) {
 			listClientesDTO.add(converterEntidadeParaDto(clienteEntity));

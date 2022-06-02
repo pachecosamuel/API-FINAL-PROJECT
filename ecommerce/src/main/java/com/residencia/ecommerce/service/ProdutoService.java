@@ -24,7 +24,7 @@ public class ProdutoService {
 	ImageFilesService filesService;
 
 	public List<ProdutoDTO> findAllProduto() {
-		List<ProdutoDTO> listProdutoDTO = new ArrayList();
+		List<ProdutoDTO> listProdutoDTO = new ArrayList<ProdutoDTO>();
 
 		for(Produto produtoEntity : produtoRepository.findAll()){
 			listProdutoDTO.add(converterEntidadeParaDto(produtoEntity));
@@ -61,17 +61,17 @@ public class ProdutoService {
 		return findProdutoById(produtoSalvo.getIdProduto());
 	}
 
-	public Produto saveProdutoWithImage(String produto, MultipartFile file) throws IOException {
-		Produto newProduto = new Produto();
+	public ProdutoDTO saveProdutoWithImage(String produtoDTO, MultipartFile file) throws IOException {
+		ProdutoDTO newProdutoDTO = new ProdutoDTO();
 
 		try {
 			ObjectMapper objMapper = new ObjectMapper();
-			newProduto = objMapper.readValue(produto, Produto.class);
+			newProdutoDTO = objMapper.readValue(produtoDTO, ProdutoDTO.class);
 		} catch (IOException e) {
 			throw new IOException("Erro de conversão da String para Entidade");
 		}
 
-		Produto produtoSaved = produtoRepository.save(newProduto);
+		Produto produtoSaved = produtoRepository.save(convertDTOToEntidade(newProdutoDTO));
 
 		String fileName = "produto." + produtoSaved.getIdProduto() + ".image.png";
 
@@ -79,7 +79,9 @@ public class ProdutoService {
 
 		produtoSaved.setCaminhoImagem(filesService.getFilePathAsString(fileName));
 		
-		return produtoRepository.save(produtoSaved);
+		produtoRepository.save(produtoSaved);
+
+		return converterEntidadeParaDto(produtoSaved);
 	}
 
 	public void deleteProdutoById(Integer id) {
