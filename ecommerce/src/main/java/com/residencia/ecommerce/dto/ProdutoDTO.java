@@ -37,6 +37,7 @@ public class ProdutoDTO {
 	private CategoriaDTO categoriaDTO;
 
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+	@NotNull(message = "O id da Categoria não pode ser nulo.")
 	private Integer idCategoria;
 
 	public Integer getIdProduto() {

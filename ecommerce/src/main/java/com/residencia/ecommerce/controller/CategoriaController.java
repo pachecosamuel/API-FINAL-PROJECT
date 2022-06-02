@@ -37,7 +37,7 @@ public class CategoriaController {
 
 		CategoriaDTO categoriaDTO = categoriaService.findCategoriaById(id);
 
-		if (categoriaDTO == null)
+		if (categoriaDTO == null) 
 			throw new NoSuchElementFoundException("Não existe categoria cadastrada com o id: " + id);
 		else
 			return new ResponseEntity<>(categoriaDTO, HttpStatus.OK);

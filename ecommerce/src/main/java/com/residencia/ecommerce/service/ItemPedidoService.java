@@ -71,7 +71,7 @@ public class ItemPedidoService {
 	private ItemPedidoDTO converterEntidadeParaDto(ItemPedido itemPedido) {
 		ItemPedidoDTO itemPedidoDTO = new ItemPedidoDTO();
 		itemPedidoDTO.setIdItemPedido(itemPedido.getIdItemPedido());
-		itemPedidoDTO.setPedidoDTO(pedidoService.converterEntidadeParaDto(itemPedido.getPedido()));
+		itemPedidoDTO.setIdPedido(itemPedido.getPedido().getIdPedido());
 		itemPedidoDTO.setProdutoDTO(produtoService.converterEntidadeParaDto(itemPedido.getProduto()));
 		itemPedidoDTO.setPrecoVenda(itemPedido.getPrecoVenda());
 		itemPedidoDTO.setPercentualDesconto(itemPedido.getPercentualDesconto());

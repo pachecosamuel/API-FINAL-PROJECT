@@ -24,17 +24,15 @@ public class ItemPedidoDTO {
 	@NotNull(message = "Valor líquido não informado.")
 	private Double valorLiquido;
 
+	@NotNull(message = "O id do Pedido não pode ser nulo")
+	private Integer idPedido;
+
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	private ProdutoDTO produtoDTO;
-  
-	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
-	private PedidoDTO pedidoDTO;
 
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+	@NotNull(message = "O id do Produto não pode ser nulo.")
 	private Integer idProduto;
-	
-	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-	private Integer idPedido;
 
 	public Integer getIdItemPedido() {
 		return idItemPedido;
@@ -90,14 +88,6 @@ public class ItemPedidoDTO {
 
 	public void setProdutoDTO(ProdutoDTO produtoDTO) {
 		this.produtoDTO = produtoDTO;
-	}
-
-	public PedidoDTO getPedidoDTO() {
-		return pedidoDTO;
-	}
-
-	public void setPedidoDTO(PedidoDTO pedidoDTO) {
-		this.pedidoDTO = pedidoDTO;
 	}
 
     public Integer getIdProduto() {

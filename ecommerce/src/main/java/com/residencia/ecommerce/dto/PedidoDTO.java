@@ -1,7 +1,9 @@
 package com.residencia.ecommerce.dto;
 
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -29,7 +31,12 @@ public class PedidoDTO {
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	private ClienteDTO clienteDTO;
 
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	@OneToMany(mappedBy = "pedido")
+	private List<ItemPedidoDTO> listItemPedidoDTO;
+
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+	@NotNull(message = "O id do Cliente não pode ser nulo.")
 	private Integer idCliente;
 
 	public Integer getIdPedido() {
