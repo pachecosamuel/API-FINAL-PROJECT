@@ -5,14 +5,14 @@ import java.util.Date;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class PedidoDTO {
 
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	private Integer idPedido;
 
-	// Demonstrando Si git VSCODE.
-
-	// Feito automaticamente pelo Service -- Mateus
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	private Date dataPedido;
 
 	@NotNull(message = "Data de entrega não informada. (Formatação: DD-MM-YYYY)")
@@ -23,11 +23,14 @@ public class PedidoDTO {
 	@JsonFormat(pattern = "dd-MM-yyyy")
 	private Date dataEnvio;
 
-	// Feito automaticamente pelo Service -- Mateus
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	private Boolean status;
 
-	// Feito automaticamente pelo Service -- Mateus
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	private ClienteDTO clienteDTO;
+
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+	private Integer idCliente;
 
 	public Integer getIdPedido() {
 		return idPedido;
@@ -76,5 +79,17 @@ public class PedidoDTO {
 	public void setClienteDTO(ClienteDTO clienteDTO) {
 		this.clienteDTO = clienteDTO;
 	}
+
+    public Boolean isStatus() {
+        return status;
+    }
+
+    public Integer getIdCliente() {
+        return idCliente;
+    }
+
+    public void setIdCliente(Integer idCliente) {
+        this.idCliente = idCliente;
+    }
 
 }

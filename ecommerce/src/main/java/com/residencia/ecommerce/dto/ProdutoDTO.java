@@ -7,8 +7,11 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class ProdutoDTO {
 
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	private Integer idProduto;
 
 	@NotBlank(message = "Nome do produto não informado.")
@@ -21,16 +24,20 @@ public class ProdutoDTO {
 	@NotNull(message = "Quantidade em estoque não informada.")
 	private Integer qtdEstoque;
 
-	// Feito automaticamente pelo Service -- Mateus
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	private Date dataCadastroProduto;
 
 	@NotNull(message = "Valor unitário não informado")
 	private Double valorUnitario;
 
-	// Feito automaticamente pelo Service -- Mateus
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	private String caminhoImagem;
 
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	private CategoriaDTO categoriaDTO;
+
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+	private Integer idCategoria;
 
 	public Integer getIdProduto() {
 		return idProduto;
@@ -95,5 +102,13 @@ public class ProdutoDTO {
 	public void setCategoriaDTO(CategoriaDTO categoriaDTO) {
 		this.categoriaDTO = categoriaDTO;
 	}
+
+    public Integer getIdCategoria() {
+        return idCategoria;
+    }
+
+    public void setIdCategoria(Integer idCategoria) {
+        this.idCategoria = idCategoria;
+    }
 
 }

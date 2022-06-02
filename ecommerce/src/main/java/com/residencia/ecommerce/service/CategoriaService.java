@@ -62,7 +62,7 @@ public class CategoriaService {
 		categoriaRepository.deleteById(id);
 	}
 
-	private Categoria convertDTOToEntidade(CategoriaDTO categoriaDTO) {
+	public Categoria convertDTOToEntidade(CategoriaDTO categoriaDTO) {
 		Categoria categoria = new Categoria();
 		categoria.setIdCategoria(categoriaDTO.getIdCategoria());
 		categoria.setCategoriaDescricao(categoriaDTO.getCategoriaDescricao());
@@ -70,7 +70,7 @@ public class CategoriaService {
 		return categoria;
 	}
 
-	private CategoriaDTO converterEntidadeParaDto(Categoria categoria) {
+	public CategoriaDTO converterEntidadeParaDto(Categoria categoria) {
 		CategoriaDTO categoriaDTO = new CategoriaDTO();
 		categoriaDTO.setIdCategoria(categoria.getIdCategoria());
 		categoriaDTO.setCategoriaDescricao(categoria.getCategoriaDescricao());

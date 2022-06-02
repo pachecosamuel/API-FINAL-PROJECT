@@ -72,7 +72,7 @@ public class ClienteService {
 		clienteRepository.deleteById(id);
 	}
 	
-	private Cliente convertDTOToEntidade(ClienteDTO clienteDTO){
+	public Cliente convertDTOToEntidade(ClienteDTO clienteDTO){
 		Cliente cliente = new Cliente();
 		cliente.setIdCliente(clienteDTO.getIdCliente());
 		cliente.setCpf(clienteDTO.getCpf());
@@ -85,7 +85,7 @@ public class ClienteService {
 		return cliente;
 	}
 		
-	private ClienteDTO converterEntidadeParaDto(Cliente cliente) {
+	public ClienteDTO converterEntidadeParaDto(Cliente cliente) {
 		ClienteDTO clienteDTO = new ClienteDTO();
 		clienteDTO.setIdCliente(cliente.getIdCliente());
 		clienteDTO.setCpf(cliente.getCpf());

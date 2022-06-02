@@ -16,6 +16,9 @@ public class PedidoService {
 	@Autowired
 	PedidoRepository pedidoRepository;
 
+	@Autowired
+	ClienteService clienteService;
+
 	public List<PedidoDTO> findAllPedido() {
 		List<PedidoDTO> listPedidoDTO = new ArrayList<>();
 
@@ -54,7 +57,7 @@ public class PedidoService {
 	public Pedido convertDTOToEntidade(PedidoDTO pedidoDTO) {
 		Pedido pedido = new Pedido();
 		pedido.setIdPedido(pedidoDTO.getIdPedido());
-		pedido.getCliente().setIdCliente(pedidoDTO.getClienteDTO().getIdCliente());
+		pedido.getCliente().setIdCliente(pedidoDTO.getIdCliente());
 		pedido.setDataEntrega(pedidoDTO.getDataEntrega());
 		pedido.setDataEnvio(pedidoDTO.getDataEnvio());
 		pedido.setDataPedido(pedidoDTO.getDataPedido());
@@ -65,10 +68,11 @@ public class PedidoService {
 	public PedidoDTO converterEntidadeParaDto(Pedido pedido) {
 		PedidoDTO pedidoDTO = new PedidoDTO();
 		pedidoDTO.setIdPedido(pedido.getIdPedido());
-		pedidoDTO.getClienteDTO().setIdCliente(pedido.getCliente().getIdCliente());
+		pedidoDTO.setClienteDTO(clienteService.converterEntidadeParaDto(pedido.getCliente()));
 		pedidoDTO.setDataEntrega(pedido.getDataEntrega());
 		pedidoDTO.setDataEnvio(pedido.getDataEnvio());
 		pedidoDTO.setDataPedido(pedido.getDataPedido());
+		
 		return pedidoDTO;
 	}
 

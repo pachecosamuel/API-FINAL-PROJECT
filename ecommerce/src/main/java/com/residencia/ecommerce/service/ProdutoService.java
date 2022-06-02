@@ -21,6 +21,9 @@ public class ProdutoService {
 	ProdutoRepository produtoRepository;
 
 	@Autowired
+	CategoriaService categoriaService;
+
+	@Autowired
 	ImageFilesService filesService;
 
 	public List<ProdutoDTO> findAllProduto() {
@@ -91,26 +94,28 @@ public class ProdutoService {
 	public Produto convertDTOToEntidade(ProdutoDTO produtoDTO){
 		Produto produto = new Produto();
 		produto.setIdProduto(produtoDTO.getIdProduto());
-		produto.getCategoria().setIdCategoria(produtoDTO.getCategoriaDTO().getIdCategoria());
+		produto.getCategoria().setIdCategoria(produtoDTO.getIdCategoria());
 		produto.setDataCadastroProduto(produtoDTO.getDataCadastroProduto());
 		produto.setCaminhoImagem(produtoDTO.getCaminhoImagem());
 		produto.setDescricaoProduto(produtoDTO.getDescricaoProduto());
 		produto.setNomeProduto(produtoDTO.getNomeProduto());
 		produto.setQtdEstoque(produtoDTO.getQtdEstoque());
 		produto.setValorUnitario(produtoDTO.getValorUnitario());
+		
 		return produto;
 	}
 		
 	public ProdutoDTO converterEntidadeParaDto(Produto produto) {
 		ProdutoDTO produtoDTO = new ProdutoDTO();
 		produtoDTO.setIdProduto(produto.getIdProduto());
-		produtoDTO.getCategoriaDTO().setIdCategoria(produto.getCategoria().getIdCategoria());
+		produtoDTO.setCategoriaDTO(categoriaService.converterEntidadeParaDto(produto.getCategoria()));
 		produtoDTO.setDataCadastroProduto(produto.getDataCadastroProduto());
 		produtoDTO.setCaminhoImagem(produto.getCaminhoImagem());
 		produtoDTO.setDescricaoProduto(produto.getDescricaoProduto());
 		produtoDTO.setNomeProduto(produto.getNomeProduto());
 		produtoDTO.setQtdEstoque(produto.getQtdEstoque());
 		produtoDTO.setValorUnitario(produto.getValorUnitario());
+
 		return produtoDTO;
 	}
 }
