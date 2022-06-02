@@ -39,11 +39,24 @@ public class EnderecoController {
 
 		EnderecoDTO enderecoDTO = enderecoService.findEnderecoById(id);
 
-		if (enderecoDTO == null)
-			throw new NoSuchElementFoundException(" " + id);
-		else
+		if (enderecoDTO == null) {
+			throw new NoSuchElementFoundException("Não foi encontrado um Endereço com o id: " + id);
+		} else {
 			return new ResponseEntity<>(enderecoDTO, HttpStatus.OK);
+		}
 
+	}
+
+	@GetMapping("/{cep}")
+	public ResponseEntity<EnderecoDTO> findEnderecoByCEP(@PathVariable String cep) {
+
+		EnderecoDTO enderecoDTO = enderecoService.findEnderecoByCEP(cep);
+
+		if (enderecoDTO == null) {
+			throw new NoSuchElementFoundException("Não foi encontrado um Endereço com o CEP: " + cep);
+		} else {
+			return new ResponseEntity<>(enderecoDTO, HttpStatus.OK);
+		}
 	}
 
 	@PostMapping

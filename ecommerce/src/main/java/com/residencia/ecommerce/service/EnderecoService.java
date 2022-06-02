@@ -37,6 +37,14 @@ public class EnderecoService {
 		return enderecoRepository.findById(id).isPresent() ? converterEntidadeParaDto(enderecoRepository.findById(id).get()) : null;
 	}
 
+	public EnderecoDTO findEnderecoByCEP(String cep) {
+		if (enderecoRepository.findByCEP(cep) == null) {
+			return null;
+		} else {
+			return converterEntidadeParaDto(enderecoRepository.findByCEP(cep));
+		}
+	}
+
 	public EnderecoDTO saveEndereco(EnderecoDTO enderecoDTO) {
 		return converterEntidadeParaDto(enderecoRepository.save(convertDTOToEntidade(enderecoDTO)));
 	}
@@ -83,5 +91,18 @@ public class EnderecoService {
 		params.put("cep", cep);
 
 		return restTemplate.getForObject(uri, CepDTO.class, params);
+	}
+
+	public Endereco CepDTOtoEnderecoDTO(CepDTO cepDTO) {
+		Endereco endereco = new Endereco();
+		endereco.setBairro(cepDTO.getBairro());
+		endereco.setCep(cepDTO.getCep());
+		endereco.setCidade(cepDTO.getCidade());
+		endereco.setComplemento(cepDTO.getComplemento());
+		endereco.setNumeroEndereco(cepDTO.getNumeroEndereco());
+		endereco.setRua(cepDTO.getRua());
+		endereco.setUf(cepDTO.getUf());
+
+		return endereco;
 	}
 }
