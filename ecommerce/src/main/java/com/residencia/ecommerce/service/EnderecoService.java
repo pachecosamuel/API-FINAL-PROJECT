@@ -42,7 +42,7 @@ public class EnderecoService {
 		enderecoRepository.deleteById(id);
 	}
 	
-	private Endereco convertDTOToEntidade(EnderecoDTO enderecoDTO){
+	public Endereco convertDTOToEntidade(EnderecoDTO enderecoDTO){
 		Endereco endereco = new Endereco();
 		endereco.setIdEndereco(enderecoDTO.getIdEndereco());
 		endereco.setBairro(enderecoDTO.getBairro());
@@ -57,7 +57,7 @@ public class EnderecoService {
 		return endereco;
 	}
 		
-	private EnderecoDTO converterEntidadeParaDto(Endereco endereco) {
+	public EnderecoDTO converterEntidadeParaDto(Endereco endereco) {
 		EnderecoDTO enderecoDTO = new EnderecoDTO();
 		enderecoDTO.setIdEndereco(endereco.getIdEndereco());
 		enderecoDTO.setBairro(endereco.getBairro());
