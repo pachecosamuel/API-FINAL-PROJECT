@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.residencia.ecommerce.entity.Endereco;
+import com.residencia.ecommerce.dto.EnderecoDTO;
 import com.residencia.ecommerce.exception.NoSuchElementFoundException;
 import com.residencia.ecommerce.service.EnderecoService;
+
+
 
 @RestController
 @RequestMapping("/endereco")
@@ -26,40 +28,40 @@ public class EnderecoController {
 	EnderecoService enderecoService;
 
 	@GetMapping
-	public ResponseEntity<List<Endereco>> findAllEndereco() {
-		List<Endereco> enderecoList = enderecoService.findAllEndereco();
+	public ResponseEntity<List<EnderecoDTO>> findAllEndereco() {
+		List<EnderecoDTO> enderecoList = enderecoService.findAllEndereco();
 
 		return new ResponseEntity<>(enderecoList, HttpStatus.OK);
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<Endereco> findEnderecoById(@PathVariable Integer id) {
+	public ResponseEntity<EnderecoDTO> findEnderecoById(@PathVariable Integer id) {
 
-		Endereco endereco = enderecoService.findEnderecoById(id);
+		EnderecoDTO enderecoDTO = enderecoService.findEnderecoById(id);
 
-		if (endereco == null)
+		if (enderecoDTO == null)
 			throw new NoSuchElementFoundException(" " + id);
 		else
-			return new ResponseEntity<>(endereco, HttpStatus.OK);
+			return new ResponseEntity<>(enderecoDTO, HttpStatus.OK);
 
 	}
 
 	@PostMapping
-	public ResponseEntity<Endereco> saveEndereco(@RequestBody Endereco endereco) {
-		return new ResponseEntity<>(enderecoService.saveEndereco(endereco), HttpStatus.CREATED);
+	public ResponseEntity<EnderecoDTO> saveEndereco(@RequestBody EnderecoDTO enderecoDTO) {
+		return new ResponseEntity<>(enderecoService.saveEndereco(enderecoDTO), HttpStatus.CREATED);
 	}
 
 	@PutMapping
-	public ResponseEntity<Endereco> updateEndereco(@RequestBody Endereco endereco) {
-		return new ResponseEntity<>(enderecoService.saveEndereco(endereco), HttpStatus.OK);
+	public ResponseEntity<EnderecoDTO> updateEndereco(@RequestBody EnderecoDTO enderecoDTO) {
+		return new ResponseEntity<>(enderecoService.saveEndereco(enderecoDTO), HttpStatus.OK);
 	}
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity<String> deleteEnderecoById(@PathVariable Integer id) {
 
-		Endereco endereco = enderecoService.findEnderecoById(id);
+		EnderecoDTO enderecoDTO = enderecoService.findEnderecoById(id);
 
-		if (endereco == null)
+		if (enderecoDTO == null)
 			throw new NoSuchElementFoundException(" " + id);
 		else
 			enderecoService.deleteEnderecoById(id);
