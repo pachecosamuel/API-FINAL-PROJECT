@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.residencia.ecommerce.dto.EnderecoDTO;
@@ -62,6 +63,11 @@ public class EnderecoController {
 	@PostMapping
 	public ResponseEntity<EnderecoDTO> saveEndereco(@RequestBody EnderecoDTO enderecoDTO) {
 		return new ResponseEntity<>(enderecoService.saveEndereco(enderecoDTO), HttpStatus.CREATED);
+	}
+
+	@PostMapping
+	public ResponseEntity<EnderecoDTO> saveEnderecoViaCEP(@RequestParam String cep) {
+		return new ResponseEntity<>(enderecoService.saveEnderecoViaCEP(cep), HttpStatus.CREATED);
 	}
 
 	@PutMapping

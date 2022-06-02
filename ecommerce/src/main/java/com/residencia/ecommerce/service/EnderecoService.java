@@ -49,6 +49,10 @@ public class EnderecoService {
 		return converterEntidadeParaDto(enderecoRepository.save(convertDTOToEntidade(enderecoDTO)));
 	}
 
+	public EnderecoDTO saveEnderecoViaCEP(String cep) {
+		return converterEntidadeParaDto(enderecoRepository.save(convertDTOToEntidade(CepDTOtoEnderecoDTO(getCepDTOFromExternal(cep)))));
+	}
+
 	public EnderecoDTO updateEndereco(EnderecoDTO enderecoDTO) {
 		return converterEntidadeParaDto(enderecoRepository.save(convertDTOToEntidade(enderecoDTO)));
 	}
@@ -93,16 +97,16 @@ public class EnderecoService {
 		return restTemplate.getForObject(uri, CepDTO.class, params);
 	}
 
-	public Endereco CepDTOtoEnderecoDTO(CepDTO cepDTO) {
-		Endereco endereco = new Endereco();
-		endereco.setBairro(cepDTO.getBairro());
-		endereco.setCep(cepDTO.getCep());
-		endereco.setCidade(cepDTO.getCidade());
-		endereco.setComplemento(cepDTO.getComplemento());
-		endereco.setNumeroEndereco(cepDTO.getNumeroEndereco());
-		endereco.setRua(cepDTO.getRua());
-		endereco.setUf(cepDTO.getUf());
+	public EnderecoDTO CepDTOtoEnderecoDTO(CepDTO cepDTO) {
+		EnderecoDTO enderecoDTO = new EnderecoDTO();
+		enderecoDTO.setBairro(cepDTO.getBairro());
+		enderecoDTO.setCep(cepDTO.getCep());
+		enderecoDTO.setCidade(cepDTO.getCidade());
+		enderecoDTO.setComplemento(cepDTO.getComplemento());
+		enderecoDTO.setNumeroEndereco(cepDTO.getNumeroEndereco());
+		enderecoDTO.setRua(cepDTO.getRua());
+		enderecoDTO.setUf(cepDTO.getUf());
 
-		return endereco;
+		return enderecoDTO;
 	}
 }
