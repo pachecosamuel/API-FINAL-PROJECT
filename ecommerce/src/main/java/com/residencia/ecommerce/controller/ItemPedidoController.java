@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.residencia.ecommerce.dto.ItemPedidoDTO;
-import com.residencia.ecommerce.entity.ItemPedido;
 import com.residencia.ecommerce.exception.NoSuchElementFoundException;
 import com.residencia.ecommerce.service.ItemPedidoService;
 
