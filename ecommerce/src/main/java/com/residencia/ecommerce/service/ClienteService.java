@@ -82,7 +82,7 @@ public class ClienteService {
 		cliente.setTelefone(clienteDTO.getTelefone());
 
 		if (enderecoService.findEnderecoByCEP(clienteDTO.getCepEndereco()) == null) {
-			cliente.getEndereco().setIdEndereco(enderecoService.CepDTOtoEnderecoDTO(enderecoService.getCepDTOFromExternal(clienteDTO.getCepEndereco())).getIdEndereco());
+			cliente.getEndereco().setIdEndereco(enderecoService.saveEnderecoViaCEP(clienteDTO.getCepEndereco()).getIdEndereco());
 		} else {
 			cliente.getEndereco().setIdEndereco(enderecoService.findEnderecoByCEP(clienteDTO.getCepEndereco()).getIdEndereco());
 		}
