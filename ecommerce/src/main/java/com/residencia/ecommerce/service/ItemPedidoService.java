@@ -1,5 +1,6 @@
 package com.residencia.ecommerce.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,27 +16,39 @@ public class ItemPedidoService {
 	@Autowired
 	ItemPedidoRepository itemPedidoRepository;
 
-	public List<ItemPedido> findAllItemPedido() {
-		return itemPedidoRepository.findAll();
+	public List<ItemPedidoDTO> findAllItemPedido() {
+
+		List<ItemPedidoDTO> listItemPedidoDTO = new ArrayList<>();
+
+		for (ItemPedido itemPedido : itemPedidoRepository.findAll()) {
+			listItemPedidoDTO.add(converterEntidadeParaDto(itemPedido));
+		}
+
+		return listItemPedidoDTO;
 	}
 
-	public ItemPedido findItemPedidoById(Integer id) {
-		return itemPedidoRepository.findById(id).isPresent() ? itemPedidoRepository.findById(id).get() : null;
+	public ItemPedidoDTO findItemPedidoById(Integer id) {
+		return itemPedidoRepository.findById(id).isPresent() ? converterEntidadeParaDto(itemPedidoRepository.findById(id).get()) : null;
 	}
 
-	public ItemPedido saveItemPedido(ItemPedido itemPedido) {
-		return itemPedidoRepository.save(itemPedido);
+	public ItemPedidoDTO saveItemPedido(ItemPedidoDTO itemPedidoDTO) {
+		
+		ItemPedido itemPedidoSalvo = itemPedidoRepository.save(convertDTOToEntidade(itemPedidoDTO));
+	
+		return findItemPedidoById(itemPedidoSalvo.getIdItemPedido());
 	}
 
-	public ItemPedido updateItemPedido(ItemPedido itemPedido) {
-		return itemPedidoRepository.save(itemPedido);
+	public ItemPedidoDTO updateItemPedido(ItemPedidoDTO itemPedidoDTO) {
+		ItemPedido itemPedidoSalvo = itemPedidoRepository.save(convertDTOToEntidade(itemPedidoDTO));
+	
+		return findItemPedidoById(itemPedidoSalvo.getIdItemPedido());
 	}
 
 	public void deleteItemPedidoById(Integer id) {
 		itemPedidoRepository.deleteById(id);
 	}
-	
-	private ItemPedido convertDTOToEntidade(ItemPedidoDTO itemPedidoDTO){
+
+	private ItemPedido convertDTOToEntidade(ItemPedidoDTO itemPedidoDTO) {
 		ItemPedido itemPedido = new ItemPedido();
 		itemPedido.setIdItemPedido(itemPedidoDTO.getIdItemPedido());
 		itemPedido.getPedido().setIdPedido(itemPedidoDTO.getPedidoDTO().getIdPedido());
@@ -47,7 +60,7 @@ public class ItemPedidoService {
 		itemPedido.setValorLiquido(itemPedidoDTO.getValorLiquido());
 		return itemPedido;
 	}
-		
+
 	private ItemPedidoDTO converterEntidadeParaDto(ItemPedido itemPedido) {
 		ItemPedidoDTO itemPedidoDTO = new ItemPedidoDTO();
 		itemPedidoDTO.setIdItemPedido(itemPedido.getIdItemPedido());
