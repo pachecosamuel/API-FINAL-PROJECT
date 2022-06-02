@@ -76,7 +76,7 @@ public class ProdutoService {
 		produto.setIdProduto(produtoDTO.getIdProduto());
 		produto.getCategoria().setIdCategoria(produtoDTO.getCategoriaDTO().getIdCategoria());
 		produto.setDataCadastroProduto(produtoDTO.getDataCadastroProduto());
-		produto.setDescricaoImagem(produtoDTO.getDescricaoImagem());
+		produto.setCaminhoImagem(produtoDTO.getCaminhoImagem());
 		produto.setDescricaoProduto(produtoDTO.getDescricaoProduto());
 		produto.setNomeProduto(produtoDTO.getNomeProduto());
 		produto.setQtdEstoque(produtoDTO.getQtdEstoque());
@@ -89,7 +89,7 @@ public class ProdutoService {
 		produtoDTO.setIdProduto(produto.getIdProduto());
 		produtoDTO.getCategoriaDTO().setIdCategoria(produto.getCategoria().getIdCategoria());
 		produtoDTO.setDataCadastroProduto(produto.getDataCadastroProduto());
-		produtoDTO.setDescricaoImagem(produto.getDescricaoImagem());
+		produtoDTO.setCaminhoImagem(produto.getCaminhoImagem());
 		produtoDTO.setDescricaoProduto(produto.getDescricaoProduto());
 		produtoDTO.setNomeProduto(produto.getNomeProduto());
 		produtoDTO.setQtdEstoque(produto.getQtdEstoque());
