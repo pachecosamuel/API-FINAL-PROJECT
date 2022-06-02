@@ -80,7 +80,12 @@ public class ClienteService {
 		cliente.setEmail(clienteDTO.getEmail());
 		cliente.setNomeCompleto(clienteDTO.getNomeCompleto());
 		cliente.setTelefone(clienteDTO.getTelefone());
-		cliente.getEndereco().setIdEndereco(clienteDTO.getIdEndereco());
+
+		if (enderecoService.findEnderecoByCEP(clienteDTO.getCepEndereco()) == null) {
+			cliente.getEndereco().setIdEndereco(enderecoService.CepDTOtoEnderecoDTO(enderecoService.getCepDTOFromExternal(clienteDTO.getCepEndereco())).getIdEndereco());
+		} else {
+			cliente.getEndereco().setIdEndereco(enderecoService.findEnderecoByCEP(clienteDTO.getCepEndereco()).getIdEndereco());
+		}
 		
 		return cliente;
 	}

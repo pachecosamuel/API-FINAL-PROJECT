@@ -40,7 +40,8 @@ public class ClienteDTO {
 	private EnderecoDTO enderecoDTO;
 
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-	private Integer idEndereco;
+	@NotNull(message = "O CEP não pode ser nulo.")
+	private String cepEndereco;
 
 	public Integer getIdCliente() {
 		return idCliente;
@@ -98,12 +99,12 @@ public class ClienteDTO {
 		this.enderecoDTO = enderecoDTO;
 	}
 
-    public Integer getIdEndereco() {
-        return idEndereco;
+    public String getCepEndereco() {
+        return cepEndereco;
     }
 
-    public void setIdEndereco(Integer idEndereco) {
-        this.idEndereco = idEndereco;
+    public void setCepEndereco(String cepEndereco) {
+        this.cepEndereco = cepEndereco;
     }
 
 }
