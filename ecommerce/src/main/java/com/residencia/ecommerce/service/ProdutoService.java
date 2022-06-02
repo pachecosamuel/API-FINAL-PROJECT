@@ -1,17 +1,15 @@
 package com.residencia.ecommerce.service;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-
-import com.residencia.ecommerce.dto.ProdutoDTO;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
-
+import com.residencia.ecommerce.dto.ProdutoDTO;
 import com.residencia.ecommerce.entity.Produto;
 import com.residencia.ecommerce.exception.AlreadyExistsException;
 import com.residencia.ecommerce.repository.ProdutoRepository;
@@ -25,21 +23,42 @@ public class ProdutoService {
 	@Autowired
 	ImageFilesService filesService;
 
-	public List<Produto> findAllProduto() {
-		return produtoRepository.findAll();
+	public List<ProdutoDTO> findAllProduto() {
+		List<ProdutoDTO> listProdutoDTO = new ArrayList();
+
+		for(Produto produtoEntity : produtoRepository.findAll()){
+			listProdutoDTO.add(converterEntidadeParaDto(produtoEntity));
+		}
+
+		return listProdutoDTO;
 	}
 
-	public Produto findProdutoById(Integer id) {
-		return produtoRepository.findById(id).isPresent() ? produtoRepository.findById(id).get() : null;
+	public ProdutoDTO findProdutoById(Integer id) {
+		return produtoRepository.findById(id).isPresent() ? converterEntidadeParaDto(produtoRepository.findById(id).get())  : null;
 	}
 
-	public Produto saveProduto(Produto produto) {
-		for (Produto produtoExistente : findAllProduto()) {
-			if (produtoExistente.getDescricaoProduto() == produto.getDescricaoProduto()) {
+	public ProdutoDTO saveProduto(ProdutoDTO produtoDTO) {
+		for (ProdutoDTO produtoExistente : findAllProduto()) {
+			if (produtoExistente.getDescricaoProduto() == produtoDTO.getDescricaoProduto()) {
 				throw new AlreadyExistsException("Já existe um Produto cadastrado com a descrição passada");
 			}
 		}
-		return produtoRepository.save(produto);
+
+		Produto produtoSalvo = produtoRepository.save(convertDTOToEntidade(produtoDTO));
+
+		return findProdutoById(produtoSalvo.getIdProduto());
+	}
+
+	public ProdutoDTO updateProduto(ProdutoDTO produtoDTO) {
+		for (ProdutoDTO produtoExistente : findAllProduto()) {
+			if (produtoExistente.getDescricaoProduto() == produtoDTO.getDescricaoProduto()) {
+				throw new AlreadyExistsException("Já existe um Produto cadastrado com a descrição passada");
+			}
+		}
+
+		Produto produtoSalvo = produtoRepository.save(convertDTOToEntidade(produtoDTO));
+
+		return findProdutoById(produtoSalvo.getIdProduto());
 	}
 
 	public Produto saveProdutoWithImage(String produto, MultipartFile file) throws IOException {
@@ -61,10 +80,6 @@ public class ProdutoService {
 		produtoSaved.setCaminhoImagem(filesService.getFilePathAsString(fileName));
 		
 		return produtoRepository.save(produtoSaved);
-	}
-
-	public Produto updateProduto(Produto produto) {
-		return produtoRepository.save(produto);
 	}
 
 	public void deleteProdutoById(Integer id) {
