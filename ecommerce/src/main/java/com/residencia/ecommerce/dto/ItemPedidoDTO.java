@@ -1,20 +1,29 @@
 package com.residencia.ecommerce.dto;
 
+import javax.validation.constraints.NotNull;
+
 public class ItemPedidoDTO {
 	private Integer idItemPedido;
 
+	@NotNull(message = "Quantidade do produto não informado.")
 	private Integer quantidadeProduto;
 
-	private Float precoVenda;
+	@NotNull(message = "Preço de venda não informado.")
+	private Double precoVenda;
 
-	private Float percentualDesconto;
+	@NotNull(message = "Percentual de desconto não informado.")
+	private Double percentualDesconto;
 
-	private Float valorBruto;
+	@NotNull(message = "Valor bruto não informado.")
+	private Double valorBruto;
 
-	private Float valorLiquido;
+	@NotNull(message = "Valor líquido não informado.")
+	private Double valorLiquido;
 
+    // Feito automaticamente pelo Service -- Mateus
 	private ProdutoDTO produtoDTO;
-
+  
+	// Feito automaticamente pelo Service -- Mateus
 	private PedidoDTO pedidoDTO;
 
 	public Integer getIdItemPedido() {
@@ -33,35 +42,35 @@ public class ItemPedidoDTO {
 		this.quantidadeProduto = quantidadeProduto;
 	}
 
-	public Float getPrecoVenda() {
+	public Double getPrecoVenda() {
 		return precoVenda;
 	}
 
-	public void setPrecoVenda(Float precoVenda) {
+	public void setPrecoVenda(Double precoVenda) {
 		this.precoVenda = precoVenda;
 	}
 
-	public Float getPercentualDesconto() {
+	public Double getPercentualDesconto() {
 		return percentualDesconto;
 	}
 
-	public void setPercentualDesconto(Float percentualDesconto) {
+	public void setPercentualDesconto(Double percentualDesconto) {
 		this.percentualDesconto = percentualDesconto;
 	}
 
-	public Float getValorBruto() {
+	public Double getValorBruto() {
 		return valorBruto;
 	}
 
-	public void setValorBruto(Float valorBruto) {
+	public void setValorBruto(Double valorBruto) {
 		this.valorBruto = valorBruto;
 	}
 
-	public Float getValorLiquido() {
+	public Double getValorLiquido() {
 		return valorLiquido;
 	}
 
-	public void setValorLiquido(Float valorLiquido) {
+	public void setValorLiquido(Double valorLiquido) {
 		this.valorLiquido = valorLiquido;
 	}
 

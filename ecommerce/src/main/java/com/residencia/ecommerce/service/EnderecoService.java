@@ -1,11 +1,18 @@
 package com.residencia.ecommerce.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
 
 import com.residencia.ecommerce.dto.EnderecoDTO;
+
+import com.residencia.ecommerce.dto.CepDTO;
+
 import com.residencia.ecommerce.entity.Endereco;
 import com.residencia.ecommerce.repository.EnderecoRepository;
 
@@ -63,4 +70,12 @@ public class EnderecoService {
 		return enderecoDTO;
 	}
 
+	public CepDTO getCepDTOFromExternal(String cep) {
+		RestTemplate restTemplate = new RestTemplate();
+		String uri = "https://viacep.com.br/ws/{cep}/json/";
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("cep", cep);
+
+		return restTemplate.getForObject(uri, CepDTO.class, params);
+	}
 }

@@ -2,18 +2,29 @@ package com.residencia.ecommerce.dto;
 
 import java.util.Date;
 
+import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class PedidoDTO {
 
 	private Integer idPedido;
 
+	// Feito automaticamente pelo Service -- Mateus
 	private Date dataPedido;
 
+	@NotNull(message = "Data de entrega não informada. (Formatação: DD-MM-YYYY)")
+	@JsonFormat(pattern = "dd-MM-yyyy")
 	private Date dataEntrega;
 
+	@NotNull(message = "Data de envio não informado. (Formatação: DD-MM-YYYY)")
+	@JsonFormat(pattern = "dd-MM-yyyy")
 	private Date dataEnvio;
 
+	// Feito automaticamente pelo Service -- Mateus
 	private Boolean status;
 
+	// Feito automaticamente pelo Service -- Mateus
 	private ClienteDTO clienteDTO;
 
 	public Integer getIdPedido() {

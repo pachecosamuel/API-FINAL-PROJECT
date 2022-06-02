@@ -2,19 +2,39 @@ package com.residencia.ecommerce.dto;
 
 import java.util.Date;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+
+import org.hibernate.validator.constraints.br.CPF;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class ClienteDTO {
+	
 	private Integer idCliente;
 
+	@Email(message = "E-mail inválido")
+    @NotBlank(message = "E-mail não informado")
 	private String email;
 
+	@NotBlank(message = "Nome não informado")
+    @Pattern(regexp = "^[A-Z]+(.)*", message = "Primeira letra do nome deve ser maiúscula")
 	private String nomeCompleto;
 
+	@CPF(message = "Número CPF inválido")
+    @NotBlank(message = "CPF não informado")
 	private String cpf;
 
+	@NotBlank(message = "Telefone não informado")
 	private String telefone;
 
+	@NotNull(message = "Data de nascimento não informada. (Formatação: DD-MM-YYYY)")
+	@JsonFormat(pattern = "dd-MM-yyyy")
 	private Date dataNascimento;
 
+	// Feito automaticamente pelo Service -- Mateus
 	private EnderecoDTO enderecoDTO;
 
 	public Integer getIdCliente() {
