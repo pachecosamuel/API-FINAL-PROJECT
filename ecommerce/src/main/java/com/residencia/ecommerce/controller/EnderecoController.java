@@ -49,9 +49,9 @@ public class EnderecoController {
 	}
 
 	@GetMapping("/{cep}")
-	public ResponseEntity<EnderecoDTO> findEnderecoByCEP(@PathVariable String cep) {
+	public ResponseEntity<EnderecoDTO> findEnderecoByCep(@PathVariable String cep) {
 
-		EnderecoDTO enderecoDTO = enderecoService.findEnderecoByCEP(cep);
+		EnderecoDTO enderecoDTO = enderecoService.findEnderecoByCep(cep);
 
 		if (enderecoDTO == null) {
 			throw new NoSuchElementFoundException("Não foi encontrado um Endereço com o CEP: " + cep);
@@ -65,7 +65,7 @@ public class EnderecoController {
 		return new ResponseEntity<>(enderecoService.saveEndereco(enderecoDTO), HttpStatus.CREATED);
 	}
 
-	@PostMapping
+	@PostMapping("/query")
 	public ResponseEntity<EnderecoDTO> saveEnderecoViaCEP(@RequestParam String cep) {
 		return new ResponseEntity<>(enderecoService.saveEnderecoViaCEP(cep), HttpStatus.CREATED);
 	}

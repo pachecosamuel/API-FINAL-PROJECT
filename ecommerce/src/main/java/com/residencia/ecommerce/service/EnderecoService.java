@@ -37,11 +37,11 @@ public class EnderecoService {
 		return enderecoRepository.findById(id).isPresent() ? converterEntidadeParaDto(enderecoRepository.findById(id).get()) : null;
 	}
 
-	public EnderecoDTO findEnderecoByCEP(String cep) {
-		if (enderecoRepository.findByCEP(cep) == null) {
+	public EnderecoDTO findEnderecoByCep(String cep) {
+		if (enderecoRepository.findByCep(cep) == null) {
 			return null;
 		} else {
-			return converterEntidadeParaDto(enderecoRepository.findByCEP(cep));
+			return converterEntidadeParaDto(enderecoRepository.findByCep(cep));
 		}
 	}
 

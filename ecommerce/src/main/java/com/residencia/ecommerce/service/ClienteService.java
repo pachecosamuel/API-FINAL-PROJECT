@@ -81,10 +81,10 @@ public class ClienteService {
 		cliente.setNomeCompleto(clienteDTO.getNomeCompleto());
 		cliente.setTelefone(clienteDTO.getTelefone());
 
-		if (enderecoService.findEnderecoByCEP(clienteDTO.getCepEndereco()) == null) {
+		if (enderecoService.findEnderecoByCep(clienteDTO.getCepEndereco()) == null) {
 			cliente.getEndereco().setIdEndereco(enderecoService.saveEnderecoViaCEP(clienteDTO.getCepEndereco()).getIdEndereco());
 		} else {
-			cliente.getEndereco().setIdEndereco(enderecoService.findEnderecoByCEP(clienteDTO.getCepEndereco()).getIdEndereco());
+			cliente.getEndereco().setIdEndereco(enderecoService.findEnderecoByCep(clienteDTO.getCepEndereco()).getIdEndereco());
 		}
 		
 		return cliente;
