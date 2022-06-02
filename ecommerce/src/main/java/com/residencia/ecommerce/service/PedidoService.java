@@ -38,7 +38,7 @@ public class PedidoService {
 		// pedidoRepository.deleteById(id);
 	}
 
-	private Pedido convertDTOToEntidade(PedidoDTO pedidoDTO) {
+	public Pedido convertDTOToEntidade(PedidoDTO pedidoDTO) {
 		Pedido pedido = new Pedido();
 		pedido.setIdPedido(pedidoDTO.getIdPedido());
 		pedido.getCliente().setIdCliente(pedidoDTO.getClienteDTO().getIdCliente());
@@ -49,7 +49,7 @@ public class PedidoService {
 		return pedido;
 	}
 
-	private PedidoDTO converterEntidadeParaDto(Pedido pedido) {
+	public PedidoDTO converterEntidadeParaDto(Pedido pedido) {
 		PedidoDTO pedidoDTO = new PedidoDTO();
 		pedidoDTO.setIdPedido(pedido.getIdPedido());
 		pedidoDTO.getClienteDTO().setIdCliente(pedido.getCliente().getIdCliente());

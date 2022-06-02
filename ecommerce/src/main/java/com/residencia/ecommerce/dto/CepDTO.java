@@ -3,7 +3,6 @@ package com.residencia.ecommerce.dto;
 // Feito automaticamente pelo Service -- Mateus
 public class CepDTO {
     
-    private Integer idEndereco;
 	private String cep;
 	private String rua;
 	private String bairro;
@@ -11,14 +10,6 @@ public class CepDTO {
 	private Integer numeroEndereco;
 	private String complemento;
 	private String uf;
-
-    public Integer getIdEndereco() {
-        return idEndereco;
-    }
-
-    public void setIdEndereco(Integer idEndereco) {
-        this.idEndereco = idEndereco;
-    }
 
     public String getCep() {
         return cep;

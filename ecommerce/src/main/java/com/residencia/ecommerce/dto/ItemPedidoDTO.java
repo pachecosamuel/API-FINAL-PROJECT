@@ -2,7 +2,11 @@ package com.residencia.ecommerce.dto;
 
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class ItemPedidoDTO {
+
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	private Integer idItemPedido;
 
 	@NotNull(message = "Quantidade do produto não informado.")
@@ -20,11 +24,17 @@ public class ItemPedidoDTO {
 	@NotNull(message = "Valor líquido não informado.")
 	private Double valorLiquido;
 
-    // Feito automaticamente pelo Service -- Mateus
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	private ProdutoDTO produtoDTO;
   
-	// Feito automaticamente pelo Service -- Mateus
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	private PedidoDTO pedidoDTO;
+
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+	private Integer idProduto;
+	
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+	private Integer idPedido;
 
 	public Integer getIdItemPedido() {
 		return idItemPedido;
@@ -89,5 +99,21 @@ public class ItemPedidoDTO {
 	public void setPedidoDTO(PedidoDTO pedidoDTO) {
 		this.pedidoDTO = pedidoDTO;
 	}
+
+    public Integer getIdProduto() {
+        return idProduto;
+    }
+
+    public void setIdProduto(Integer idProduto) {
+        this.idProduto = idProduto;
+    }
+
+    public Integer getIdPedido() {
+        return idPedido;
+    }
+
+    public void setIdPedido(Integer idPedido) {
+        this.idPedido = idPedido;
+    }
 
 }

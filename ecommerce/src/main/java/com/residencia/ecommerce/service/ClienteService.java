@@ -80,7 +80,7 @@ public class ClienteService {
 		cliente.setEmail(clienteDTO.getEmail());
 		cliente.setNomeCompleto(clienteDTO.getNomeCompleto());
 		cliente.setTelefone(clienteDTO.getTelefone());
-		cliente.getEndereco().setIdEndereco(clienteDTO.getEnderecoDTO().getIdEndereco());
+		cliente.getEndereco().setIdEndereco(clienteDTO.getIdEndereco());
 		
 		return cliente;
 	}

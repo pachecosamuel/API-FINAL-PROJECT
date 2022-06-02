@@ -4,8 +4,11 @@ import javax.validation.constraints.NotBlank;
 
 import org.hibernate.validator.constraints.Length;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class CategoriaDTO {
 
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	private Integer idCategoria;
 
 	@NotBlank(message = "Nome categoria não informado.")

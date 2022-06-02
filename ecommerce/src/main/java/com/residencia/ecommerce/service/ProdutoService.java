@@ -88,7 +88,7 @@ public class ProdutoService {
 		produtoRepository.deleteById(id);
 	}
 	
-	private Produto convertDTOToEntidade(ProdutoDTO produtoDTO){
+	public Produto convertDTOToEntidade(ProdutoDTO produtoDTO){
 		Produto produto = new Produto();
 		produto.setIdProduto(produtoDTO.getIdProduto());
 		produto.getCategoria().setIdCategoria(produtoDTO.getCategoriaDTO().getIdCategoria());
@@ -101,7 +101,7 @@ public class ProdutoService {
 		return produto;
 	}
 		
-	private ProdutoDTO converterEntidadeParaDto(Produto produto) {
+	public ProdutoDTO converterEntidadeParaDto(Produto produto) {
 		ProdutoDTO produtoDTO = new ProdutoDTO();
 		produtoDTO.setIdProduto(produto.getIdProduto());
 		produtoDTO.getCategoriaDTO().setIdCategoria(produto.getCategoria().getIdCategoria());

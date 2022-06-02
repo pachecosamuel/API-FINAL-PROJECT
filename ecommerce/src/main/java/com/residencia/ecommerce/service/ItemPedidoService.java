@@ -16,6 +16,12 @@ public class ItemPedidoService {
 	@Autowired
 	ItemPedidoRepository itemPedidoRepository;
 
+	@Autowired
+	PedidoService pedidoService;
+
+	@Autowired
+	ProdutoService produtoService;
+
 	public List<ItemPedidoDTO> findAllItemPedido() {
 
 		List<ItemPedidoDTO> listItemPedidoDTO = new ArrayList<>();
@@ -51,26 +57,28 @@ public class ItemPedidoService {
 	private ItemPedido convertDTOToEntidade(ItemPedidoDTO itemPedidoDTO) {
 		ItemPedido itemPedido = new ItemPedido();
 		itemPedido.setIdItemPedido(itemPedidoDTO.getIdItemPedido());
-		itemPedido.getPedido().setIdPedido(itemPedidoDTO.getPedidoDTO().getIdPedido());
-		itemPedido.getProduto().setIdProduto(itemPedidoDTO.getPedidoDTO().getIdPedido());
+		itemPedido.getPedido().setIdPedido(itemPedidoDTO.getIdPedido());
+		itemPedido.getProduto().setIdProduto(itemPedidoDTO.getIdPedido());
 		itemPedido.setPrecoVenda(itemPedidoDTO.getPrecoVenda());
 		itemPedido.setPercentualDesconto(itemPedidoDTO.getPercentualDesconto());
 		itemPedido.setQuantidadeProduto(itemPedidoDTO.getQuantidadeProduto());
 		itemPedido.setValorBruto(itemPedidoDTO.getValorBruto());
 		itemPedido.setValorLiquido(itemPedidoDTO.getValorLiquido());
+
 		return itemPedido;
 	}
 
 	private ItemPedidoDTO converterEntidadeParaDto(ItemPedido itemPedido) {
 		ItemPedidoDTO itemPedidoDTO = new ItemPedidoDTO();
 		itemPedidoDTO.setIdItemPedido(itemPedido.getIdItemPedido());
-		itemPedidoDTO.getPedidoDTO().setIdPedido(itemPedido.getPedido().getIdPedido());
-		itemPedidoDTO.getProdutoDTO().setIdProduto(itemPedido.getPedido().getIdPedido());
+		itemPedidoDTO.setPedidoDTO(pedidoService.converterEntidadeParaDto(itemPedido.getPedido()));
+		itemPedidoDTO.setProdutoDTO(produtoService.converterEntidadeParaDto(itemPedido.getProduto()));
 		itemPedidoDTO.setPrecoVenda(itemPedido.getPrecoVenda());
 		itemPedidoDTO.setPercentualDesconto(itemPedido.getPercentualDesconto());
 		itemPedidoDTO.setQuantidadeProduto(itemPedido.getQuantidadeProduto());
 		itemPedidoDTO.setValorBruto(itemPedido.getValorBruto());
 		itemPedidoDTO.setValorLiquido(itemPedido.getValorLiquido());
+		
 		return itemPedidoDTO;
 	}
 

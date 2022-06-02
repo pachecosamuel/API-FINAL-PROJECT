@@ -10,9 +10,11 @@ import javax.validation.constraints.Pattern;
 import org.hibernate.validator.constraints.br.CPF;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class ClienteDTO {
 	
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	private Integer idCliente;
 
 	@Email(message = "E-mail inválido")
@@ -34,8 +36,11 @@ public class ClienteDTO {
 	@JsonFormat(pattern = "dd-MM-yyyy")
 	private Date dataNascimento;
 
-	// Feito automaticamente pelo Service -- Mateus
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	private EnderecoDTO enderecoDTO;
+
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+	private Integer idEndereco;
 
 	public Integer getIdCliente() {
 		return idCliente;
@@ -92,5 +97,13 @@ public class ClienteDTO {
 	public void setEnderecoDTO(EnderecoDTO enderecoDTO) {
 		this.enderecoDTO = enderecoDTO;
 	}
+
+    public Integer getIdEndereco() {
+        return idEndereco;
+    }
+
+    public void setIdEndereco(Integer idEndereco) {
+        this.idEndereco = idEndereco;
+    }
 
 }

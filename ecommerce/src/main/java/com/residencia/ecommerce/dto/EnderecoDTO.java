@@ -5,8 +5,11 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class EnderecoDTO {
 	
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	private Integer idEndereco;
 
 	@NotBlank(message = "CEP não informado.")
