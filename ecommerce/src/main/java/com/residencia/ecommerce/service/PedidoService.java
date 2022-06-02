@@ -1,6 +1,7 @@
 package com.residencia.ecommerce.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,8 +61,17 @@ public class PedidoService {
 		pedido.getCliente().setIdCliente(pedidoDTO.getIdCliente());
 		pedido.setDataEntrega(pedidoDTO.getDataEntrega());
 		pedido.setDataEnvio(pedidoDTO.getDataEnvio());
-		pedido.setDataPedido(pedidoDTO.getDataPedido());
 
+		if (pedido.getIdPedido() == null) {
+			pedido.setDataPedido(new Date());
+		} else {
+			pedido.setDataPedido(pedidoDTO.getDataPedido());
+
+			if(pedido.getDataPedido() == null) {
+				throw new RuntimeException("Erro ao cadastrar data do pedido.");
+			}
+		}
+		
 		return pedido;
 	}
 
