@@ -1,5 +1,6 @@
 package com.residencia.ecommerce.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,20 +16,32 @@ public class PedidoService {
 	@Autowired
 	PedidoRepository pedidoRepository;
 
-	public List<Pedido> findAllPedido() {
-		return pedidoRepository.findAll();
+	public List<PedidoDTO> findAllPedido() {
+		List<PedidoDTO> listPedidoDTO = new ArrayList<>();
+
+		for(Pedido pedidoEntity : pedidoRepository.findAll()){
+
+			listPedidoDTO.add(converterEntidadeParaDto(pedidoEntity));
+
+		}
+
+		return listPedidoDTO;
 	}
 
-	public Pedido findPedidoById(Integer id) {
-		return pedidoRepository.findById(id).isPresent() ? pedidoRepository.findById(id).get() : null;
+	public PedidoDTO findPedidoById(Integer id) {
+		return pedidoRepository.findById(id).isPresent() ? converterEntidadeParaDto(pedidoRepository.findById(id).get()) : null;
 	}
 
-	public Pedido savePedido(Pedido pedido) {
-		return pedidoRepository.save(pedido);
+	public PedidoDTO savePedido(PedidoDTO pedidoDTO) {
+		Pedido pedidoSalvo = pedidoRepository.save(convertDTOToEntidade(pedidoDTO));
+
+		return findPedidoById(pedidoSalvo.getIdPedido());
 	}
 
-	public Pedido updatePedido(Pedido pedido) {
-		return pedidoRepository.save(pedido);
+	public PedidoDTO updatePedido(PedidoDTO pedidoDTO) {
+		Pedido pedidoSalvo = pedidoRepository.save(convertDTOToEntidade(pedidoDTO));
+
+		return findPedidoById(pedidoSalvo.getIdPedido());
 	}
 
 	public void deletePedidoById(Integer id) {
