@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.residencia.ecommerce.dto.PedidoDTO;
 import com.residencia.ecommerce.entity.Pedido;
 import com.residencia.ecommerce.repository.PedidoRepository;
 
@@ -32,6 +33,27 @@ public class PedidoService {
 
 	public void deletePedidoById(Integer id) {
 		pedidoRepository.deleteById(id);
+	}
+
+	private Pedido convertDTOToEntidade(PedidoDTO pedidoDTO) {
+		Pedido pedido = new Pedido();
+		pedido.setIdPedido(pedidoDTO.getIdPedido());
+		pedido.getCliente().setIdCliente(pedidoDTO.getClienteDTO().getIdCliente());
+		pedido.setDataEntrega(pedidoDTO.getDataEntrega());
+		pedido.setDataEnvio(pedidoDTO.getDataEnvio());
+		pedido.setDataPedido(pedidoDTO.getDataPedido());
+
+		return pedido;
+	}
+
+	private PedidoDTO converterEntidadeParaDto(Pedido pedido) {
+		PedidoDTO pedidoDTO = new PedidoDTO();
+		pedidoDTO.setIdPedido(pedido.getIdPedido());
+		pedidoDTO.getClienteDTO().setIdCliente(pedido.getCliente().getIdCliente());
+		pedidoDTO.setDataEntrega(pedido.getDataEntrega());
+		pedidoDTO.setDataEnvio(pedido.getDataEnvio());
+		pedidoDTO.setDataPedido(pedido.getDataPedido());
+		return pedidoDTO;
 	}
 
 }
