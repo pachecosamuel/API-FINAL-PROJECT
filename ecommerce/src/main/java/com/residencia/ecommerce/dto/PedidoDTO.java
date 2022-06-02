@@ -10,6 +10,8 @@ public class PedidoDTO {
 
 	private Integer idPedido;
 
+	// Demonstrando Si git VSCODE.
+
 	// Feito automaticamente pelo Service -- Mateus
 	private Date dataPedido;
 
