@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.residencia.ecommerce.entity.Categoria;
+import com.residencia.ecommerce.dto.CategoriaDTO;
 import com.residencia.ecommerce.exception.NoSuchElementFoundException;
 import com.residencia.ecommerce.service.CategoriaService;
 
@@ -26,41 +26,41 @@ public class CategoriaController {
 	CategoriaService categoriaService;
 
 	@GetMapping
-	public ResponseEntity<List<Categoria>> findAllCategoria() {
-		List<Categoria> categoriaList = categoriaService.findAllCategoria();
+	public ResponseEntity<List<CategoriaDTO>> findAllCategoria() {
+		List<CategoriaDTO> categoriaList = categoriaService.findAllCategoria();
 
 		return new ResponseEntity<>(categoriaList, HttpStatus.OK);
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<Categoria> findCategoriaById(@PathVariable Integer id) {
+	public ResponseEntity<CategoriaDTO> findCategoriaById(@PathVariable Integer id) {
 
-		Categoria categoria = categoriaService.findCategoriaById(id);
+		CategoriaDTO categoriaDTO = categoriaService.findCategoriaById(id);
 
-		if (categoria == null)
-			throw new NoSuchElementFoundException(" " + id);
+		if (categoriaDTO == null)
+			throw new NoSuchElementFoundException("Não existe categoria cadastrada com o id: " + id);
 		else
-			return new ResponseEntity<>(categoria, HttpStatus.OK);
+			return new ResponseEntity<>(categoriaDTO, HttpStatus.OK);
 
 	}
 
 	@PostMapping
-	public ResponseEntity<Categoria> saveCategoria(@RequestBody Categoria categoria) {
-		return new ResponseEntity<>(categoriaService.saveCategoria(categoria), HttpStatus.CREATED);
+	public ResponseEntity<CategoriaDTO> saveCategoria(@RequestBody CategoriaDTO categoriaDTO) {
+		return new ResponseEntity<>(categoriaService.saveCategoria(categoriaDTO), HttpStatus.CREATED);
 	}
 
 	@PutMapping
-	public ResponseEntity<Categoria> updateCategoria(@RequestBody Categoria categoria) {
-		return new ResponseEntity<>(categoriaService.saveCategoria(categoria), HttpStatus.OK);
+	public ResponseEntity<CategoriaDTO> updateCategoria(@RequestBody CategoriaDTO categoriaDTO) {
+		return new ResponseEntity<>(categoriaService.saveCategoria(categoriaDTO), HttpStatus.OK);
 	}
 
 	@DeleteMapping("/{id}")
-	public ResponseEntity<String> deleteCategoriaById(@PathVariable Integer id) {
+	public ResponseEntity<String> deleteCategoriaById(@RequestBody Integer id) {
 
-		Categoria categoria = categoriaService.findCategoriaById(id);
+		CategoriaDTO categoriaDTO = categoriaService.findCategoriaById(id);
 
-		if (categoria == null)
-			throw new NoSuchElementFoundException(" " + id);
+		if (categoriaDTO == null)
+			throw new NoSuchElementFoundException("Não existe categoria cadastrado com o id: " + id);
 		else
 			categoriaService.deleteCategoriaById(id);
 		return new ResponseEntity<>("Categoria deletada com sucesso.", HttpStatus.OK);
