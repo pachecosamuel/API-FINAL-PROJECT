@@ -19,6 +19,8 @@ import com.residencia.ecommerce.repository.EnderecoRepository;
 @Service
 public class EnderecoService {
 
+	//testando vscode git si
+
 	@Autowired
 	EnderecoRepository enderecoRepository;
 
