@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.residencia.ecommerce.entity.Cliente;
+import com.residencia.ecommerce.dto.ClienteDTO;
 import com.residencia.ecommerce.exception.NoSuchElementFoundException;
 import com.residencia.ecommerce.service.ClienteService;
 
@@ -26,41 +26,41 @@ public class ClienteController {
 	ClienteService clienteService;
 
 	@GetMapping
-	public ResponseEntity<List<Cliente>> findAllCliente() {
-		List<Cliente> clienteList = clienteService.findAllCliente();
+	public ResponseEntity<List<ClienteDTO>> findAllCliente() {
+		List<ClienteDTO> clienteList = clienteService.findAllCliente();
 
 		return new ResponseEntity<>(clienteList, HttpStatus.OK);
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<Cliente> findClienteById(@PathVariable Integer id) {
+	public ResponseEntity<ClienteDTO> findClienteById(@PathVariable Integer id) {
 
-		Cliente cliente = clienteService.findClienteById(id);
+		ClienteDTO clienteDTO = clienteService.findClienteById(id);
 
-		if (cliente == null)
-			throw new NoSuchElementFoundException(" " + id);
+		if (clienteDTO == null)
+			throw new NoSuchElementFoundException("Não existe cliente cadastrado com o id: " + id);
 		else
-			return new ResponseEntity<>(cliente, HttpStatus.OK);
+			return new ResponseEntity<>(clienteDTO, HttpStatus.OK);
 
 	}
 
 	@PostMapping
-	public ResponseEntity<Cliente> saveCliente(@RequestBody Cliente cliente) {
-		return new ResponseEntity<>(clienteService.saveCliente(cliente), HttpStatus.CREATED);
+	public ResponseEntity<ClienteDTO> saveCliente(@RequestBody ClienteDTO clienteDTO) {
+		return new ResponseEntity<>(clienteService.saveCliente(clienteDTO), HttpStatus.CREATED);
 	}
 
 	@PutMapping
-	public ResponseEntity<Cliente> updateCliente(@RequestBody Cliente cliente) {
-		return new ResponseEntity<>(clienteService.saveCliente(cliente), HttpStatus.OK);
+	public ResponseEntity<ClienteDTO> updateCliente(@RequestBody ClienteDTO clienteDTO) {
+		return new ResponseEntity<>(clienteService.saveCliente(clienteDTO), HttpStatus.OK);
 	}
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity<String> deleteClienteById(@PathVariable Integer id) {
 
-		Cliente cliente = clienteService.findClienteById(id);
+		ClienteDTO clienteDTO = clienteService.findClienteById(id);
 
-		if (cliente == null)
-			throw new NoSuchElementFoundException(" " + id);
+		if (clienteDTO == null)
+			throw new NoSuchElementFoundException("Não existe cliente cadastrado com o id: " + id);
 		else
 			clienteService.deleteClienteById(id);
 

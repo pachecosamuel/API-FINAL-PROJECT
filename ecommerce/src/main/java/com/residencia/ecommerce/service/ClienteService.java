@@ -1,5 +1,6 @@
 package com.residencia.ecommerce.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,42 +17,55 @@ public class ClienteService {
 	@Autowired
 	ClienteRepository clienteRepository;
 
-	public List<Cliente> findAllCliente() {
-		return clienteRepository.findAll();
+	@Autowired
+	EnderecoService enderecoService;
+
+	public List<ClienteDTO> findAllCliente() {
+		List<ClienteDTO> listClientesDTO = new ArrayList();
+
+		for (Cliente clienteEntity : clienteRepository.findAll()) {
+			listClientesDTO.add(converterEntidadeParaDto(clienteEntity));
+		}
+
+		return listClientesDTO;
 	}
 
-	public Cliente findClienteById(Integer id) {
-		return clienteRepository.findById(id).isPresent() ? clienteRepository.findById(id).get() : null;
+	public ClienteDTO findClienteById(Integer id) {
+		return clienteRepository.findById(id).isPresent() ? converterEntidadeParaDto(clienteRepository.findById(id).get()) : null;
 	}
 
-	public Cliente saveCliente(Cliente cliente) {
-		for (Cliente clienteExistente : findAllCliente()) {
-			if (clienteExistente.getCpf() == cliente.getCpf()) {
-				throw new AlreadyExistsException("Já existe um Cliente cadastrado com o CPF: " + cliente.getCpf());
+	public ClienteDTO saveCliente(ClienteDTO clienteDTO) {
+		for (ClienteDTO clienteExistente : findAllCliente()) {
+			if (clienteExistente.getCpf() == clienteDTO.getCpf()) {
+				throw new AlreadyExistsException("Já existe um Cliente cadastrado com o CPF: " + clienteDTO.getCpf());
 			}
 
-			if (clienteExistente.getEmail() == cliente.getEmail()) {
-				throw new AlreadyExistsException("Já existe um Cliente cadastrado com o E-mail: " + cliente.getEmail());
+			if (clienteExistente.getEmail() == clienteDTO.getEmail()) {
+				throw new AlreadyExistsException("Já existe um Cliente cadastrado com o E-mail: " + clienteDTO.getEmail());
 			}
 		}
+
+		Cliente clienteSalvo = clienteRepository.save(convertDTOToEntidade(clienteDTO));
 		
-		return clienteRepository.save(cliente);
+		return findClienteById(clienteSalvo.getIdCliente());
 	}
 
-	public Cliente updateCliente(Cliente cliente) {
-		if (cliente.getCpf() != null) {
-			for (Cliente clienteExistente : findAllCliente()) {
-				if (clienteExistente.getCpf() == cliente.getCpf()) {
-					throw new AlreadyExistsException("Já existe um Cliente cadastrado com o CPF: " + cliente.getCpf());
+	public ClienteDTO updateCliente(ClienteDTO clienteDTO) {
+		if (clienteDTO.getCpf() != null) {
+			for (ClienteDTO clienteExistente : findAllCliente()) {
+				if (clienteExistente.getCpf() == clienteDTO.getCpf()) {
+					throw new AlreadyExistsException("Já existe um Cliente cadastrado com o CPF: " + clienteDTO.getCpf());
 				}
 	
-				if (clienteExistente.getEmail() == cliente.getEmail()) {
-					throw new AlreadyExistsException("Já existe um Cliente cadastrado com o E-mail: " + cliente.getEmail());
+				if (clienteExistente.getEmail() == clienteDTO.getEmail()) {
+					throw new AlreadyExistsException("Já existe um Cliente cadastrado com o E-mail: " + clienteDTO.getEmail());
 				}
 			}
 		}
+
+		Cliente clienteSalvo = clienteRepository.save(convertDTOToEntidade(clienteDTO));
 		
-		return clienteRepository.save(cliente);
+		return findClienteById(clienteSalvo.getIdCliente());
 	}
 
 	public void deleteClienteById(Integer id) {
@@ -68,20 +82,19 @@ public class ClienteService {
 		cliente.setTelefone(clienteDTO.getTelefone());
 		cliente.getEndereco().setIdEndereco(clienteDTO.getEnderecoDTO().getIdEndereco());
 		
-		
 		return cliente;
 	}
 		
 	private ClienteDTO converterEntidadeParaDto(Cliente cliente) {
 		ClienteDTO clienteDTO = new ClienteDTO();
 		clienteDTO.setIdCliente(cliente.getIdCliente());
-		clienteDTO.setIdCliente(cliente.getIdCliente());
 		clienteDTO.setCpf(cliente.getCpf());
 		clienteDTO.setDataNascimento(cliente.getDataNascimento());
 		clienteDTO.setEmail(cliente.getEmail());
 		clienteDTO.setNomeCompleto(cliente.getNomeCompleto());
 		clienteDTO.setTelefone(cliente.getTelefone());
-		clienteDTO.getEnderecoDTO().setIdEndereco(cliente.getEndereco().getIdEndereco());
+		clienteDTO.setEnderecoDTO(enderecoService.converterEntidadeParaDto(cliente.getEndereco()));
+		
 		return clienteDTO;
 	}
 
