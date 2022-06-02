@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.residencia.ecommerce.dto.ItemPedidoDTO;
+import com.residencia.ecommerce.dto.ProdutoDTO;
 import com.residencia.ecommerce.entity.ItemPedido;
 import com.residencia.ecommerce.repository.ItemPedidoRepository;
 
@@ -64,6 +65,12 @@ public class ItemPedidoService {
 		itemPedido.setQuantidadeProduto(itemPedidoDTO.getQuantidadeProduto());
 		itemPedido.setValorBruto(itemPedidoDTO.getValorBruto());
 		itemPedido.setValorLiquido(itemPedidoDTO.getValorLiquido());
+
+		ProdutoDTO produtoUpdated = produtoService.findProdutoById(itemPedidoDTO.getIdProduto());
+		
+		produtoUpdated.setQtdEstoque(produtoUpdated.getQtdEstoque() - itemPedido.getQuantidadeProduto());
+
+		produtoService.updateProduto(produtoUpdated);
 
 		return itemPedido;
 	}
