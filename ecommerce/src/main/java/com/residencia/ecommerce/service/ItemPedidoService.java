@@ -70,7 +70,7 @@ public class ItemPedidoService {
 		
 		produtoUpdated.setQtdEstoque(produtoUpdated.getQtdEstoque() - itemPedido.getQuantidadeProduto());
 
-		produtoService.updateProduto(produtoUpdated);
+		produtoService.updateProduto(produtoUpdated, produtoUpdated.getIdProduto());
 
 		return itemPedido;
 	}
