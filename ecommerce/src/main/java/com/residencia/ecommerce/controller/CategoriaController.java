@@ -18,6 +18,8 @@ import com.residencia.ecommerce.dto.CategoriaDTO;
 import com.residencia.ecommerce.exception.NoSuchElementFoundException;
 import com.residencia.ecommerce.service.CategoriaService;
 
+import io.swagger.v3.oas.annotations.Operation;
+
 @RestController
 @RequestMapping("/categoria")
 public class CategoriaController {
@@ -26,6 +28,7 @@ public class CategoriaController {
 	CategoriaService categoriaService;
 
 	@GetMapping
+	@Operation(summary = "Lista todas as categorias.")
 	public ResponseEntity<List<CategoriaDTO>> findAllCategoria() {
 		List<CategoriaDTO> categoriaList = categoriaService.findAllCategoria();
 
@@ -33,6 +36,7 @@ public class CategoriaController {
 	}
 
 	@GetMapping("/{id}")
+	@Operation(summary = "Lista uma categoria atráves de um id.")
 	public ResponseEntity<CategoriaDTO> findCategoriaById(@PathVariable Integer id) {
 
 		CategoriaDTO categoriaDTO = categoriaService.findCategoriaById(id);
@@ -45,16 +49,19 @@ public class CategoriaController {
 	}
 
 	@PostMapping
+	@Operation(summary = "Cria uma nova categoria.")
 	public ResponseEntity<CategoriaDTO> saveCategoria(@RequestBody CategoriaDTO categoriaDTO) {
 		return new ResponseEntity<>(categoriaService.saveCategoria(categoriaDTO), HttpStatus.CREATED);
 	}
 
 	@PutMapping
+	@Operation(summary = "Atualiza uma nova categoria.")
 	public ResponseEntity<CategoriaDTO> updateCategoria(@RequestBody CategoriaDTO categoriaDTO) {
 		return new ResponseEntity<>(categoriaService.saveCategoria(categoriaDTO), HttpStatus.OK);
 	}
 
 	@DeleteMapping("/{id}")
+	@Operation(summary = "Deleta uma categoria atráves de um id.")
 	public ResponseEntity<String> deleteCategoriaById(@RequestBody Integer id) {
 
 		CategoriaDTO categoriaDTO = categoriaService.findCategoriaById(id);

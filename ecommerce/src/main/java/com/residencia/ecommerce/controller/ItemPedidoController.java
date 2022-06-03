@@ -18,6 +18,8 @@ import com.residencia.ecommerce.dto.ItemPedidoDTO;
 import com.residencia.ecommerce.exception.NoSuchElementFoundException;
 import com.residencia.ecommerce.service.ItemPedidoService;
 
+import io.swagger.v3.oas.annotations.Operation;
+
 @RestController
 @RequestMapping("/item_pedido")
 public class ItemPedidoController {
@@ -26,6 +28,7 @@ public class ItemPedidoController {
 	ItemPedidoService itemPedidoService;
 
 	@GetMapping
+	@Operation(summary = "Lista todos os ItensPedidos.")
 	public ResponseEntity<List<ItemPedidoDTO>> findAllItemPedido() {
 		List<ItemPedidoDTO> itemPedidoList = itemPedidoService.findAllItemPedido();
 
@@ -33,6 +36,7 @@ public class ItemPedidoController {
 	}
 
 	@GetMapping("/{id}")
+	@Operation(summary = "Lista um ItemPedido através de um id.")
 	public ResponseEntity<ItemPedidoDTO> findItemPedidoById(@PathVariable Integer id) {
 
 		ItemPedidoDTO itemPedidoDTO = itemPedidoService.findItemPedidoById(id);
@@ -45,22 +49,25 @@ public class ItemPedidoController {
 	}
 
 	@PostMapping
+	@Operation(summary = "Cria um novo ItemPedido.")
 	public ResponseEntity<ItemPedidoDTO> saveItemPedido(@RequestBody ItemPedidoDTO itemPedidoDTO) {
 		return new ResponseEntity<>(itemPedidoService.saveItemPedido(itemPedidoDTO), HttpStatus.CREATED);
 	}
 
 	@PutMapping
+	@Operation(summary = "Atualiza um ItemPedido.")
 	public ResponseEntity<ItemPedidoDTO> updateItemPedido(@RequestBody ItemPedidoDTO itemPedidoDTO) {
 		return new ResponseEntity<>(itemPedidoService.saveItemPedido(itemPedidoDTO), HttpStatus.OK);
 	}
 
 	@DeleteMapping("/{id}")
+	@Operation(summary = "Deleta um ItemPedido especificando um id.")
 	public ResponseEntity<String> deleteItemPedidoById(@PathVariable Integer id) {
 
 		ItemPedidoDTO itemPedidoDTO = itemPedidoService.findItemPedidoById(id);
 
 		if (itemPedidoDTO == null)
-			throw new NoSuchElementFoundException("Não existe ItemPedido com o id informado." + id);
+			throw new NoSuchElementFoundException("Não existe ItemPedido através de um id informado." + id);
 		else
 			itemPedidoService.deleteItemPedidoById(id);
 

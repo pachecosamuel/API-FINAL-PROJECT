@@ -19,6 +19,8 @@ import com.residencia.ecommerce.dto.EnderecoDTO;
 import com.residencia.ecommerce.exception.NoSuchElementFoundException;
 import com.residencia.ecommerce.service.EnderecoService;
 
+import io.swagger.v3.oas.annotations.Operation;
+
 
 
 @RestController
@@ -29,6 +31,7 @@ public class EnderecoController {
 	EnderecoService enderecoService;
 
 	@GetMapping
+	@Operation(summary = "Lista todos os endereços.")
 	public ResponseEntity<List<EnderecoDTO>> findAllEndereco() {
 		List<EnderecoDTO> enderecoList = enderecoService.findAllEndereco();
 
@@ -36,6 +39,7 @@ public class EnderecoController {
 	}
 
 	@GetMapping("/{id}")
+	@Operation(summary = "Lista um endereço através de um id.")
 	public ResponseEntity<EnderecoDTO> findEnderecoById(@PathVariable Integer id) {
 
 		EnderecoDTO enderecoDTO = enderecoService.findEnderecoById(id);
@@ -49,6 +53,7 @@ public class EnderecoController {
 	}
 
 	@GetMapping("/{cep}")
+	@Operation(summary = "Lista um endereço forcendo um cep.")
 	public ResponseEntity<EnderecoDTO> findEnderecoByCep(@PathVariable String cep) {
 
 		EnderecoDTO enderecoDTO = enderecoService.findEnderecoByCep(cep);
@@ -61,21 +66,25 @@ public class EnderecoController {
 	}
 
 	@PostMapping
+	@Operation(summary = "Cria um novo endereço.")
 	public ResponseEntity<EnderecoDTO> saveEndereco(@RequestBody EnderecoDTO enderecoDTO) {
 		return new ResponseEntity<>(enderecoService.saveEndereco(enderecoDTO), HttpStatus.CREATED);
 	}
 
 	@PostMapping("/query")
+	@Operation(summary = "Cria um novo endereço fornecendo o CEP e número. (API - ViaCEP)")
 	public ResponseEntity<EnderecoDTO> saveEnderecoViaCEP(@RequestParam String cep, @RequestParam Integer numero) {
 		return new ResponseEntity<>(enderecoService.saveEnderecoViaCEP(cep, numero), HttpStatus.CREATED);
 	}
 
 	@PutMapping
+	@Operation(summary = "Atualiza um endereço.")
 	public ResponseEntity<EnderecoDTO> updateEndereco(@RequestBody EnderecoDTO enderecoDTO) {
 		return new ResponseEntity<>(enderecoService.saveEndereco(enderecoDTO), HttpStatus.OK);
 	}
 
 	@DeleteMapping("/{id}")
+	@Operation(summary = "Deleta um endereço atráves de um id.")
 	public ResponseEntity<String> deleteEnderecoById(@PathVariable Integer id) {
 
 		EnderecoDTO enderecoDTO = enderecoService.findEnderecoById(id);

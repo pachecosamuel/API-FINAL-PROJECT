@@ -18,6 +18,8 @@ import com.residencia.ecommerce.dto.ProdutoDTO;
 import com.residencia.ecommerce.exception.NoSuchElementFoundException;
 import com.residencia.ecommerce.service.ProdutoService;
 
+import io.swagger.v3.oas.annotations.Operation;
+
 @RestController
 @RequestMapping("/produto")
 public class ProdutoController {
@@ -26,6 +28,7 @@ public class ProdutoController {
 	ProdutoService produtoService;
 
 	@GetMapping
+	@Operation(summary = "Lista todos os Produtos.")
 	public ResponseEntity<List<ProdutoDTO>> findAllProduto() {
 		List<ProdutoDTO> produtoList = produtoService.findAllProduto();
 
@@ -33,6 +36,7 @@ public class ProdutoController {
 	}
 
 	@GetMapping("/{id}")
+	@Operation(summary = "Lista um Produto através de um id.")
 	public ResponseEntity<ProdutoDTO> findProdutoById(@PathVariable Integer id) {
 
 		ProdutoDTO produtoDTO = produtoService.findProdutoById(id);
@@ -45,16 +49,19 @@ public class ProdutoController {
 	}
 
 	@PostMapping
+	@Operation(summary = "Cria um novo Produto.")
 	public ResponseEntity<ProdutoDTO> saveProduto(@RequestBody ProdutoDTO produtoDTO) {
 		return new ResponseEntity<>(produtoService.saveProduto(produtoDTO), HttpStatus.CREATED);
 	}
 
 	@PutMapping
+	@Operation(summary = "Atualiza um Produto.")
 	public ResponseEntity<ProdutoDTO> updateProduto(@RequestBody ProdutoDTO produtoDTO) {
 		return new ResponseEntity<>(produtoService.saveProduto(produtoDTO), HttpStatus.OK);
 	}
 
 	@DeleteMapping("/{id}")
+	@Operation(summary = "Deleta um Produto através de um id.")
 	public ResponseEntity<String> deleteProdutoById(@PathVariable Integer id) {
 
 		ProdutoDTO produtoDTO = produtoService.findProdutoById(id);
@@ -64,7 +71,7 @@ public class ProdutoController {
 		else
 			produtoService.deleteProdutoById(id);
 
-		return new ResponseEntity<>("...", HttpStatus.OK);
+		return new ResponseEntity<>("Produto deletado com sucesso.", HttpStatus.OK);
 
 	}
 

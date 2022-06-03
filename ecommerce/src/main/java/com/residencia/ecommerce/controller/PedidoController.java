@@ -18,6 +18,8 @@ import com.residencia.ecommerce.dto.PedidoDTO;
 import com.residencia.ecommerce.exception.NoSuchElementFoundException;
 import com.residencia.ecommerce.service.PedidoService;
 
+import io.swagger.v3.oas.annotations.Operation;
+
 @RestController
 @RequestMapping("/pedido")
 public class PedidoController {
@@ -26,6 +28,7 @@ public class PedidoController {
 	PedidoService pedidoService;
 
 	@GetMapping
+	@Operation(summary = "Lista todos os Pedidos.")
 	public ResponseEntity<List<PedidoDTO>> findAllPedido() {
 		List<PedidoDTO> pedidoList = pedidoService.findAllPedido();
 
@@ -33,6 +36,7 @@ public class PedidoController {
 	}
 
 	@GetMapping("/{id}")
+	@Operation(summary = "Lista um Pedido através de um id.")
 	public ResponseEntity<PedidoDTO> findPedidoById(@PathVariable Integer id) {
 
 		PedidoDTO pedidoDTO = pedidoService.findPedidoById(id);
@@ -45,16 +49,19 @@ public class PedidoController {
 	}
 
 	@PostMapping
+	@Operation(summary = "Cria um novo Pedido.")
 	public ResponseEntity<PedidoDTO> savePedido(@RequestBody PedidoDTO pedidoDTO) {
 		return new ResponseEntity<>(pedidoService.savePedido(pedidoDTO), HttpStatus.CREATED);
 	}
 
 	@PutMapping
+	@Operation(summary = "Atualiza um Pedido.")
 	public ResponseEntity<PedidoDTO> updatePedido(@RequestBody PedidoDTO pedidoDTO) {
 		return new ResponseEntity<>(pedidoService.savePedido(pedidoDTO), HttpStatus.OK);
 	}
 
 	@DeleteMapping("/{id}")
+	@Operation(summary = "Deleta um Pedido através de um id.")
 	public ResponseEntity<String> deletePedidoById(@PathVariable Integer id) {
 
 		PedidoDTO pedidoP = pedidoService.findPedidoById(id);
