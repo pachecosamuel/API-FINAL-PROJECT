@@ -41,7 +41,7 @@ public class Produto {
 	@Column(name = "valor_unitario", nullable = false)
 	private Double valorUnitario;
 
-	@Column(name = "imagem", nullable = false)
+	@Column(name = "imagem")
 	private String caminhoImagem;
 
 	/* id_produto irá como FK para ItemPedido */

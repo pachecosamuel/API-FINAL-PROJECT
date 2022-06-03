@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.residencia.ecommerce.dto.ProdutoDTO;
+import com.residencia.ecommerce.entity.Categoria;
 import com.residencia.ecommerce.entity.Produto;
 import com.residencia.ecommerce.exception.AlreadyExistsException;
 import com.residencia.ecommerce.repository.ProdutoRepository;
@@ -96,9 +97,12 @@ public class ProdutoService {
 
 	public Produto convertDTOToEntidade(ProdutoDTO produtoDTO) {
 		Produto produto = new Produto();
+		Categoria categoria = new Categoria();
+
+		categoria.setIdCategoria(produtoDTO.getIdCategoria());
+
 		produto.setIdProduto(produtoDTO.getIdProduto());
-		produto.getCategoria().setIdCategoria(produtoDTO.getIdCategoria());
-		produto.setDataCadastroProduto(produtoDTO.getDataCadastroProduto());
+		produto.setCategoria(categoria);
 		produto.setCaminhoImagem(produtoDTO.getCaminhoImagem());
 		produto.setDescricaoProduto(produtoDTO.getDescricaoProduto());
 		produto.setNomeProduto(produtoDTO.getNomeProduto());
@@ -109,10 +113,10 @@ public class ProdutoService {
 			produto.setDataCadastroProduto(new Date());
 		} else {
 			produto.setDataCadastroProduto(produtoDTO.getDataCadastroProduto());
+		}
 
-			if (produto.getDataCadastroProduto() == null) {
-				throw new RuntimeException("Erro ao cadastrar data do produto.");
-			}
+		if (produto.getDataCadastroProduto() == null) {
+			throw new RuntimeException("Erro ao cadastrar data do produto.");
 		}
 
 		return produto;

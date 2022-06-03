@@ -49,8 +49,11 @@ public class EnderecoService {
 		return converterEntidadeParaDto(enderecoRepository.save(convertDTOToEntidade(enderecoDTO)));
 	}
 
-	public EnderecoDTO saveEnderecoViaCEP(String cep) {
-		return converterEntidadeParaDto(enderecoRepository.save(convertDTOToEntidade(CepDTOtoEnderecoDTO(getCepDTOFromExternal(cep)))));
+	public EnderecoDTO saveEnderecoViaCEP(String cep, Integer numero) {
+		CepDTO newCepDTO = getCepDTOFromExternal(cep);
+		newCepDTO.setNumeroEndereco(numero);
+
+		return converterEntidadeParaDto(enderecoRepository.save(convertDTOToEntidade(CepDTOtoEnderecoDTO(newCepDTO))));
 	}
 
 	public EnderecoDTO updateEndereco(EnderecoDTO enderecoDTO) {

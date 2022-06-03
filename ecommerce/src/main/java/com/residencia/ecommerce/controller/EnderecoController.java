@@ -66,8 +66,8 @@ public class EnderecoController {
 	}
 
 	@PostMapping("/query")
-	public ResponseEntity<EnderecoDTO> saveEnderecoViaCEP(@RequestParam String cep) {
-		return new ResponseEntity<>(enderecoService.saveEnderecoViaCEP(cep), HttpStatus.CREATED);
+	public ResponseEntity<EnderecoDTO> saveEnderecoViaCEP(@RequestParam String cep, @RequestParam Integer numero) {
+		return new ResponseEntity<>(enderecoService.saveEnderecoViaCEP(cep, numero), HttpStatus.CREATED);
 	}
 
 	@PutMapping

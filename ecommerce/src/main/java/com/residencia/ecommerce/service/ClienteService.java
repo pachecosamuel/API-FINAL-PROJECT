@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.residencia.ecommerce.dto.ClienteDTO;
+import com.residencia.ecommerce.dto.EnderecoDTO;
 import com.residencia.ecommerce.entity.Cliente;
 import com.residencia.ecommerce.exception.AlreadyExistsException;
 import com.residencia.ecommerce.repository.ClienteRepository;
@@ -82,9 +83,11 @@ public class ClienteService {
 		cliente.setTelefone(clienteDTO.getTelefone());
 
 		if (enderecoService.findEnderecoByCep(clienteDTO.getCepEndereco()) == null) {
-			cliente.getEndereco().setIdEndereco(enderecoService.saveEnderecoViaCEP(clienteDTO.getCepEndereco()).getIdEndereco());
+			EnderecoDTO newEnderecoDTO = enderecoService.saveEnderecoViaCEP(clienteDTO.getCepEndereco(), clienteDTO.getNumeroEndereco());
+			cliente.setEndereco(enderecoService.convertDTOToEntidade(newEnderecoDTO));
 		} else {
-			cliente.getEndereco().setIdEndereco(enderecoService.findEnderecoByCep(clienteDTO.getCepEndereco()).getIdEndereco());
+			EnderecoDTO enderecoDTO = enderecoService.findEnderecoByCep(clienteDTO.getCepEndereco());
+			cliente.setEndereco(enderecoService.convertDTOToEntidade(enderecoDTO));
 		}
 		
 		return cliente;
