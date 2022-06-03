@@ -49,9 +49,9 @@ public class ProdutoController {
 		return new ResponseEntity<>(produtoService.saveProduto(produtoDTO), HttpStatus.CREATED);
 	}
 
-	@PutMapping
-	public ResponseEntity<ProdutoDTO> updateProduto(@RequestBody ProdutoDTO produtoDTO) {
-		return new ResponseEntity<>(produtoService.saveProduto(produtoDTO), HttpStatus.OK);
+	@PutMapping("/{id}")
+	public ResponseEntity<ProdutoDTO> updateProduto(@RequestBody ProdutoDTO produtoDTO, @PathVariable Integer id) {
+		return new ResponseEntity<>(produtoService.updateProduto(produtoDTO, id), HttpStatus.OK);
 	}
 
 	@DeleteMapping("/{id}")

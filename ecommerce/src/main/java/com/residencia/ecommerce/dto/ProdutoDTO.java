@@ -7,6 +7,7 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class ProdutoDTO {
@@ -25,6 +26,7 @@ public class ProdutoDTO {
 	private Integer qtdEstoque;
 
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	@JsonFormat(pattern = "dd-MM-yyyy")
 	private Date dataCadastroProduto;
 
 	@NotNull(message = "Valor unitário não informado")

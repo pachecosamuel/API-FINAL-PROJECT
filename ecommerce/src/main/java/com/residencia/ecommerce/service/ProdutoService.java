@@ -56,11 +56,33 @@ public class ProdutoService {
 		return findProdutoById(produtoSalvo.getIdProduto());
 	}
 
-	public ProdutoDTO updateProduto(ProdutoDTO produtoDTO) {
+	public ProdutoDTO updateProduto(ProdutoDTO produtoDTO, Integer id) {
 		for (ProdutoDTO produtoExistente : findAllProduto()) {
 			if (produtoExistente.getDescricaoProduto() == produtoDTO.getDescricaoProduto()) {
 				throw new AlreadyExistsException("Já existe um Produto cadastrado com a descrição passada");
 			}
+		}
+
+		produtoDTO.setIdProduto(id);
+		
+		ProdutoDTO produtoAntigoDTO = findProdutoById(id);
+
+		produtoDTO.setDataCadastroProduto(produtoAntigoDTO.getDataCadastroProduto());
+		
+		if (produtoDTO.getIdCategoria() == null) {
+			produtoDTO.setIdCategoria(produtoAntigoDTO.getCategoriaDTO().getIdCategoria());
+		}
+
+		if (produtoDTO.getNomeProduto() == null) {
+		produtoDTO.setNomeProduto(produtoAntigoDTO.getNomeProduto());
+		}
+
+		if (produtoDTO.getQtdEstoque() == null) {
+		produtoDTO.setQtdEstoque(produtoAntigoDTO.getQtdEstoque());
+		}
+
+		if (produtoDTO.getValorUnitario() == null) {
+		produtoDTO.setValorUnitario(produtoAntigoDTO.getValorUnitario());
 		}
 
 		Produto produtoSalvo = produtoRepository.save(convertDTOToEntidade(produtoDTO));
