@@ -2,6 +2,7 @@ package com.residencia.ecommerce.service;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,7 @@ public class ProdutoService {
 	public List<ProdutoDTO> findAllProduto() {
 		List<ProdutoDTO> listProdutoDTO = new ArrayList<ProdutoDTO>();
 
-		for(Produto produtoEntity : produtoRepository.findAll()){
+		for (Produto produtoEntity : produtoRepository.findAll()) {
 			listProdutoDTO.add(converterEntidadeParaDto(produtoEntity));
 		}
 
@@ -37,7 +38,9 @@ public class ProdutoService {
 	}
 
 	public ProdutoDTO findProdutoById(Integer id) {
-		return produtoRepository.findById(id).isPresent() ? converterEntidadeParaDto(produtoRepository.findById(id).get())  : null;
+		return produtoRepository.findById(id).isPresent()
+				? converterEntidadeParaDto(produtoRepository.findById(id).get())
+				: null;
 	}
 
 	public ProdutoDTO saveProduto(ProdutoDTO produtoDTO) {
@@ -81,7 +84,7 @@ public class ProdutoService {
 		filesService.saveFile(fileName, file);
 
 		produtoSaved.setCaminhoImagem(filesService.getFilePathAsString(fileName));
-		
+
 		produtoRepository.save(produtoSaved);
 
 		return converterEntidadeParaDto(produtoSaved);
@@ -90,8 +93,8 @@ public class ProdutoService {
 	public void deleteProdutoById(Integer id) {
 		produtoRepository.deleteById(id);
 	}
-	
-	public Produto convertDTOToEntidade(ProdutoDTO produtoDTO){
+
+	public Produto convertDTOToEntidade(ProdutoDTO produtoDTO) {
 		Produto produto = new Produto();
 		produto.setIdProduto(produtoDTO.getIdProduto());
 		produto.getCategoria().setIdCategoria(produtoDTO.getIdCategoria());
@@ -101,10 +104,21 @@ public class ProdutoService {
 		produto.setNomeProduto(produtoDTO.getNomeProduto());
 		produto.setQtdEstoque(produtoDTO.getQtdEstoque());
 		produto.setValorUnitario(produtoDTO.getValorUnitario());
-		
+
+		if (produto.getIdProduto() == null) {
+			produto.setDataCadastroProduto(new Date());
+		} else {
+			produto.setDataCadastroProduto(produtoDTO.getDataCadastroProduto());
+
+			if (produto.getDataCadastroProduto() == null) {
+				throw new RuntimeException("Erro ao cadastrar data do produto.");
+			}
+		}
+
 		return produto;
+
 	}
-		
+
 	public ProdutoDTO converterEntidadeParaDto(Produto produto) {
 		ProdutoDTO produtoDTO = new ProdutoDTO();
 		produtoDTO.setIdProduto(produto.getIdProduto());
