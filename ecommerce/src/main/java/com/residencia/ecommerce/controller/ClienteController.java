@@ -18,6 +18,8 @@ import com.residencia.ecommerce.dto.ClienteDTO;
 import com.residencia.ecommerce.exception.NoSuchElementFoundException;
 import com.residencia.ecommerce.service.ClienteService;
 
+import io.swagger.v3.oas.annotations.Operation;
+
 @RestController
 @RequestMapping("/cliente")
 public class ClienteController {
@@ -26,6 +28,7 @@ public class ClienteController {
 	ClienteService clienteService;
 
 	@GetMapping
+	@Operation(summary = "Lista todos os clientes.")
 	public ResponseEntity<List<ClienteDTO>> findAllCliente() {
 		List<ClienteDTO> clienteList = clienteService.findAllCliente();
 
@@ -33,6 +36,7 @@ public class ClienteController {
 	}
 
 	@GetMapping("/{id}")
+	@Operation(summary = "Lista um cliente atráves de um id.")
 	public ResponseEntity<ClienteDTO> findClienteById(@PathVariable Integer id) {
 
 		ClienteDTO clienteDTO = clienteService.findClienteById(id);
@@ -45,16 +49,21 @@ public class ClienteController {
 	}
 
 	@PostMapping
+	@Operation(summary = "Cria um novo cliente.")
 	public ResponseEntity<ClienteDTO> saveCliente(@RequestBody ClienteDTO clienteDTO) {
 		return new ResponseEntity<>(clienteService.saveCliente(clienteDTO), HttpStatus.CREATED);
 	}
 
+
 	@PutMapping("/{id}")
+	@Operation(summary = "Atualiza um cliente.")
 	public ResponseEntity<ClienteDTO> updateCliente(@RequestBody ClienteDTO clienteDTO, @PathVariable Integer id) {
 		return new ResponseEntity<>(clienteService.updateCliente(clienteDTO, id), HttpStatus.OK);
+
 	}
 
 	@DeleteMapping("/{id}")
+	@Operation(summary = "Deleta uma cliente atráves de um id.")
 	public ResponseEntity<String> deleteClienteById(@PathVariable Integer id) {
 
 		ClienteDTO clienteDTO = clienteService.findClienteById(id);
