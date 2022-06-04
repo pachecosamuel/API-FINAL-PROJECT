@@ -42,8 +42,23 @@ public class PedidoService {
 		return findPedidoById(pedidoSalvo.getIdPedido());
 	}
 
-	public PedidoDTO updatePedido(PedidoDTO pedidoDTO) {
+	public PedidoDTO updatePedido(PedidoDTO pedidoDTO, Integer id) {
 		Pedido pedidoSalvo = pedidoRepository.save(convertDTOToEntidade(pedidoDTO));
+		
+		pedidoDTO.setIdPedido(id);
+		
+		PedidoDTO pedidoAntigoDTO = findPedidoById(id);
+		
+		pedidoDTO.setDataPedido(pedidoAntigoDTO.getDataPedido());
+		
+		if (pedidoDTO.getIdCliente() == null) {
+			pedidoDTO.setIdCliente(pedidoAntigoDTO.getClienteDTO().getIdCliente());
+		}
+		
+		if (pedidoDTO.getDataPedido() == null) {
+			pedidoDTO.setDataPedido(pedidoAntigoDTO.getDataPedido());
+		}
+		
 
 		return findPedidoById(pedidoSalvo.getIdPedido());
 	}

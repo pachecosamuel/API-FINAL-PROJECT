@@ -51,7 +51,7 @@ public class ClienteService {
 		return findClienteById(clienteSalvo.getIdCliente());
 	}
 
-	public ClienteDTO updateCliente(ClienteDTO clienteDTO) {
+	public ClienteDTO updateCliente(ClienteDTO clienteDTO, Integer id) {
 		if (clienteDTO.getCpf() != null) {
 			for (ClienteDTO clienteExistente : findAllCliente()) {
 				if (clienteExistente.getCpf() == clienteDTO.getCpf()) {
@@ -63,7 +63,28 @@ public class ClienteService {
 				}
 			}
 		}
-
+		
+		clienteDTO.setIdCliente(id);
+		
+		ClienteDTO clienteAntigoDTO = findClienteById(id);
+		
+		if (clienteDTO.getCepEndereco() == null && clienteDTO.getNumeroEndereco() == null) {
+			clienteDTO.setCepEndereco(clienteAntigoDTO.getEnderecoDTO().getCep());
+			clienteDTO.setNumeroEndereco(clienteAntigoDTO.getEnderecoDTO().getNumeroEndereco());
+		}
+		
+		if (clienteDTO.getEmail() == null) {
+			clienteDTO.setEmail(clienteAntigoDTO.getEmail());
+		}
+		
+		if (clienteDTO.getNomeCompleto() == null) {
+			clienteDTO.setNomeCompleto(clienteAntigoDTO.getNomeCompleto());
+		}
+		
+		if (clienteDTO.getCpf() == null) {
+			clienteDTO.setCpf(clienteAntigoDTO.getCpf());
+		}
+		
 		Cliente clienteSalvo = clienteRepository.save(convertDTOToEntidade(clienteDTO));
 		
 		return findClienteById(clienteSalvo.getIdCliente());

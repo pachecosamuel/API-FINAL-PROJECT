@@ -14,8 +14,6 @@ import com.residencia.ecommerce.dto.EnderecoDTO;
 import com.residencia.ecommerce.entity.Endereco;
 import com.residencia.ecommerce.repository.EnderecoRepository;
 
-
-
 @Service
 public class EnderecoService {
 
@@ -34,7 +32,9 @@ public class EnderecoService {
 	}
 
 	public EnderecoDTO findEnderecoById(Integer id) {
-		return enderecoRepository.findById(id).isPresent() ? converterEntidadeParaDto(enderecoRepository.findById(id).get()) : null;
+		return enderecoRepository.findById(id).isPresent()
+				? converterEntidadeParaDto(enderecoRepository.findById(id).get())
+				: null;
 	}
 
 	public EnderecoDTO findEnderecoByCep(String cep) {
@@ -56,7 +56,32 @@ public class EnderecoService {
 		return converterEntidadeParaDto(enderecoRepository.save(convertDTOToEntidade(CepDTOtoEnderecoDTO(newCepDTO))));
 	}
 
-	public EnderecoDTO updateEndereco(EnderecoDTO enderecoDTO) {
+	public EnderecoDTO updateEndereco(EnderecoDTO enderecoDTO, Integer id) {
+
+		enderecoDTO.setIdEndereco(id);
+
+		EnderecoDTO enderecoAntigoDTO = findEnderecoById(id);
+
+		if (enderecoDTO.getCep() == null) {
+			enderecoDTO.setCep(enderecoAntigoDTO.getCep());
+		}
+
+		if (enderecoDTO.getRua() == null) {
+			enderecoDTO.setRua(enderecoAntigoDTO.getRua());
+		}
+
+		if (enderecoDTO.getBairro() == null) {
+			enderecoDTO.setBairro(enderecoAntigoDTO.getBairro());
+		}
+
+		if (enderecoDTO.getCidade() == null) {
+			enderecoDTO.setCidade(enderecoAntigoDTO.getCidade());
+		}
+
+		if (enderecoDTO.getNumeroEndereco() == null) {
+			enderecoDTO.setNumeroEndereco(enderecoAntigoDTO.getNumeroEndereco());
+		}
+
 		return converterEntidadeParaDto(enderecoRepository.save(convertDTOToEntidade(enderecoDTO)));
 	}
 

@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.residencia.ecommerce.dto.CategoriaDTO;
-
+import com.residencia.ecommerce.dto.ProdutoDTO;
 import com.residencia.ecommerce.entity.Categoria;
 
 import com.residencia.ecommerce.exception.AlreadyExistsException;
@@ -47,12 +47,22 @@ public class CategoriaService {
 		return findCategoriaById(categoriaSalvo.getIdCategoria());
 	}
 
-	public CategoriaDTO updateCategoria(CategoriaDTO categoriaDTO) {
+	public CategoriaDTO updateCategoria(CategoriaDTO categoriaDTO, Integer id) {
 		for (CategoriaDTO categoriaExistente : findAllCategoria()) {
 			if (categoriaExistente.getCategoriaDescricao() == categoriaDTO.getCategoriaDescricao()) {
 				throw new AlreadyExistsException("Já existe um categoria cadastrada com a descrição passada");
 			}
 		}
+
+		categoriaDTO.setIdCategoria(id);
+
+		CategoriaDTO categoriaAntigaDTO = findCategoriaById(id);
+
+		if (categoriaDTO.getNomeCategoria() == null) {
+			categoriaDTO.setNomeCategoria(categoriaAntigaDTO.getNomeCategoria());
+
+		}
+
 		Categoria categoriaSalvo = categoriaRepository.save(convertDTOToEntidade(categoriaDTO));
 
 		return findCategoriaById(categoriaSalvo.getIdCategoria());

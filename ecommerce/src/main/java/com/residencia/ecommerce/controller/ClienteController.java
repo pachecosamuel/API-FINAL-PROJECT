@@ -49,9 +49,9 @@ public class ClienteController {
 		return new ResponseEntity<>(clienteService.saveCliente(clienteDTO), HttpStatus.CREATED);
 	}
 
-	@PutMapping
-	public ResponseEntity<ClienteDTO> updateCliente(@RequestBody ClienteDTO clienteDTO) {
-		return new ResponseEntity<>(clienteService.saveCliente(clienteDTO), HttpStatus.OK);
+	@PutMapping("/{id}")
+	public ResponseEntity<ClienteDTO> updateCliente(@RequestBody ClienteDTO clienteDTO, @PathVariable Integer id) {
+		return new ResponseEntity<>(clienteService.updateCliente(clienteDTO, id), HttpStatus.OK);
 	}
 
 	@DeleteMapping("/{id}")

@@ -49,9 +49,9 @@ public class CategoriaController {
 		return new ResponseEntity<>(categoriaService.saveCategoria(categoriaDTO), HttpStatus.CREATED);
 	}
 
-	@PutMapping
-	public ResponseEntity<CategoriaDTO> updateCategoria(@RequestBody CategoriaDTO categoriaDTO) {
-		return new ResponseEntity<>(categoriaService.saveCategoria(categoriaDTO), HttpStatus.OK);
+	@PutMapping("/{id}")
+	public ResponseEntity<CategoriaDTO> updateCategoria(@RequestBody CategoriaDTO categoriaDTO, @PathVariable Integer id) {
+		return new ResponseEntity<>(categoriaService.updateCategoria(categoriaDTO, id), HttpStatus.OK);
 	}
 
 	@DeleteMapping("/{id}")

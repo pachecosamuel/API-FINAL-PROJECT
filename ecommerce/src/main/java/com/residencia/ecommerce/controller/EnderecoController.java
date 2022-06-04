@@ -70,9 +70,9 @@ public class EnderecoController {
 		return new ResponseEntity<>(enderecoService.saveEnderecoViaCEP(cep, numero), HttpStatus.CREATED);
 	}
 
-	@PutMapping
-	public ResponseEntity<EnderecoDTO> updateEndereco(@RequestBody EnderecoDTO enderecoDTO) {
-		return new ResponseEntity<>(enderecoService.saveEndereco(enderecoDTO), HttpStatus.OK);
+	@PutMapping("/{id}")
+	public ResponseEntity<EnderecoDTO> updateEndereco(@RequestBody EnderecoDTO enderecoDTO, @PathVariable Integer id) {
+		return new ResponseEntity<>(enderecoService.updateEndereco(enderecoDTO, id), HttpStatus.OK);
 	}
 
 	@DeleteMapping("/{id}")

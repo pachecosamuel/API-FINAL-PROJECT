@@ -45,9 +45,30 @@ public class ItemPedidoService {
 		return findItemPedidoById(itemPedidoSalvo.getIdItemPedido());
 	}
 
-	public ItemPedidoDTO updateItemPedido(ItemPedidoDTO itemPedidoDTO) {
+	public ItemPedidoDTO updateItemPedido(ItemPedidoDTO itemPedidoDTO, Integer id) {
 		ItemPedido itemPedidoSalvo = itemPedidoRepository.save(convertDTOToEntidade(itemPedidoDTO));
 	
+		itemPedidoDTO.setIdItemPedido(id);
+		
+		ItemPedidoDTO itemPedidoAntigoDTO = findItemPedidoById(id);
+		
+		if (itemPedidoDTO.getIdPedido() == null) {
+			itemPedidoDTO.setIdPedido(itemPedidoAntigoDTO.getIdPedido());
+		}
+		
+		if (itemPedidoDTO.getIdProduto() == null) {
+			itemPedidoDTO.setIdProduto(itemPedidoAntigoDTO.getProdutoDTO().getIdProduto());
+		}
+		
+		if (itemPedidoDTO.getQuantidadeProduto() == null) {
+			itemPedidoDTO.setQuantidadeProduto(itemPedidoAntigoDTO.getQuantidadeProduto());
+		}
+		
+		if (itemPedidoDTO.getPrecoVenda() == null) {
+			itemPedidoDTO.setPrecoVenda(itemPedidoAntigoDTO.getPrecoVenda());
+		}
+		
+		
 		return findItemPedidoById(itemPedidoSalvo.getIdItemPedido());
 	}
 
