@@ -67,10 +67,10 @@ public class PedidoController {
 	@Operation(summary = "Deleta um Pedido através de um id.")
 	public ResponseEntity<String> deletePedidoById(@PathVariable Integer id) {
 
-		PedidoDTO pedidoP = pedidoService.findPedidoById(id);
+		PedidoDTO pedidoDTO = pedidoService.findPedidoById(id);
 
-		if (pedidoP == null)
-			throw new NoSuchElementFoundException(" " + id);
+		if (pedidoDTO == null)
+			throw new NoSuchElementFoundException("Não foi encontrado um pedido com o id: " + id);
 		else
 			pedidoService.deletePedidoById(id);
 

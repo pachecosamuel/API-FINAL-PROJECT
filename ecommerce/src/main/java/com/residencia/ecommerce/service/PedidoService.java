@@ -70,7 +70,10 @@ public class PedidoService {
 	}
 
 	public void deletePedidoById(Integer id) {
-		findPedidoById(id).setStatus(false);
+		PedidoDTO pedidoDTOAltering = findPedidoById(id);
+		pedidoDTOAltering.setStatus(false);
+		
+		pedidoRepository.save(convertDTOToEntidade(pedidoDTOAltering));
 	}
 
 	public PedidoDTO pedidoIsActive(Integer id) {

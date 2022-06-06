@@ -133,7 +133,10 @@ public class ClienteService {
 		clienteDTO.setEmail(cliente.getEmail());
 		clienteDTO.setNomeCompleto(cliente.getNomeCompleto());
 		clienteDTO.setTelefone(cliente.getTelefone());
-		clienteDTO.setEnderecoDTO(enderecoService.converterEntidadeParaDto(cliente.getEndereco()));
+		
+		if (cliente.getEndereco() != null) {
+			clienteDTO.setEnderecoDTO(enderecoService.findEnderecoById(cliente.getEndereco().getIdEndereco()));
+		}
 		
 		return clienteDTO;
 	}

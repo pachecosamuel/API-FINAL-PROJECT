@@ -64,7 +64,7 @@ public class CategoriaController {
 
 	@DeleteMapping("/{id}")
 	@Operation(summary = "Deleta uma categoria atráves de um id.")
-	public ResponseEntity<String> deleteCategoriaById(@RequestBody Integer id) {
+	public ResponseEntity<String> deleteCategoriaById(@PathVariable Integer id) {
 
 		CategoriaDTO categoriaDTO = categoriaService.findCategoriaById(id);
 
