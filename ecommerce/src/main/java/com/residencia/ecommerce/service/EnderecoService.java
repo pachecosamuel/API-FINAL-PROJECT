@@ -60,35 +60,6 @@ public class EnderecoService {
 		return converterEntidadeParaDto(enderecoRepository.save(convertDTOToEntidade(CepDTOtoEnderecoDTO(newCepDTO))));
 	}
 
-	public EnderecoDTO updateEndereco(EnderecoDTO enderecoDTO, Integer id) {
-
-		enderecoDTO.setIdEndereco(id);
-
-		EnderecoDTO enderecoAntigoDTO = findEnderecoById(id);
-
-		if (enderecoDTO.getCep() == null) {
-			enderecoDTO.setCep(enderecoAntigoDTO.getCep());
-		}
-
-		if (enderecoDTO.getRua() == null) {
-			enderecoDTO.setRua(enderecoAntigoDTO.getRua());
-		}
-
-		if (enderecoDTO.getBairro() == null) {
-			enderecoDTO.setBairro(enderecoAntigoDTO.getBairro());
-		}
-
-		if (enderecoDTO.getCidade() == null) {
-			enderecoDTO.setCidade(enderecoAntigoDTO.getCidade());
-		}
-
-		if (enderecoDTO.getNumeroEndereco() == null) {
-			enderecoDTO.setNumeroEndereco(enderecoAntigoDTO.getNumeroEndereco());
-		}
-
-		return converterEntidadeParaDto(enderecoRepository.save(convertDTOToEntidade(enderecoDTO)));
-	}
-
 	public EnderecoDTO updateEnderecoViaCEP(Integer id, String cep, Integer numero) {
 		EnderecoDTO newEnderecoDTO = CepDTOtoEnderecoDTO(getCepDTOFromExternal(cep));
 		newEnderecoDTO.setIdEndereco(id);

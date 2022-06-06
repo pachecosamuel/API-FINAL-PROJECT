@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -65,27 +64,15 @@ public class EnderecoController {
 		}
 	}
 
-	@PostMapping
-	@Operation(summary = "Cria um novo endereço.")
-	public ResponseEntity<EnderecoDTO> saveEndereco(@RequestBody EnderecoDTO enderecoDTO) {
-		return new ResponseEntity<>(enderecoService.saveEndereco(enderecoDTO), HttpStatus.CREATED);
-	}
-
 	@PostMapping("/query")
 	@Operation(summary = "Cria um novo endereço fornecendo o CEP e número. (API - ViaCEP)")
 	public ResponseEntity<EnderecoDTO> saveEnderecoViaCEP(@RequestParam String cep, @RequestParam Integer numero) {
 		return new ResponseEntity<>(enderecoService.saveEnderecoViaCEP(cep, numero), HttpStatus.CREATED);
 	}
 
-	@PutMapping("/{id}")
-	@Operation(summary = "Atualiza um endereço.")
-	public ResponseEntity<EnderecoDTO> updateEndereco(@RequestBody EnderecoDTO enderecoDTO, @PathVariable Integer id) {
-		return new ResponseEntity<>(enderecoService.updateEndereco(enderecoDTO, id), HttpStatus.OK);
-	}
-
-	@PutMapping("/viacep/{id}")
-	@Operation(summary = "Atualiza um endereço através de um CEP e um número.")
-	public ResponseEntity<EnderecoDTO> updateEnderecoViaCEP(@PathVariable Integer id, @RequestParam String cep, @RequestParam Integer numero) {
+	@PutMapping("/{id}/query")
+	@Operation(summary = "Atualiza um endereço através de um CEP e um número. (API - ViaCEP)")
+	public ResponseEntity<EnderecoDTO> updateEndereco(@PathVariable Integer id, @RequestParam String cep, @RequestParam Integer numero) {
 		return new ResponseEntity<>(enderecoService.updateEnderecoViaCEP(id, cep, numero), HttpStatus.OK);
 	}
 
@@ -96,7 +83,7 @@ public class EnderecoController {
 		EnderecoDTO enderecoDTO = enderecoService.findEnderecoById(id);
 
 		if (enderecoDTO == null)
-			throw new NoSuchElementFoundException(" " + id);
+			throw new NoSuchElementFoundException("Não foi encontrado um Endereço cadastrado com o id: " + id);
 		else
 			enderecoService.deleteEnderecoById(id);
 		return new ResponseEntity<>("Endereco deletado com sucesso.", HttpStatus.OK);
