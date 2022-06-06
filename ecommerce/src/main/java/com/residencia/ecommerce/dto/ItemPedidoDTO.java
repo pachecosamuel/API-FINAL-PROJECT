@@ -1,21 +1,38 @@
 package com.residencia.ecommerce.dto;
 
+import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class ItemPedidoDTO {
+
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	private Integer idItemPedido;
 
+	@NotNull(message = "Quantidade do produto não informado.")
 	private Integer quantidadeProduto;
 
-	private Float precoVenda;
+	@NotNull(message = "Preço de venda não informado.")
+	private Double precoVenda;
 
-	private Float percentualDesconto;
+	@NotNull(message = "Percentual de desconto não informado.")
+	private Double percentualDesconto;
 
-	private Float valorBruto;
+	@NotNull(message = "Valor bruto não informado.")
+	private Double valorBruto;
 
-	private Float valorLiquido;
+	@NotNull(message = "Valor líquido não informado.")
+	private Double valorLiquido;
 
+	@NotNull(message = "O id do Pedido não pode ser nulo")
+	private Integer idPedido;
+
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	private ProdutoDTO produtoDTO;
 
-	private PedidoDTO pedidoDTO;
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+	@NotNull(message = "O id do Produto não pode ser nulo.")
+	private Integer idProduto;
 
 	public Integer getIdItemPedido() {
 		return idItemPedido;
@@ -33,35 +50,35 @@ public class ItemPedidoDTO {
 		this.quantidadeProduto = quantidadeProduto;
 	}
 
-	public Float getPrecoVenda() {
+	public Double getPrecoVenda() {
 		return precoVenda;
 	}
 
-	public void setPrecoVenda(Float precoVenda) {
+	public void setPrecoVenda(Double precoVenda) {
 		this.precoVenda = precoVenda;
 	}
 
-	public Float getPercentualDesconto() {
+	public Double getPercentualDesconto() {
 		return percentualDesconto;
 	}
 
-	public void setPercentualDesconto(Float percentualDesconto) {
+	public void setPercentualDesconto(Double percentualDesconto) {
 		this.percentualDesconto = percentualDesconto;
 	}
 
-	public Float getValorBruto() {
+	public Double getValorBruto() {
 		return valorBruto;
 	}
 
-	public void setValorBruto(Float valorBruto) {
+	public void setValorBruto(Double valorBruto) {
 		this.valorBruto = valorBruto;
 	}
 
-	public Float getValorLiquido() {
+	public Double getValorLiquido() {
 		return valorLiquido;
 	}
 
-	public void setValorLiquido(Float valorLiquido) {
+	public void setValorLiquido(Double valorLiquido) {
 		this.valorLiquido = valorLiquido;
 	}
 
@@ -73,12 +90,20 @@ public class ItemPedidoDTO {
 		this.produtoDTO = produtoDTO;
 	}
 
-	public PedidoDTO getPedidoDTO() {
-		return pedidoDTO;
-	}
+    public Integer getIdProduto() {
+        return idProduto;
+    }
 
-	public void setPedidoDTO(PedidoDTO pedidoDTO) {
-		this.pedidoDTO = pedidoDTO;
-	}
+    public void setIdProduto(Integer idProduto) {
+        this.idProduto = idProduto;
+    }
+
+    public Integer getIdPedido() {
+        return idPedido;
+    }
+
+    public void setIdPedido(Integer idPedido) {
+        this.idPedido = idPedido;
+    }
 
 }

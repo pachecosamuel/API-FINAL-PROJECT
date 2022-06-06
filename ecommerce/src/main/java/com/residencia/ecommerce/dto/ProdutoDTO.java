@@ -2,23 +2,45 @@ package com.residencia.ecommerce.dto;
 
 import java.util.Date;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Length;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class ProdutoDTO {
 
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	private Integer idProduto;
 
+	@NotBlank(message = "Nome do produto não informado.")
 	private String nomeProduto;
 
+	@NotBlank(message = "Descrição do produto não informado.")
+	@Length(max = 100, message = "A descrição deverá ter no máximo {100} caracteres")
 	private String descricaoProduto;
 
+	@NotNull(message = "Quantidade em estoque não informada.")
 	private Integer qtdEstoque;
 
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	@JsonFormat(pattern = "dd-MM-yyyy")
 	private Date dataCadastroProduto;
 
-	private Float valorUnitario;
+	@NotNull(message = "Valor unitário não informado")
+	private Double valorUnitario;
 
-	private String descricaoImagem;
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	private String caminhoImagem;
 
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	private CategoriaDTO categoriaDTO;
+
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+	@NotNull(message = "O id da Categoria não pode ser nulo.")
+	private Integer idCategoria;
 
 	public Integer getIdProduto() {
 		return idProduto;
@@ -60,20 +82,20 @@ public class ProdutoDTO {
 		this.dataCadastroProduto = dataCadastroProduto;
 	}
 
-	public Float getValorUnitario() {
+	public Double getValorUnitario() {
 		return valorUnitario;
 	}
 
-	public void setValorUnitario(Float valorUnitario) {
+	public void setValorUnitario(Double valorUnitario) {
 		this.valorUnitario = valorUnitario;
 	}
 
-	public String getDescricaoImagem() {
-		return descricaoImagem;
+	public String getCaminhoImagem() {
+		return caminhoImagem;
 	}
 
-	public void setDescricaoImagem(String descricaoImagem) {
-		this.descricaoImagem = descricaoImagem;
+	public void setCaminhoImagem(String caminhoImagem) {
+		this.caminhoImagem = caminhoImagem;
 	}
 
 	public CategoriaDTO getCategoriaDTO() {
@@ -83,5 +105,13 @@ public class ProdutoDTO {
 	public void setCategoriaDTO(CategoriaDTO categoriaDTO) {
 		this.categoriaDTO = categoriaDTO;
 	}
+
+    public Integer getIdCategoria() {
+        return idCategoria;
+    }
+
+    public void setIdCategoria(Integer idCategoria) {
+        this.idCategoria = idCategoria;
+    }
 
 }

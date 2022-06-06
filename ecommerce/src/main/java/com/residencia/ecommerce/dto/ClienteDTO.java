@@ -2,20 +2,50 @@ package com.residencia.ecommerce.dto;
 
 import java.util.Date;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+
+import org.hibernate.validator.constraints.br.CPF;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class ClienteDTO {
+	
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	private Integer idCliente;
 
+	@Email(message = "E-mail inválido")
+    @NotBlank(message = "E-mail não informado")
 	private String email;
 
+	@NotBlank(message = "Nome não informado")
+    @Pattern(regexp = "^[A-Z]+(.)*", message = "Primeira letra do nome deve ser maiúscula")
 	private String nomeCompleto;
 
+	@CPF(message = "Número CPF inválido")
+    @NotBlank(message = "CPF não informado")
 	private String cpf;
 
+	@NotBlank(message = "Telefone não informado")
 	private String telefone;
 
+	@NotNull(message = "Data de nascimento não informada. (Formatação: DD-MM-YYYY)")
+	@JsonFormat(pattern = "dd-MM-yyyy")
 	private Date dataNascimento;
 
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	private EnderecoDTO enderecoDTO;
+
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+	@NotNull(message = "O CEP não pode ser nulo.")
+	private String cepEndereco;
+
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	@NotNull(message = "O Número do Endereço não pode ser nulo.")
+	private Integer numeroEndereco;
 
 	public Integer getIdCliente() {
 		return idCliente;
@@ -72,5 +102,21 @@ public class ClienteDTO {
 	public void setEnderecoDTO(EnderecoDTO enderecoDTO) {
 		this.enderecoDTO = enderecoDTO;
 	}
+
+    public String getCepEndereco() {
+        return cepEndereco;
+    }
+
+    public void setCepEndereco(String cepEndereco) {
+        this.cepEndereco = cepEndereco;
+    }
+
+    public Integer getNumeroEndereco() {
+        return numeroEndereco;
+    }
+
+    public void setNumeroEndereco(Integer numeroEndereco) {
+        this.numeroEndereco = numeroEndereco;
+    }
 
 }

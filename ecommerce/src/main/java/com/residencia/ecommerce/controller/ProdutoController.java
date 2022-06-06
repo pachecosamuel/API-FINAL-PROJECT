@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.residencia.ecommerce.entity.Produto;
+import com.residencia.ecommerce.dto.ProdutoDTO;
 import com.residencia.ecommerce.exception.NoSuchElementFoundException;
 import com.residencia.ecommerce.service.ProdutoService;
+
+import io.swagger.v3.oas.annotations.Operation;
 
 @RestController
 @RequestMapping("/produto")
@@ -26,45 +28,51 @@ public class ProdutoController {
 	ProdutoService produtoService;
 
 	@GetMapping
-	public ResponseEntity<List<Produto>> findAllProduto() {
-		List<Produto> produtoList = produtoService.findAllProduto();
+	@Operation(summary = "Lista todos os Produtos.")
+	public ResponseEntity<List<ProdutoDTO>> findAllProduto() {
+		List<ProdutoDTO> produtoList = produtoService.findAllProduto();
 
 		return new ResponseEntity<>(produtoList, HttpStatus.OK);
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<Produto> findProdutoById(@PathVariable Integer id) {
+	@Operation(summary = "Lista um Produto através de um id.")
+	public ResponseEntity<ProdutoDTO> findProdutoById(@PathVariable Integer id) {
 
-		Produto produto = produtoService.findProdutoById(id);
+		ProdutoDTO produtoDTO = produtoService.findProdutoById(id);
 
-		if (produto == null)
+		if (produtoDTO == null)
 			throw new NoSuchElementFoundException(" " + id);
 		else
-			return new ResponseEntity<>(produto, HttpStatus.OK);
+			return new ResponseEntity<>(produtoDTO, HttpStatus.OK);
 
 	}
 
 	@PostMapping
-	public ResponseEntity<Produto> saveProduto(@RequestBody Produto produto) {
-		return new ResponseEntity<>(produtoService.saveProduto(produto), HttpStatus.CREATED);
+	@Operation(summary = "Cria um novo Produto.")
+	public ResponseEntity<ProdutoDTO> saveProduto(@RequestBody ProdutoDTO produtoDTO) {
+		return new ResponseEntity<>(produtoService.saveProduto(produtoDTO), HttpStatus.CREATED);
 	}
 
-	@PutMapping
-	public ResponseEntity<Produto> updateProduto(@RequestBody Produto produto) {
-		return new ResponseEntity<>(produtoService.saveProduto(produto), HttpStatus.OK);
+
+	@PutMapping("/{id}")
+	@Operation(summary = "Atualiza um Produto.")
+	public ResponseEntity<ProdutoDTO> updateProduto(@RequestBody ProdutoDTO produtoDTO, @PathVariable Integer id) {
+		return new ResponseEntity<>(produtoService.updateProduto(produtoDTO, id), HttpStatus.OK);
 	}
 
 	@DeleteMapping("/{id}")
+	@Operation(summary = "Deleta um Produto através de um id.")
 	public ResponseEntity<String> deleteProdutoById(@PathVariable Integer id) {
 
-		Produto produto = produtoService.findProdutoById(id);
+		ProdutoDTO produtoDTO = produtoService.findProdutoById(id);
 
-		if (produto == null)
+		if (produtoDTO == null)
 			throw new NoSuchElementFoundException(" " + id);
 		else
 			produtoService.deleteProdutoById(id);
 
-		return new ResponseEntity<>("...", HttpStatus.OK);
+		return new ResponseEntity<>("Produto deletado com sucesso.", HttpStatus.OK);
 
 	}
 

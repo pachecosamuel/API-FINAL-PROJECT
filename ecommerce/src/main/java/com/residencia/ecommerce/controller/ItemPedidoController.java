@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.residencia.ecommerce.entity.ItemPedido;
+import com.residencia.ecommerce.dto.ItemPedidoDTO;
 import com.residencia.ecommerce.exception.NoSuchElementFoundException;
 import com.residencia.ecommerce.service.ItemPedidoService;
+
+import io.swagger.v3.oas.annotations.Operation;
 
 @RestController
 @RequestMapping("/item_pedido")
@@ -26,41 +28,48 @@ public class ItemPedidoController {
 	ItemPedidoService itemPedidoService;
 
 	@GetMapping
-	public ResponseEntity<List<ItemPedido>> findAllItemPedido() {
-		List<ItemPedido> itemPedidoList = itemPedidoService.findAllItemPedido();
+	@Operation(summary = "Lista todos os ItensPedidos.")
+	public ResponseEntity<List<ItemPedidoDTO>> findAllItemPedido() {
+		List<ItemPedidoDTO> itemPedidoList = itemPedidoService.findAllItemPedido();
 
 		return new ResponseEntity<>(itemPedidoList, HttpStatus.OK);
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<ItemPedido> findItemPedidoById(@PathVariable Integer id) {
+	@Operation(summary = "Lista um ItemPedido através de um id.")
+	public ResponseEntity<ItemPedidoDTO> findItemPedidoById(@PathVariable Integer id) {
 
-		ItemPedido itemPedido = itemPedidoService.findItemPedidoById(id);
+		ItemPedidoDTO itemPedidoDTO = itemPedidoService.findItemPedidoById(id);
 
-		if (itemPedido == null)
-			throw new NoSuchElementFoundException(" " + id);
+		if (itemPedidoDTO == null)
+			throw new NoSuchElementFoundException("Não existe um ItemPedido cadastrado com o id" + id);
 		else
-			return new ResponseEntity<>(itemPedido, HttpStatus.OK);
+			return new ResponseEntity<>(itemPedidoDTO, HttpStatus.OK);
 
 	}
 
 	@PostMapping
-	public ResponseEntity<ItemPedido> saveItemPedido(@RequestBody ItemPedido itemPedido) {
-		return new ResponseEntity<>(itemPedidoService.saveItemPedido(itemPedido), HttpStatus.CREATED);
+	@Operation(summary = "Cria um novo ItemPedido.")
+	public ResponseEntity<ItemPedidoDTO> saveItemPedido(@RequestBody ItemPedidoDTO itemPedidoDTO) {
+		return new ResponseEntity<>(itemPedidoService.saveItemPedido(itemPedidoDTO), HttpStatus.CREATED);
 	}
 
-	@PutMapping
-	public ResponseEntity<ItemPedido> updateItemPedido(@RequestBody ItemPedido itemPedido) {
-		return new ResponseEntity<>(itemPedidoService.saveItemPedido(itemPedido), HttpStatus.OK);
+
+	@PutMapping("/{id}")
+	@Operation(summary = "Atualiza um ItemPedido.")
+	public ResponseEntity<ItemPedidoDTO> updateItemPedido(@RequestBody ItemPedidoDTO itemPedidoDTO, @PathVariable Integer id) {
+		return new ResponseEntity<>(itemPedidoService.updateItemPedido(itemPedidoDTO, id), HttpStatus.OK);
+
 	}
 
 	@DeleteMapping("/{id}")
+	@Operation(summary = "Deleta um ItemPedido especificando um id.")
 	public ResponseEntity<String> deleteItemPedidoById(@PathVariable Integer id) {
 
-		ItemPedido itemPedido = itemPedidoService.findItemPedidoById(id);
+		ItemPedidoDTO itemPedidoDTO = itemPedidoService.findItemPedidoById(id);
 
-		if (itemPedido == null)
-			throw new NoSuchElementFoundException(" " + id);
+		if (itemPedidoDTO == null)
+			throw new NoSuchElementFoundException("Não existe ItemPedido através de um id informado." + id);
 		else
 			itemPedidoService.deleteItemPedidoById(id);
 

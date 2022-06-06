@@ -1,20 +1,44 @@
 package com.residencia.ecommerce.dto;
 
 import java.util.Date;
+import java.util.List;
+
+import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class PedidoDTO {
 
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	private Integer idPedido;
 
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	@JsonFormat(pattern = "dd-MM-yyyy")
 	private Date dataPedido;
 
+	@NotNull(message = "Data de entrega não informada. (Formatação: DD-MM-YYYY)")
+	@JsonFormat(pattern = "dd-MM-yyyy")
 	private Date dataEntrega;
 
+	@NotNull(message = "Data de envio não informado. (Formatação: DD-MM-YYYY)")
+	@JsonFormat(pattern = "dd-MM-yyyy")
 	private Date dataEnvio;
 
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	private Boolean status;
 
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	private ClienteDTO clienteDTO;
+
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	@OneToMany(mappedBy = "pedido")
+	private List<ItemPedidoDTO> listItemPedidoDTO;
+
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+	@NotNull(message = "O id do Cliente não pode ser nulo.")
+	private Integer idCliente;
 
 	public Integer getIdPedido() {
 		return idPedido;
@@ -63,5 +87,17 @@ public class PedidoDTO {
 	public void setClienteDTO(ClienteDTO clienteDTO) {
 		this.clienteDTO = clienteDTO;
 	}
+
+    public Boolean isStatus() {
+        return status;
+    }
+
+    public Integer getIdCliente() {
+        return idCliente;
+    }
+
+    public void setIdCliente(Integer idCliente) {
+        this.idCliente = idCliente;
+    }
 
 }

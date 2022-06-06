@@ -31,7 +31,7 @@ public class EmailService {
 
 	@Value("${spring.mail.port}")
 	private String mailPort;
-//blabla
+
 	@Value("${spring.mail.username}")
 	private String mailUserName;
 
@@ -93,4 +93,6 @@ public class EmailService {
 
 		return output;
 	}
+	
+	
 }
