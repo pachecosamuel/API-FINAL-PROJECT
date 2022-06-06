@@ -115,6 +115,7 @@ public class PedidoService {
 		pedidoDTO.setDataEntrega(pedido.getDataEntrega());
 		pedidoDTO.setDataEnvio(pedido.getDataEnvio());
 		pedidoDTO.setDataPedido(pedido.getDataPedido());
+		pedidoDTO.setStatus(pedido.getStatus());
 
 		if (!pedido.getItemPedidoList().isEmpty()) {
 			pedidoDTO.setValorTotal(calcService.calcValorTotal(pedido.getItemPedidoList()));
