@@ -103,7 +103,7 @@ public class ClienteService {
 		cliente.setNomeCompleto(clienteDTO.getNomeCompleto());
 		cliente.setTelefone(clienteDTO.getTelefone());
 
-		if (enderecoService.findEnderecoByCep(clienteDTO.getCepEndereco()) == null) {
+		if (enderecoService.findEnderecoByCep(clienteDTO.getCepEndereco()).isEmpty()) {
 			EnderecoDTO newEnderecoDTO = enderecoService.saveEnderecoViaCEP(clienteDTO.getCepEndereco(), clienteDTO.getNumeroEndereco());
 			if (clienteDTO.getComplemento() != null) {
 				newEnderecoDTO.setComplemento(clienteDTO.getComplemento());
