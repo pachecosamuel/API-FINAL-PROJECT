@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -42,6 +43,12 @@ public class ProdutoService {
 		return produtoRepository.findById(id).isPresent()
 				? converterEntidadeParaDto(produtoRepository.findById(id).get())
 				: null;
+	}
+
+	public Resource getFileFromProdutoById(Integer id) throws IOException {
+		String fileName = "produto." + findProdutoById(id).getIdProduto() + ".image.png";
+
+		return filesService.getFile(fileName);
 	}
 
 	public ProdutoDTO saveProduto(ProdutoDTO produtoDTO) {
@@ -111,6 +118,21 @@ public class ProdutoService {
 		produtoRepository.save(produtoSaved);
 
 		return converterEntidadeParaDto(produtoSaved);
+	}
+
+	public ProdutoDTO updateProdutoImage(Integer id, MultipartFile file) throws IOException {
+		ProdutoDTO produtoAltering = findProdutoById(id);
+
+		String fileName = "produto." + produtoAltering.getIdProduto() + ".image.png";
+
+		filesService.saveFile(fileName, file);
+
+		produtoAltering.setCaminhoImagem(filesService.getFilePathAsString(fileName));
+		produtoAltering.setIdCategoria(produtoAltering.getCategoriaDTO().getIdCategoria());
+
+		Produto produtoAltered = produtoRepository.save(convertDTOToEntidade(produtoAltering));
+
+		return converterEntidadeParaDto(produtoAltered);
 	}
 
 	public void deleteProdutoById(Integer id) {
