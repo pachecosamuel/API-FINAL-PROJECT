@@ -52,6 +52,9 @@ public class ClienteDTO {
 	@NotNull(message = "O Número do Endereço não pode ser nulo.")
 	private Integer numeroEndereco;
 
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+	private String complemento;
+
 	public Integer getIdCliente() {
 		return idCliente;
 	}
@@ -122,6 +125,14 @@ public class ClienteDTO {
 
     public void setNumeroEndereco(Integer numeroEndereco) {
         this.numeroEndereco = numeroEndereco;
+    }
+
+    public String getComplemento() {
+        return complemento;
+    }
+
+    public void setComplemento(String complemento) {
+        this.complemento = complemento;
     }
 
 }

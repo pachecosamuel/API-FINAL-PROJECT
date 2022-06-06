@@ -105,10 +105,18 @@ public class ClienteService {
 
 		if (enderecoService.findEnderecoByCep(clienteDTO.getCepEndereco()) == null) {
 			EnderecoDTO newEnderecoDTO = enderecoService.saveEnderecoViaCEP(clienteDTO.getCepEndereco(), clienteDTO.getNumeroEndereco());
+			if (clienteDTO.getComplemento() != null) {
+				newEnderecoDTO.setComplemento(clienteDTO.getComplemento());
+			}
+			
 			cliente.setEndereco(enderecoService.convertDTOToEntidade(newEnderecoDTO));
 		} else {
 			for (EnderecoDTO enderecoDTO : enderecoService.findEnderecoByCep(clienteDTO.getCepEndereco())) {
 				if (enderecoDTO.getNumeroEndereco() == clienteDTO.getNumeroEndereco()) {
+					if (clienteDTO.getComplemento() != null) {
+						enderecoDTO.setComplemento(clienteDTO.getComplemento());
+					}
+					
 					cliente.setEndereco(enderecoService.convertDTOToEntidade(enderecoDTO));
 				}
 			}
