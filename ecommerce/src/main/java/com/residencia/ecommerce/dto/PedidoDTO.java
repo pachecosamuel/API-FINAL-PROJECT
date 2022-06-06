@@ -30,6 +30,9 @@ public class PedidoDTO {
 	private Boolean status;
 
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	private Double valorTotal;
+
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	private ClienteDTO clienteDTO;
 
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
@@ -98,6 +101,22 @@ public class PedidoDTO {
 
     public void setIdCliente(Integer idCliente) {
         this.idCliente = idCliente;
+    }
+
+    public Double getValorTotal() {
+        return valorTotal;
+    }
+
+    public void setValorTotal(Double valorTotal) {
+        this.valorTotal = valorTotal;
+    }
+
+    public List<ItemPedidoDTO> getListItemPedidoDTO() {
+        return listItemPedidoDTO;
+    }
+
+    public void setListItemPedidoDTO(List<ItemPedidoDTO> listItemPedidoDTO) {
+        this.listItemPedidoDTO = listItemPedidoDTO;
     }
 
 }

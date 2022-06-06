@@ -12,16 +12,16 @@ public class ItemPedidoDTO {
 	@NotNull(message = "Quantidade do produto não informado.")
 	private Integer quantidadeProduto;
 
-	@NotNull(message = "Preço de venda não informado.")
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	private Double precoVenda;
 
 	@NotNull(message = "Percentual de desconto não informado.")
 	private Double percentualDesconto;
 
-	@NotNull(message = "Valor bruto não informado.")
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	private Double valorBruto;
 
-	@NotNull(message = "Valor líquido não informado.")
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	private Double valorLiquido;
 
 	@NotNull(message = "O id do Pedido não pode ser nulo")
