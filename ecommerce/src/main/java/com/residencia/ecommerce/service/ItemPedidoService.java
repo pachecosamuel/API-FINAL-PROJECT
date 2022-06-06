@@ -11,6 +11,7 @@ import com.residencia.ecommerce.dto.ProdutoDTO;
 import com.residencia.ecommerce.entity.ItemPedido;
 import com.residencia.ecommerce.entity.Pedido;
 import com.residencia.ecommerce.entity.Produto;
+import com.residencia.ecommerce.exception.TransactionNotAllowedException;
 import com.residencia.ecommerce.repository.ItemPedidoRepository;
 
 @Service
@@ -100,6 +101,10 @@ public class ItemPedidoService {
 		ProdutoDTO produtoUpdated = produtoService.findProdutoById(itemPedidoDTO.getIdProduto());
 		
 		//Atualiza o estoque do Produto consumido nesse item pedido.
+		if (produtoUpdated.getQtdEstoque() - itemPedidoDTO.getQuantidadeProduto() < 0) {
+			throw new TransactionNotAllowedException("Não há estoque suficiente para fazer essa venda. ID: " + itemPedidoDTO.getIdItemPedido());
+		}
+
 		produtoUpdated.setQtdEstoque(produtoUpdated.getQtdEstoque() - itemPedido.getQuantidadeProduto());
 
 		produtoService.updateProduto(produtoUpdated, produtoUpdated.getIdProduto());

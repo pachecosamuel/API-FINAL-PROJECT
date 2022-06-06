@@ -2,6 +2,7 @@ package com.residencia.ecommerce.dto;
 
 import java.util.Date;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -23,6 +24,7 @@ public class ProdutoDTO {
 	private String descricaoProduto;
 
 	@NotNull(message = "Quantidade em estoque não informada.")
+	@Min(value = 0, message = "Estoque do produto não pode ser menor que 0")
 	private Integer qtdEstoque;
 
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
@@ -30,6 +32,7 @@ public class ProdutoDTO {
 	private Date dataCadastroProduto;
 
 	@NotNull(message = "Valor unitário não informado")
+	@Min(value = 0, message = "Valor unitário não pode ser menor que 0")
 	private Double valorUnitario;
 
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
