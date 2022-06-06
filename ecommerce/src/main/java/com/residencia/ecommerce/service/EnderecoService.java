@@ -37,11 +37,15 @@ public class EnderecoService {
 				: null;
 	}
 
-	public EnderecoDTO findEnderecoByCep(String cep) {
+	public List<EnderecoDTO> findEnderecoByCep(String cep) {
 		if (enderecoRepository.findByCep(cep) == null) {
 			return null;
 		} else {
-			return converterEntidadeParaDto(enderecoRepository.findByCep(cep));
+			List<EnderecoDTO> enderecoDTOlist = new ArrayList<EnderecoDTO>();
+			for (Endereco endereco : enderecoRepository.findByCep(cep)) {
+				enderecoDTOlist.add(converterEntidadeParaDto(endereco));
+			}
+			return enderecoDTOlist;
 		}
 	}
 
@@ -83,6 +87,15 @@ public class EnderecoService {
 		}
 
 		return converterEntidadeParaDto(enderecoRepository.save(convertDTOToEntidade(enderecoDTO)));
+	}
+
+	public EnderecoDTO updateEnderecoViaCEP(Integer id, String cep, Integer numero) {
+		EnderecoDTO newEnderecoDTO = CepDTOtoEnderecoDTO(getCepDTOFromExternal(cep));
+		newEnderecoDTO.setIdEndereco(id);
+		newEnderecoDTO.setNumeroEndereco(numero);
+
+		Endereco updatedEndereco = enderecoRepository.save(convertDTOToEntidade(newEnderecoDTO));
+		return converterEntidadeParaDto(updatedEndereco);
 	}
 
 	public void deleteEnderecoById(Integer id) {

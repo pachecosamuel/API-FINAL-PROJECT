@@ -107,8 +107,11 @@ public class ClienteService {
 			EnderecoDTO newEnderecoDTO = enderecoService.saveEnderecoViaCEP(clienteDTO.getCepEndereco(), clienteDTO.getNumeroEndereco());
 			cliente.setEndereco(enderecoService.convertDTOToEntidade(newEnderecoDTO));
 		} else {
-			EnderecoDTO enderecoDTO = enderecoService.findEnderecoByCep(clienteDTO.getCepEndereco());
-			cliente.setEndereco(enderecoService.convertDTOToEntidade(enderecoDTO));
+			for (EnderecoDTO enderecoDTO : enderecoService.findEnderecoByCep(clienteDTO.getCepEndereco())) {
+				if (enderecoDTO.getNumeroEndereco() == clienteDTO.getNumeroEndereco()) {
+					cliente.setEndereco(enderecoService.convertDTOToEntidade(enderecoDTO));
+				}
+			}
 		}
 		
 		return cliente;

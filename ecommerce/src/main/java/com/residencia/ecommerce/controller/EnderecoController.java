@@ -54,14 +54,14 @@ public class EnderecoController {
 
 	@GetMapping("/{cep}")
 	@Operation(summary = "Lista um endereço forcendo um cep.")
-	public ResponseEntity<EnderecoDTO> findEnderecoByCep(@PathVariable String cep) {
+	public ResponseEntity<List<EnderecoDTO>> findEnderecoByCep(@PathVariable String cep) {
 
-		EnderecoDTO enderecoDTO = enderecoService.findEnderecoByCep(cep);
+		List<EnderecoDTO> enderecoDTOlist = enderecoService.findEnderecoByCep(cep);
 
-		if (enderecoDTO == null) {
+		if (enderecoDTOlist == null) {
 			throw new NoSuchElementFoundException("Não foi encontrado um Endereço com o CEP: " + cep);
 		} else {
-			return new ResponseEntity<>(enderecoDTO, HttpStatus.OK);
+			return new ResponseEntity<>(enderecoDTOlist, HttpStatus.OK);
 		}
 	}
 
@@ -77,12 +77,16 @@ public class EnderecoController {
 		return new ResponseEntity<>(enderecoService.saveEnderecoViaCEP(cep, numero), HttpStatus.CREATED);
 	}
 
-
 	@PutMapping("/{id}")
 	@Operation(summary = "Atualiza um endereço.")
 	public ResponseEntity<EnderecoDTO> updateEndereco(@RequestBody EnderecoDTO enderecoDTO, @PathVariable Integer id) {
 		return new ResponseEntity<>(enderecoService.updateEndereco(enderecoDTO, id), HttpStatus.OK);
+	}
 
+	@PutMapping("/viacep/{id}")
+	@Operation(summary = "Atualiza um endereço através de um CEP e um número.")
+	public ResponseEntity<EnderecoDTO> updateEnderecoViaCEP(@PathVariable Integer id, @RequestParam String cep, @RequestParam Integer numero) {
+		return new ResponseEntity<>(enderecoService.updateEnderecoViaCEP(id, cep, numero), HttpStatus.OK);
 	}
 
 	@DeleteMapping("/{id}")
