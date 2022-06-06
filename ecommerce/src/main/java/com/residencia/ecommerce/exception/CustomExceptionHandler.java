@@ -54,6 +54,15 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
 		return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
 	}
 
+	@ExceptionHandler(IllegalArgumentException.class)
+	public final ResponseEntity<Object> handleIllegalArgumentException(IllegalArgumentException ex, WebRequest request) {
+		List<String> details = new ArrayList<>();
+		details.add(ex.getLocalizedMessage());
+		HttpStatus httpStatus = HttpStatus.BAD_REQUEST;
+		ErrorResponse error = new ErrorResponse(httpStatus.value(), "Argumento inválido", details);
+		return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+	}
+
 	@Override
 	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
 			HttpHeaders headers, HttpStatus status, WebRequest request) {
