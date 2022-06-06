@@ -113,10 +113,10 @@ public class EnderecoService {
 		EnderecoDTO enderecoDTO = new EnderecoDTO();
 		enderecoDTO.setBairro(cepDTO.getBairro());
 		enderecoDTO.setCep(cepDTO.getCep());
-		enderecoDTO.setCidade(cepDTO.getCidade());
+		enderecoDTO.setCidade(cepDTO.getLogradouro());
 		enderecoDTO.setComplemento(cepDTO.getComplemento());
 		enderecoDTO.setNumeroEndereco(cepDTO.getNumeroEndereco());
-		enderecoDTO.setRua(cepDTO.getRua());
+		enderecoDTO.setRua(cepDTO.getLocalidade());
 		enderecoDTO.setUf(cepDTO.getUf());
 
 		return enderecoDTO;

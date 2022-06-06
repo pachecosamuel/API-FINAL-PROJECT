@@ -4,12 +4,12 @@ package com.residencia.ecommerce.dto;
 public class CepDTO {
     
 	private String cep;
-	private String rua;
+	private String logradouro;
 	private String bairro;
-	private String cidade;
-	private Integer numeroEndereco;
+	private String localidade;
 	private String complemento;
 	private String uf;
+    private Integer numeroEndereco;
 
     public String getCep() {
         return cep;
@@ -19,36 +19,12 @@ public class CepDTO {
         this.cep = cep;
     }
 
-    public String getRua() {
-        return rua;
-    }
-
-    public void setRua(String rua) {
-        this.rua = rua;
-    }
-
     public String getBairro() {
         return bairro;
     }
 
     public void setBairro(String bairro) {
         this.bairro = bairro;
-    }
-
-    public String getCidade() {
-        return cidade;
-    }
-
-    public void setCidade(String cidade) {
-        this.cidade = cidade;
-    }
-
-    public Integer getNumeroEndereco() {
-        return numeroEndereco;
-    }
-
-    public void setNumeroEndereco(Integer numeroEndereco) {
-        this.numeroEndereco = numeroEndereco;
     }
 
     public String getComplemento() {
@@ -65,6 +41,30 @@ public class CepDTO {
 
     public void setUf(String uf) {
         this.uf = uf;
+    }
+
+    public String getLogradouro() {
+        return logradouro;
+    }
+
+    public void setLogradouro(String logradouro) {
+        this.logradouro = logradouro;
+    }
+
+    public String getLocalidade() {
+        return localidade;
+    }
+
+    public void setLocalidade(String localidade) {
+        this.localidade = localidade;
+    }
+
+    public Integer getNumeroEndereco() {
+        return numeroEndereco;
+    }
+
+    public void setNumeroEndereco(Integer numeroEndereco) {
+        this.numeroEndereco = numeroEndereco;
     }
 
 }
