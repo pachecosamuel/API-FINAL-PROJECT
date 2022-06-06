@@ -65,8 +65,7 @@ public class EnderecoService {
 		newEnderecoDTO.setIdEndereco(id);
 		newEnderecoDTO.setNumeroEndereco(numero);
 
-		Endereco updatedEndereco = enderecoRepository.save(convertDTOToEntidade(newEnderecoDTO));
-		return converterEntidadeParaDto(updatedEndereco);
+		return converterEntidadeParaDto(enderecoRepository.save(convertDTOToEntidade(newEnderecoDTO)));
 	}
 
 	public void deleteEnderecoById(Integer id) {
