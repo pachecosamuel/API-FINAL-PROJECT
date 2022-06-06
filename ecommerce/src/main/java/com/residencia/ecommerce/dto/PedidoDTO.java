@@ -18,11 +18,11 @@ public class PedidoDTO {
 	@JsonFormat(pattern = "dd-MM-yyyy")
 	private Date dataPedido;
 
-	@NotNull(message = "Data de entrega não informada. (Formatação: DD-MM-YYYY)")
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	@JsonFormat(pattern = "dd-MM-yyyy")
 	private Date dataEntrega;
 
-	@NotNull(message = "Data de envio não informado. (Formatação: DD-MM-YYYY)")
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	@JsonFormat(pattern = "dd-MM-yyyy")
 	private Date dataEnvio;
 

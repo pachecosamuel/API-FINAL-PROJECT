@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.residencia.ecommerce.dto.PedidoDTO;
+import com.residencia.ecommerce.entity.Cliente;
 import com.residencia.ecommerce.entity.Pedido;
 import com.residencia.ecommerce.repository.PedidoRepository;
 
@@ -19,6 +20,9 @@ public class PedidoService {
 
 	@Autowired
 	ClienteService clienteService;
+
+	@Autowired
+	CalcService calcService;
 
 	public List<PedidoDTO> findAllPedido() {
 		List<PedidoDTO> listPedidoDTO = new ArrayList<>();
@@ -36,10 +40,12 @@ public class PedidoService {
 		return pedidoRepository.findById(id).isPresent() ? converterEntidadeParaDto(pedidoRepository.findById(id).get()) : null;
 	}
 
-	public PedidoDTO savePedido(PedidoDTO pedidoDTO) {
-		Pedido pedidoSalvo = pedidoRepository.save(convertDTOToEntidade(pedidoDTO));
+	public PedidoDTO savePedido(Integer id) {
+		PedidoDTO newPedidoDTO = new PedidoDTO();
+		newPedidoDTO.setIdCliente(id);
+		newPedidoDTO.setStatus(false);
 
-		return findPedidoById(pedidoSalvo.getIdPedido());
+		return converterEntidadeParaDto(pedidoRepository.save(convertDTOToEntidade(newPedidoDTO)));
 	}
 
 	public PedidoDTO updatePedido(PedidoDTO pedidoDTO, Integer id) {
@@ -65,26 +71,35 @@ public class PedidoService {
 
 	public void deletePedidoById(Integer id) {
 		findPedidoById(id).setStatus(false);
-		
-		// Ao invés de deletar um Pedido apenas irá mudar para Inativo.
-		// pedidoRepository.deleteById(id);
+	}
+
+	public PedidoDTO pedidoIsActive(Integer id) {
+		PedidoDTO pedidoDTO = findPedidoById(id);
+		pedidoDTO.setStatus(true);
+
+		return updatePedido(pedidoDTO, id);
 	}
 
 	public Pedido convertDTOToEntidade(PedidoDTO pedidoDTO) {
 		Pedido pedido = new Pedido();
+
+		Cliente cliente = new Cliente();
+		cliente.setIdCliente(pedidoDTO.getIdCliente());
+		pedido.setCliente(cliente);
+
 		pedido.setIdPedido(pedidoDTO.getIdPedido());
-		pedido.getCliente().setIdCliente(pedidoDTO.getIdCliente());
 		pedido.setDataEntrega(pedidoDTO.getDataEntrega());
 		pedido.setDataEnvio(pedidoDTO.getDataEnvio());
+		pedido.setStatus(pedidoDTO.getStatus());
 
-		if (pedido.getIdPedido() == null) {
+		if (pedidoDTO.getIdPedido() == null) {
 			pedido.setDataPedido(new Date());
 		} else {
-			pedido.setDataPedido(pedidoDTO.getDataPedido());
+			pedidoDTO.setDataPedido(pedidoDTO.getDataPedido());
+		}
 
-			if(pedido.getDataPedido() == null) {
-				throw new RuntimeException("Erro ao cadastrar data do pedido.");
-			}
+		if(pedido.getDataPedido() == null) {
+			throw new RuntimeException("Erro ao cadastrar data do pedido.");
 		}
 		
 		return pedido;
@@ -97,7 +112,11 @@ public class PedidoService {
 		pedidoDTO.setDataEntrega(pedido.getDataEntrega());
 		pedidoDTO.setDataEnvio(pedido.getDataEnvio());
 		pedidoDTO.setDataPedido(pedido.getDataPedido());
-		
+
+		if (!pedido.getItemPedidoList().isEmpty()) {
+			pedidoDTO.setValorTotal(calcService.calcValorTotal(pedido.getItemPedidoList()));
+		}
+
 		return pedidoDTO;
 	}
 
