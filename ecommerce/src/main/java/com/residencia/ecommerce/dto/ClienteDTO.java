@@ -6,6 +6,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.br.CPF;
 
@@ -19,17 +20,21 @@ public class ClienteDTO {
 
 	@Email(message = "E-mail inválido")
     @NotBlank(message = "E-mail não informado")
+	@Size(max = 100, message = "O email deverá ter no máximo 100 caracteres")
 	private String email;
 
 	@NotBlank(message = "Nome não informado")
     @Pattern(regexp = "^[A-Z]+(.)*", message = "Primeira letra do nome deve ser maiúscula")
+	@Size(max = 100, message = "O nome deverá ter no máximo 100 caracteres")
 	private String nomeCompleto;
 
 	@CPF(message = "Número CPF inválido")
     @NotBlank(message = "CPF não informado")
+	@Size(min = 14, max = 14, message = "O CPF deverá ter 14 caracteres (Sem traços, pontos, e barras)")
 	private String cpf;
 
 	@NotBlank(message = "Telefone não informado")
+	@Size(min = 10, max = 11, message = "O telefone deverá ter entre 10 e 11 caracteres (Incluindo DDD, sem traços, pontos, barras, espaços em branco)")
 	private String telefone;
 
 	@NotNull(message = "Data de nascimento não informada. (Formatação: DD-MM-YYYY)")

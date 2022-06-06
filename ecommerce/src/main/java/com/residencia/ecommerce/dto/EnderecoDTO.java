@@ -2,8 +2,7 @@ package com.residencia.ecommerce.dto;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-
-import org.hibernate.validator.constraints.Length;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -13,26 +12,30 @@ public class EnderecoDTO {
 	private Integer idEndereco;
 
 	@NotBlank(message = "CEP não informado.")
-	@Length(min = 8, max = 9, message = "Tamanho do CEP não corresponde ao esperado. 8 caracteres sem pontuação, 9 caracteres com pontuação")
+	@Size(min = 8, max = 8, message = "CEP deve conter 8 caracteres (Sem traços, pontos, e barras)")
 	private String cep;
 
 	@NotBlank(message = "Rua não informada.")
+	@Size(max = 100, message = "O nome da rua deverá ter no máximo 100 caracteres")
 	private String rua;
 
 	@NotBlank(message = "Bairro não informado.")
+	@Size(max = 50, message = "O nome do bairro deverá ter no máximo 50 caracteres")
 	private String bairro;
 
 	@NotBlank(message = "Cidade não informada.")
+	@Size(max = 30, message = "O nome da cidade deverá ter no máximo 30 caracteres")
 	private String cidade;
 
 	@NotNull(message = "Número não informado.")
 	private Integer numeroEndereco;
 
 	@NotBlank(message = "Complemento não informado.")
+	@Size(max = 20, message = "O complemento deverá ter no máximo 20 caracteres")
 	private String complemento;
 
 	@NotBlank(message = "UF não informado.")
-	@Length(min = 2, max = 2, message = "Tamanho máximo excedido, informar UF com apenas duas letras.")
+	@Size(min = 2, max = 2, message = "UF deve conter 2 caracteres")
 	private String uf;
 
 	public Integer getIdEndereco() {

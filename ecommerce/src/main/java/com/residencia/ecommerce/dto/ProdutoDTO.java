@@ -4,8 +4,7 @@ import java.util.Date;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-
-import org.hibernate.validator.constraints.Length;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -16,10 +15,11 @@ public class ProdutoDTO {
 	private Integer idProduto;
 
 	@NotBlank(message = "Nome do produto não informado.")
+	@Size(max = 30, message = "O nome deverá ter no máximo 30 caracteres")
 	private String nomeProduto;
 
 	@NotBlank(message = "Descrição do produto não informado.")
-	@Length(max = 100, message = "A descrição deverá ter no máximo {100} caracteres")
+	@Size(max = 100, message = "A descrição deverá ter no máximo 100 caracteres")
 	private String descricaoProduto;
 
 	@NotNull(message = "Quantidade em estoque não informada.")
