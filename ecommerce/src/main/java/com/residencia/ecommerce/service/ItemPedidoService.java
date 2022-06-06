@@ -51,8 +51,6 @@ public class ItemPedidoService {
 	}
 
 	public ItemPedidoDTO updateItemPedido(ItemPedidoDTO itemPedidoDTO, Integer id) {
-		ItemPedido itemPedidoSalvo = itemPedidoRepository.save(convertDTOToEntidade(itemPedidoDTO));
-	
 		itemPedidoDTO.setIdItemPedido(id);
 		
 		ItemPedidoDTO itemPedidoAntigoDTO = findItemPedidoById(id);
@@ -72,7 +70,8 @@ public class ItemPedidoService {
 		if (itemPedidoDTO.getPrecoVenda() == null) {
 			itemPedidoDTO.setPrecoVenda(itemPedidoAntigoDTO.getPrecoVenda());
 		}
-		
+
+		ItemPedido itemPedidoSalvo = itemPedidoRepository.save(convertDTOToEntidade(itemPedidoDTO));
 		
 		return findItemPedidoById(itemPedidoSalvo.getIdItemPedido());
 	}
@@ -81,7 +80,7 @@ public class ItemPedidoService {
 		itemPedidoRepository.deleteById(id);
 	}
 
-	private ItemPedido convertDTOToEntidade(ItemPedidoDTO itemPedidoDTO) {
+	public ItemPedido convertDTOToEntidade(ItemPedidoDTO itemPedidoDTO) {
 		Pedido pedido = new Pedido();
 		pedido.setIdPedido(itemPedidoDTO.getIdPedido());
 
@@ -94,7 +93,7 @@ public class ItemPedidoService {
 		itemPedido.setProduto(produto);
 		itemPedido.setPercentualDesconto(itemPedidoDTO.getPercentualDesconto());
 		itemPedido.setQuantidadeProduto(itemPedidoDTO.getQuantidadeProduto());
-		itemPedido.setValorBruto(produtoService.findProdutoById(itemPedidoDTO.getIdPedido()).getValorUnitario());
+		itemPedido.setValorBruto(produtoService.findProdutoById(itemPedidoDTO.getIdProduto()).getValorUnitario());
 		itemPedido.setPrecoVenda(calcService.calcPrecoVenda(itemPedido.getValorBruto(), itemPedidoDTO.getQuantidadeProduto(), itemPedidoDTO.getPercentualDesconto()));
 		itemPedido.setValorLiquido(calcService.calcValorLiquido(itemPedido.getValorBruto(), itemPedidoDTO.getPercentualDesconto()));
 
@@ -108,11 +107,11 @@ public class ItemPedidoService {
 		return itemPedido;
 	}
 
-	private ItemPedidoDTO converterEntidadeParaDto(ItemPedido itemPedido) {
+	public ItemPedidoDTO converterEntidadeParaDto(ItemPedido itemPedido) {
 		ItemPedidoDTO itemPedidoDTO = new ItemPedidoDTO();
 		itemPedidoDTO.setIdItemPedido(itemPedido.getIdItemPedido());
 		itemPedidoDTO.setIdPedido(itemPedido.getPedido().getIdPedido());
-		itemPedidoDTO.setProdutoDTO(produtoService.converterEntidadeParaDto(itemPedido.getProduto()));
+		itemPedidoDTO.setProdutoDTO(produtoService.findProdutoById(itemPedido.getProduto().getIdProduto()));
 		itemPedidoDTO.setPrecoVenda(itemPedido.getPrecoVenda());
 		itemPedidoDTO.setPercentualDesconto(itemPedido.getPercentualDesconto());
 		itemPedidoDTO.setQuantidadeProduto(itemPedido.getQuantidadeProduto());

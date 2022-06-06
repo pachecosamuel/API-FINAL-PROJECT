@@ -65,7 +65,7 @@ public class ProdutoService {
 
 	public ProdutoDTO updateProduto(ProdutoDTO produtoDTO, Integer id) {
 		for (ProdutoDTO produtoExistente : findAllProduto()) {
-			if (produtoExistente.getDescricaoProduto() == produtoDTO.getDescricaoProduto()) {
+			if (produtoExistente.getDescricaoProduto() == produtoDTO.getDescricaoProduto() && produtoExistente.getIdProduto() != produtoDTO.getIdProduto()) {
 				throw new AlreadyExistsException("Já existe um Produto cadastrado com a descrição passada");
 			}
 		}

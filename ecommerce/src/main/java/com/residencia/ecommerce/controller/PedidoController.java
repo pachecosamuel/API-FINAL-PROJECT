@@ -2,6 +2,8 @@ package com.residencia.ecommerce.controller;
 
 import java.util.List;
 
+import javax.mail.MessagingException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -55,12 +57,17 @@ public class PedidoController {
 		return new ResponseEntity<>(pedidoService.savePedido(cliente), HttpStatus.CREATED);
 	}
 
-
 	@PutMapping("/{id}")
 	@Operation(summary = "Atualiza um Pedido.")
 	public ResponseEntity<PedidoDTO> updatePedido(@RequestBody PedidoDTO pedidoDTO, @PathVariable Integer id) {
 		return new ResponseEntity<>(pedidoService.updatePedido(pedidoDTO, id), HttpStatus.OK);
 
+	}
+
+	@PutMapping("/{id}/active")
+	@Operation(summary = "Declara um pedido como ativo e preparado para envio, gerando data estimada de envio e entrega automaticamente.")
+	public ResponseEntity<PedidoDTO> activePedido(@PathVariable Integer id) throws MessagingException {
+		return new ResponseEntity<>(pedidoService.pedidoIsActive(id), HttpStatus.OK);
 	}
 
 	@DeleteMapping("/{id}")

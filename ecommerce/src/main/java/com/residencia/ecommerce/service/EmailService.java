@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
-import com.residencia.ecommerce.entity.Pedido;
+import com.residencia.ecommerce.dto.PedidoDTO;
 
 @Service
 public class EmailService {
@@ -57,11 +57,11 @@ public class EmailService {
 		mailSender.send(smm);
 	}
 
-	public void sendEmailHTML(String recipient, String subject, Pedido pedido) throws MessagingException {
+	public void sendEmailHTML(String recipient, String subject, PedidoDTO pedidoDTO) throws MessagingException {
 		MimeMessage mimeMessage = mailSender.createMimeMessage();
 		MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, "utf-8");
 
-		helper.setText(generateEmailHTML(pedido), true);
+		helper.setText(generateEmailHTML(pedidoDTO), true);
 		helper.setTo(recipient);
 		helper.setSubject(subject);
 		helper.setFrom(mailDefault);
@@ -69,18 +69,18 @@ public class EmailService {
 		mailSender.send(mimeMessage);
 	}
 	// Tem que testar!!! -- Mateus
-	private String generateEmailHTML(Pedido pedido) {
+	private String generateEmailHTML(PedidoDTO pedidoDTO) {
 		Map<String, Object> variables = new HashMap<>();
-		variables.put("idPedido", pedido.getIdPedido());
-		variables.put("dataPedido", pedido.getDataPedido());
-		variables.put("dataEntrega", pedido.getDataEntrega());
-		variables.put("dataEnvio", pedido.getDataEnvio());
-		variables.put("idCliente", pedido.getCliente().getIdCliente());
-		variables.put("clienteNome", pedido.getCliente().getNomeCompleto());
-		variables.put("listaDeItems", pedido.getItemPedidoList());
+		variables.put("idPedido", pedidoDTO.getIdPedido());
+		variables.put("dataPedido", pedidoDTO.getDataPedido());
+		variables.put("dataEntrega", pedidoDTO.getDataEntrega());
+		variables.put("dataEnvio", pedidoDTO.getDataEnvio());
+		variables.put("idCliente", pedidoDTO.getClienteDTO().getIdCliente());
+		variables.put("clienteNome", pedidoDTO.getClienteDTO().getNomeCompleto());
+		variables.put("listaDeItems", pedidoDTO.getListItemPedidoDTO());
 
 		String status;
-		if (pedido.getStatus() == true) {
+		if (pedidoDTO.getStatus() == true) {
 			status = "ATIVO";
 		} else {
 			status = "INATIVO";
