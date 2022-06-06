@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import com.residencia.ecommerce.dto.ItemPedidoDTO;
 import com.residencia.ecommerce.dto.ProdutoDTO;
 import com.residencia.ecommerce.entity.ItemPedido;
+import com.residencia.ecommerce.entity.Pedido;
+import com.residencia.ecommerce.entity.Produto;
 import com.residencia.ecommerce.repository.ItemPedidoRepository;
 
 @Service
@@ -22,6 +24,9 @@ public class ItemPedidoService {
 
 	@Autowired
 	ProdutoService produtoService;
+
+	@Autowired
+	CalcService calcService;
 
 	public List<ItemPedidoDTO> findAllItemPedido() {
 
@@ -77,10 +82,16 @@ public class ItemPedidoService {
 	}
 
 	private ItemPedido convertDTOToEntidade(ItemPedidoDTO itemPedidoDTO) {
+		Pedido pedido = new Pedido();
+		pedido.setIdPedido(itemPedidoDTO.getIdPedido());
+
+		Produto produto = new Produto();
+		produto.setIdProduto(itemPedidoDTO.getIdProduto());
+
 		ItemPedido itemPedido = new ItemPedido();
 		itemPedido.setIdItemPedido(itemPedidoDTO.getIdItemPedido());
-		itemPedido.getPedido().setIdPedido(itemPedidoDTO.getIdPedido());
-		itemPedido.getProduto().setIdProduto(itemPedidoDTO.getIdPedido());
+		itemPedido.setPedido(pedido);
+		itemPedido.setProduto(produto);
 		itemPedido.setPrecoVenda(itemPedidoDTO.getPrecoVenda());
 		itemPedido.setPercentualDesconto(itemPedidoDTO.getPercentualDesconto());
 		itemPedido.setQuantidadeProduto(itemPedidoDTO.getQuantidadeProduto());
