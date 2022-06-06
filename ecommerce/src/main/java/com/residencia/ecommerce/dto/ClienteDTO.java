@@ -48,7 +48,7 @@ public class ClienteDTO {
 	@NotNull(message = "O CEP não pode ser nulo.")
 	private String cepEndereco;
 
-	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	@NotNull(message = "O Número do Endereço não pode ser nulo.")
 	private Integer numeroEndereco;
 
