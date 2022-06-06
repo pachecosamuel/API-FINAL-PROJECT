@@ -92,14 +92,15 @@ public class ItemPedidoService {
 		itemPedido.setIdItemPedido(itemPedidoDTO.getIdItemPedido());
 		itemPedido.setPedido(pedido);
 		itemPedido.setProduto(produto);
-		itemPedido.setPrecoVenda(itemPedidoDTO.getPrecoVenda());
 		itemPedido.setPercentualDesconto(itemPedidoDTO.getPercentualDesconto());
 		itemPedido.setQuantidadeProduto(itemPedidoDTO.getQuantidadeProduto());
-		itemPedido.setValorBruto(itemPedidoDTO.getValorBruto());
-		itemPedido.setValorLiquido(itemPedidoDTO.getValorLiquido());
+		itemPedido.setValorBruto(produtoService.findProdutoById(itemPedidoDTO.getIdPedido()).getValorUnitario());
+		itemPedido.setPrecoVenda(calcService.calcPrecoVenda(itemPedido.getValorBruto(), itemPedidoDTO.getQuantidadeProduto(), itemPedidoDTO.getPercentualDesconto()));
+		itemPedido.setValorLiquido(calcService.calcValorLiquido(itemPedido.getValorBruto(), itemPedidoDTO.getPercentualDesconto()));
 
 		ProdutoDTO produtoUpdated = produtoService.findProdutoById(itemPedidoDTO.getIdProduto());
 		
+		//Atualiza o estoque do Produto consumido nesse item pedido.
 		produtoUpdated.setQtdEstoque(produtoUpdated.getQtdEstoque() - itemPedido.getQuantidadeProduto());
 
 		produtoService.updateProduto(produtoUpdated, produtoUpdated.getIdProduto());
