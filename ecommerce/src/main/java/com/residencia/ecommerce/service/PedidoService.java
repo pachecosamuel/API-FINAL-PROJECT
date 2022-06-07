@@ -16,6 +16,7 @@ import com.residencia.ecommerce.entity.Cliente;
 import com.residencia.ecommerce.entity.ItemPedido;
 import com.residencia.ecommerce.entity.Pedido;
 import com.residencia.ecommerce.repository.PedidoRepository;
+import com.residencia.ecommerce.exception.NoSuchElementFoundException;
 
 @Service
 public class PedidoService {
@@ -104,6 +105,10 @@ public class PedidoService {
 	}
 
 	public PedidoDTO pedidoIsActive(Integer id) throws MessagingException {
+		if (findPedidoById(id) == null) {
+			throw new NoSuchElementFoundException("Não há pedido com o id: " + id);
+		}
+
 		PedidoDTO pedidoDTO = findPedidoById(id);
 		pedidoDTO.setStatus("ATIVO");
 
@@ -122,7 +127,7 @@ public class PedidoService {
 		Date entrega = c.getTime();
 		pedidoDTO.setDataEntrega(entrega);
 
-		emailService.sendEmailHTML("mateuspsvreis@gmail.com", "Novo Pedido Cadastrado | ID: " + pedidoDTO.getIdPedido(), pedidoDTO);
+		emailService.sendEmailHTML("nerdsincapi@gmail.com", "Novo Pedido Cadastrado | ID: " + pedidoDTO.getIdPedido(), pedidoDTO);
 
 		return updatePedido(pedidoDTO, id);
 	}
