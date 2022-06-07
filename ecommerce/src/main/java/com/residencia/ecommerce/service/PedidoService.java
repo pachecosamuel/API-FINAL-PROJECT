@@ -1,6 +1,7 @@
 package com.residencia.ecommerce.service;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -93,13 +94,18 @@ public class PedidoService {
 		pedidoDTO.setStatus(true);
 
 		// Data de envio prevista dentro de 24 horas. (Placeholder)
-		Date envio = new Date();
-		// envio.plusDays(1);
+		Date d1 = new Date();
+		Calendar c = Calendar.getInstance();
+		c.setTime(d1);
+		c.add(Calendar.DATE, 1);
+		Date envio = c.getTime();
 		pedidoDTO.setDataEnvio(envio);
 
 		//Data de entrega prevista para dentro de 7 dias após envio. (Placeholder)
-		Date entrega = envio;
-		// entrega.plusDays(7);
+		Date d2 = envio;
+		c.setTime(d2);
+		c.add(Calendar.DATE, 7);
+		Date entrega = c.getTime();
 		pedidoDTO.setDataEntrega(entrega);
 
 		emailService.sendEmailHTML("godbless@godbless.com", "Testando!", pedidoDTO);
