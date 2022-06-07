@@ -15,31 +15,51 @@
         <hr>
         <ul>
             <li>
-                Data do Pedido: <span th:text="${dataPedido}"></span>
+                <b>Data do Pedido:</b> <span th:text="${dataPedido}"></span>
             </li>
 
             <li>
-                Data de Envio prevista: <span th:text="${dataEnvio}"></span>
+                <b>Data de Envio prevista:</b> <span th:text="${dataEnvio}"></span>
             </li>
 
             <li>
-                Data de Entrega prevista: <span th:text="${dataEntrega}"></span>
+                <b>Data de Entrega prevista:</b> <span th:text="${dataEntrega}"></span>
             </li>
 
             <li>
-                ID do Cliente: <span th:text="${idCliente}"></span>
+                <b>ID do Cliente:</b> <span th:text="${idCliente}"></span>
             </li>
 
             <li>
-                Nome do Cliente: <span th:text="${clienteNome}"></span>
+                <b>Nome do Cliente:</b> <span th:text="${clienteNome}"></span>
             </li>
 
             <li>
-                Endereço de Entrega: <span th:text="${endereco}"></span>
+                <b>Endereço de Entrega:</b> <span th:text="${endereco}"></span>
+                <ul>
+                    <li>
+                        <b>UF:</b> <span th:text="${uf}"></span>
+                    </li>
+                    <li>
+                        <b>Cidade:</b> <span th:text="${cidade}"></span>
+                    </li>
+                    <li>
+                        <b>Bairro:</b> <span th:text="${bairro}"></span>
+                    </li>
+                    <li>
+                        <b>Rua:</b> <span th:text="${rua}"></span>
+                    </li>
+                    <li>
+                        <b>Número:</b> <span th:text="${numero}"></span>
+                    </li>
+                    <li>
+                        <b>Complemento:</b> <span th:text="${complemento}"></span>
+                    </li>
+                </ul>
             </li>
             
             <li>
-                Lista de IDs dos Itens pedidos: <span th:text="${listaDeItems}"></span>
+                <b>Lista de IDs dos Itens pedidos:</b> <span th:text="${listaDeItems}"></span>
             </li>
         </ul>
     </body>

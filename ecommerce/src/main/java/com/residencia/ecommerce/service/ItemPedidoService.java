@@ -122,6 +122,8 @@ public class ItemPedidoService {
 		itemPedidoDTO.setQuantidadeProduto(itemPedido.getQuantidadeProduto());
 		itemPedidoDTO.setValorBruto(itemPedido.getValorBruto());
 		itemPedidoDTO.setValorLiquido(itemPedido.getValorLiquido());
+		itemPedidoDTO.setIdProduto(itemPedido.getProduto().getIdProduto());
+		itemPedidoDTO.setIdPedido(itemPedido.getPedido().getIdPedido());
 		
 		return itemPedidoDTO;
 	}

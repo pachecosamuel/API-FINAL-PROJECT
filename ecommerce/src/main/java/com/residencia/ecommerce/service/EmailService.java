@@ -74,6 +74,14 @@ public class EmailService {
 		variables.put("idCliente", pedidoDTO.getClienteDTO().getIdCliente());
 		variables.put("clienteNome", pedidoDTO.getClienteDTO().getNomeCompleto());
 
+		//Endereço
+		variables.put("uf", pedidoDTO.getClienteDTO().getEnderecoDTO().getUf());
+		variables.put("cidade", pedidoDTO.getClienteDTO().getEnderecoDTO().getCidade());
+		variables.put("bairro", pedidoDTO.getClienteDTO().getEnderecoDTO().getBairro());
+		variables.put("rua", pedidoDTO.getClienteDTO().getEnderecoDTO().getRua());
+		variables.put("numero", pedidoDTO.getClienteDTO().getEnderecoDTO().getNumeroEndereco());
+		variables.put("complemento", pedidoDTO.getClienteDTO().getEnderecoDTO().getComplemento());
+
 		List<Integer> listaIDsPedidos = new ArrayList<Integer>();
 		for (ItemPedidoDTO itemPedidoDTO : pedidoDTO.getListItemPedidoDTO()) {
 			listaIDsPedidos.add(itemPedidoDTO.getIdProduto());

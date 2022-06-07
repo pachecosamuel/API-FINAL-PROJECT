@@ -67,7 +67,10 @@ public class PedidoService {
 		
 		PedidoDTO pedidoAntigoDTO = findPedidoById(id);
 		
-		pedidoDTO.setDataPedido(pedidoAntigoDTO.getDataPedido());
+		if (pedidoDTO.getDataPedido() == null) {
+			pedidoDTO.setDataPedido(pedidoAntigoDTO.getDataPedido());
+
+		}
 		
 		if (pedidoDTO.getIdCliente() == null) {
 			pedidoDTO.setIdCliente(pedidoAntigoDTO.getClienteDTO().getIdCliente());
@@ -117,7 +120,7 @@ public class PedidoService {
 		Pedido pedido = new Pedido();
 
 		Cliente cliente = new Cliente();
-		cliente.setIdCliente(pedidoDTO.getIdCliente());
+		cliente.setIdCliente(pedidoDTO.getClienteDTO().getIdCliente());
 		pedido.setCliente(cliente);
 
 		pedido.setIdPedido(pedidoDTO.getIdPedido());
@@ -128,7 +131,7 @@ public class PedidoService {
 		if (pedidoDTO.getIdPedido() == null) {
 			pedido.setDataPedido(new Date());
 		} else {
-			pedidoDTO.setDataPedido(pedidoDTO.getDataPedido());
+			pedido.setDataPedido(pedidoDTO.getDataPedido());
 		}
 
 		if(pedido.getDataPedido() == null) {
@@ -147,19 +150,13 @@ public class PedidoService {
 		pedidoDTO.setDataPedido(pedido.getDataPedido());
 		pedidoDTO.setStatus(pedido.getStatus());
 		
+		if (pedido.getItemPedidoList() == null) {
+			pedido.setItemPedidoList(new ArrayList<ItemPedido>());
+		}
+
 		List<ItemPedidoDTO> listItemPedidoDTO = new ArrayList<ItemPedidoDTO>();
 		for (ItemPedido itemPedido : pedido.getItemPedidoList()) {
-			ItemPedidoDTO itemPedidoDTO = new ItemPedidoDTO();
-
-			itemPedidoDTO.setIdItemPedido(itemPedido.getIdItemPedido());
-			itemPedidoDTO.setIdPedido(itemPedido.getPedido().getIdPedido());
-			itemPedidoDTO.setProdutoDTO(produtoService.converterEntidadeParaDto(itemPedido.getProduto()));
-			itemPedidoDTO.setPrecoVenda(itemPedido.getPrecoVenda());
-			itemPedidoDTO.setPercentualDesconto(itemPedido.getPercentualDesconto());
-			itemPedidoDTO.setQuantidadeProduto(itemPedido.getQuantidadeProduto());
-			itemPedidoDTO.setValorBruto(itemPedido.getValorBruto());
-			itemPedidoDTO.setValorLiquido(itemPedido.getValorLiquido());
-
+			ItemPedidoDTO itemPedidoDTO = itemPedidoService.converterEntidadeParaDto(itemPedido);
 			listItemPedidoDTO.add(itemPedidoDTO);
 		}
 
