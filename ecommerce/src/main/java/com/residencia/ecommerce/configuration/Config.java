@@ -25,15 +25,26 @@ public class Config {
 		return new OpenAPI()
 				.components(new Components()
 						.addSecuritySchemes("basicScheme",
-								new SecurityScheme().type(SecurityScheme.Type.HTTP).scheme("basic"))
+							new SecurityScheme()
+								.type(SecurityScheme.Type.HTTP)
+								.scheme("basic"))
 						.addParameters("myHeader1",
-								new Parameter().in("header").schema(new StringSchema()).name("myHeader1"))
+							new Parameter()
+								.in("header")
+								.schema(new StringSchema())
+									.name("myHeader1"))
 						.addHeaders("myHeader2",
-								new Header().description("myHeader2 header").schema(new StringSchema())))
-				.info(new Info().title("Comercio API Restful Serratec").version(appVersion).description(
-						"API Exemplar de um e-Commerce em API Restful através do Serratec. Mais informaçoes sobre o Swagger: [http://swagger.io](http://swagger.io).")
-						.termsOfService("http://swagger.io/terms/")
-						.license(new License().name("Apache 2.0").url("http://springdoc.org")));
+							new Header()
+								.description("myHeader2 header")
+								.schema(new StringSchema())))
+						.info(new Info()
+							.title("e-Commerce API Restful Serratec")
+							.version(appVersion)
+							.description("API Exemplar de um e-Commerce em API Restful através do Serratec com uso de Spring Boot e outras dependências. Mais informações sobre a API: [https://github.com/pachecosamuel/API-FINAL-PROJECT](https://github.com/pachecosamuel/API-FINAL-PROJECT) | Mais informaçoes sobre o Swagger: [http://swagger.io](http://swagger.io).")
+							.termsOfService("http://swagger.io/terms/")
+						.license(new License()
+							.name("Apache 2.0")
+							.url("http://springdoc.org")));
 	}
 
 	@Bean

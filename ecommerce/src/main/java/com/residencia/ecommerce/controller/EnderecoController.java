@@ -19,11 +19,13 @@ import com.residencia.ecommerce.exception.NoSuchElementFoundException;
 import com.residencia.ecommerce.service.EnderecoService;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 
 
 @RestController
 @RequestMapping("/endereco")
+@Tag(name = "Endereço", description = "Endpoints")
 public class EnderecoController {
 
 	@Autowired

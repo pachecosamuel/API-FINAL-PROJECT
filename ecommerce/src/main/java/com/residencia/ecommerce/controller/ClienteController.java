@@ -19,9 +19,11 @@ import com.residencia.ecommerce.exception.NoSuchElementFoundException;
 import com.residencia.ecommerce.service.ClienteService;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
 @RequestMapping("/cliente")
+@Tag(name = "Cliente", description = "Endpoints")
 public class ClienteController {
 
 	@Autowired

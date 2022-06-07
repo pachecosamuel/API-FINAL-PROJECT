@@ -11,7 +11,7 @@
 	</parent>
 	<groupId>com.residencia</groupId>
 	<artifactId>ecommerce</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0</version>
 	<name>ecommerce</name>
 	<description>Desenvolvimento API e-Commerce Projeto Final</description>
 	<properties>

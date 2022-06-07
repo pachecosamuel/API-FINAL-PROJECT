@@ -19,9 +19,11 @@ import com.residencia.ecommerce.exception.NoSuchElementFoundException;
 import com.residencia.ecommerce.service.ItemPedidoService;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
 @RequestMapping("/item_pedido")
+@Tag(name = "Item Pedido", description = "Endpoints")
 public class ItemPedidoController {
 
 	@Autowired

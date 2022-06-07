@@ -19,9 +19,11 @@ import com.residencia.ecommerce.exception.NoSuchElementFoundException;
 import com.residencia.ecommerce.service.CategoriaService;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
 @RequestMapping("/categoria")
+@Tag(name = "Categoria", description = "Endpoints")
 public class CategoriaController {
 
 	@Autowired
