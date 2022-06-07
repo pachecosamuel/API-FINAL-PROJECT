@@ -73,6 +73,7 @@ public class EmailService {
 		variables.put("dataEnvio", new SimpleDateFormat("dd-MM-yyyy").format(pedidoDTO.getDataEnvio()));
 		variables.put("idCliente", pedidoDTO.getClienteDTO().getIdCliente());
 		variables.put("clienteNome", pedidoDTO.getClienteDTO().getNomeCompleto());
+		variables.put("valorTotal", String.format("%.2f", pedidoDTO.getValorTotal()));
 
 		//Endereço
 		variables.put("uf", pedidoDTO.getClienteDTO().getEnderecoDTO().getUf());

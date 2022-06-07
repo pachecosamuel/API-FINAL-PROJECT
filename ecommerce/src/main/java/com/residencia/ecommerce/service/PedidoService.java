@@ -57,7 +57,7 @@ public class PedidoService {
 	public PedidoDTO savePedido(Integer id) {
 		PedidoDTO newPedidoDTO = new PedidoDTO();
 		newPedidoDTO.setIdCliente(id);
-		newPedidoDTO.setStatus(false);
+		newPedidoDTO.setStatus("INATIVO");
 
 		return converterEntidadeParaDto(pedidoRepository.save(convertDTOToEntidade(newPedidoDTO)));
 	}
@@ -75,9 +75,17 @@ public class PedidoService {
 		if (pedidoDTO.getIdCliente() == null) {
 			pedidoDTO.setIdCliente(pedidoAntigoDTO.getClienteDTO().getIdCliente());
 		}
-		
-		if (pedidoDTO.getDataPedido() == null) {
-			pedidoDTO.setDataPedido(pedidoAntigoDTO.getDataPedido());
+
+		if (pedidoDTO.getDataEnvio() == null) {
+			pedidoDTO.setDataEnvio(pedidoAntigoDTO.getDataEnvio());
+		}
+
+		if (pedidoDTO.getDataEntrega() == null) {
+			pedidoDTO.setDataEntrega(pedidoAntigoDTO.getDataEntrega());
+		}
+
+		if (pedidoDTO.getStatus() == null) {
+			pedidoDTO.setStatus(pedidoAntigoDTO.getStatus());
 		}
 
 		Pedido pedidoSalvo = pedidoRepository.save(convertDTOToEntidade(pedidoDTO));
@@ -86,15 +94,19 @@ public class PedidoService {
 	}
 
 	public void deletePedidoById(Integer id) {
+		pedidoRepository.deleteById(id);
+	}
+
+	public void pedidoIsInactive(Integer id) {
 		PedidoDTO pedidoDTOAltering = findPedidoById(id);
-		pedidoDTOAltering.setStatus(false);
+		pedidoDTOAltering.setStatus("INATIVO");
 		
 		pedidoRepository.save(convertDTOToEntidade(pedidoDTOAltering));
 	}
 
 	public PedidoDTO pedidoIsActive(Integer id) throws MessagingException {
 		PedidoDTO pedidoDTO = findPedidoById(id);
-		pedidoDTO.setStatus(true);
+		pedidoDTO.setStatus("ATIVO");
 
 		// Data de envio prevista dentro de 24 horas. (Placeholder)
 		Date d1 = new Date();
@@ -111,22 +123,33 @@ public class PedidoService {
 		Date entrega = c.getTime();
 		pedidoDTO.setDataEntrega(entrega);
 
-		emailService.sendEmailHTML("godbless@godbless.com", "Testando!", pedidoDTO);
+		emailService.sendEmailHTML("godbless@godbless.com", "Novo Pedido Cadastrado | ID: " + pedidoDTO.getIdPedido(), pedidoDTO);
 
 		return updatePedido(pedidoDTO, id);
 	}
 
 	public Pedido convertDTOToEntidade(PedidoDTO pedidoDTO) {
 		Pedido pedido = new Pedido();
-
+		
 		Cliente cliente = new Cliente();
-		cliente.setIdCliente(pedidoDTO.getClienteDTO().getIdCliente());
+
+		if (pedidoDTO.getClienteDTO() == null) {
+			cliente.setIdCliente(pedidoDTO.getIdCliente());
+		} else {
+			cliente.setIdCliente(pedidoDTO.getClienteDTO().getIdCliente());
+		}
+
 		pedido.setCliente(cliente);
 
 		pedido.setIdPedido(pedidoDTO.getIdPedido());
 		pedido.setDataEntrega(pedidoDTO.getDataEntrega());
 		pedido.setDataEnvio(pedidoDTO.getDataEnvio());
-		pedido.setStatus(pedidoDTO.getStatus());
+
+		if (pedidoDTO.getStatus().equals("ATIVO")) {
+			pedido.setStatus(true);
+		} else if (pedidoDTO.getStatus().equals("INATIVO")) {
+			pedido.setStatus(false);
+		}
 
 		if (pedidoDTO.getIdPedido() == null) {
 			pedido.setDataPedido(new Date());
@@ -148,7 +171,12 @@ public class PedidoService {
 		pedidoDTO.setDataEntrega(pedido.getDataEntrega());
 		pedidoDTO.setDataEnvio(pedido.getDataEnvio());
 		pedidoDTO.setDataPedido(pedido.getDataPedido());
-		pedidoDTO.setStatus(pedido.getStatus());
+
+		if (pedido.getStatus() == true) {
+			pedidoDTO.setStatus("ATIVO");
+		} else {
+			pedidoDTO.setStatus("INATIVO");
+		}
 		
 		if (pedido.getItemPedidoList() == null) {
 			pedido.setItemPedidoList(new ArrayList<ItemPedido>());

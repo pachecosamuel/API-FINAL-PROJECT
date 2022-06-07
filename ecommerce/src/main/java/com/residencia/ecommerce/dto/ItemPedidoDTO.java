@@ -1,5 +1,6 @@
 package com.residencia.ecommerce.dto;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -10,6 +11,7 @@ public class ItemPedidoDTO {
 	private Integer idItemPedido;
 
 	@NotNull(message = "Quantidade do produto não informado.")
+	@Min(value = 0, message = "Não pode pedir itens em quantidade negativa.")
 	private Integer quantidadeProduto;
 
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)

@@ -58,12 +58,14 @@ public class ProdutoController {
 	@GetMapping("/{id}/image")
 	@Operation(summary = "Baixa a imagem de um produto.")
 	public ResponseEntity<Resource> getProdutoImageById(@PathVariable Integer id) throws IOException {
+		//Define header para a resposta da API para poder gerar um "link" para baixar a imagem
 		HttpHeaders header = new HttpHeaders();
         header.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=image.png");
         header.add("Cache-Control", "no-cache, no-store, must-revalidate");
         header.add("Pragma", "no-cache");
         header.add("Expires", "0");
 		
+		//Usa-se outro método de ResponseEntity para poder usar as funções .headers, .contentLength, .contentType, e .body
 		return ResponseEntity.ok()
 							 .headers(header)
 							 .contentLength(new File(findProdutoById(id).getBody().getCaminhoImagem()).length())

@@ -71,7 +71,20 @@ public class PedidoController {
 	}
 
 	@DeleteMapping("/{id}")
-	@Operation(summary = "Deleta um Pedido através de um id.")
+	@Operation(summary = "Deleta um pedido através do seu ID. (Normalmente, não se deleta pedidos. Recomendado usar o Put de Inativação.)")
+	public ResponseEntity<String> deletePedido(@PathVariable Integer id) {
+		
+		PedidoDTO pedidoDTO = pedidoService.findPedidoById(id);
+
+		if (pedidoDTO == null)
+			throw new NoSuchElementFoundException("Não existe pedido especificado com o id: " + id);
+		else
+
+		return new ResponseEntity<>("Pedido deletado com sucesso.", HttpStatus.OK);
+	}
+
+	@PutMapping("/{id}/inactive")
+	@Operation(summary = "Declara como entregue um Pedido através de um id.")
 	public ResponseEntity<String> deletePedidoById(@PathVariable Integer id) {
 
 		PedidoDTO pedidoDTO = pedidoService.findPedidoById(id);

@@ -27,7 +27,7 @@ public class PedidoDTO {
 	private Date dataEnvio;
 
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
-	private Boolean status;
+	private String status;
 
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	private Double valorTotal;
@@ -75,11 +75,11 @@ public class PedidoDTO {
 		this.dataEnvio = dataEnvio;
 	}
 
-	public Boolean getStatus() {
+	public String getStatus() {
 		return status;
 	}
 
-	public void setStatus(Boolean status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
 
@@ -90,10 +90,6 @@ public class PedidoDTO {
 	public void setClienteDTO(ClienteDTO clienteDTO) {
 		this.clienteDTO = clienteDTO;
 	}
-
-    public Boolean isStatus() {
-        return status;
-    }
 
     public Integer getIdCliente() {
         return idCliente;

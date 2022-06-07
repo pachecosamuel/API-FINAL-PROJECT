@@ -84,6 +84,24 @@ public class ClienteService {
 		if (clienteDTO.getCpf() == null) {
 			clienteDTO.setCpf(clienteAntigoDTO.getCpf());
 		}
+
+		if (clienteDTO.getComplemento() == null) {
+			if (clienteAntigoDTO.getComplemento() != null) {
+				clienteDTO.setComplemento(clienteAntigoDTO.getComplemento());
+			}
+		}
+
+		if (clienteDTO.getDataNascimento() == null) {
+			clienteDTO.setDataNascimento(clienteAntigoDTO.getDataNascimento());
+		}
+
+		if (clienteDTO.getTelefone() == null) {
+			clienteDTO.setTelefone(clienteAntigoDTO.getTelefone());
+		}
+
+		if (clienteDTO.getTelefone() == null) {
+			clienteDTO.setTelefone(clienteAntigoDTO.getTelefone());
+		}
 		
 		Cliente clienteSalvo = clienteRepository.save(convertDTOToEntidade(clienteDTO));
 		
@@ -115,6 +133,11 @@ public class ClienteService {
 				if (enderecoDTO.getNumeroEndereco() == clienteDTO.getNumeroEndereco()) {
 					if (clienteDTO.getComplemento() != null) {
 						enderecoDTO.setComplemento(clienteDTO.getComplemento());
+					} else {
+						EnderecoDTO newEnderecoDTO = enderecoService.saveEnderecoViaCEP(clienteDTO.getCepEndereco(), clienteDTO.getNumeroEndereco());
+						if (clienteDTO.getComplemento() != null) {
+							newEnderecoDTO.setComplemento(clienteDTO.getComplemento());
+						}
 					}
 					
 					cliente.setEndereco(enderecoService.convertDTOToEntidade(enderecoDTO));

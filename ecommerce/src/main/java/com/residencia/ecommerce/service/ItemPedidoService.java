@@ -72,6 +72,10 @@ public class ItemPedidoService {
 			itemPedidoDTO.setPrecoVenda(itemPedidoAntigoDTO.getPrecoVenda());
 		}
 
+		if (itemPedidoDTO.getPercentualDesconto() == null) {
+			itemPedidoDTO.setPercentualDesconto(itemPedidoAntigoDTO.getPercentualDesconto());
+		}
+
 		ItemPedido itemPedidoSalvo = itemPedidoRepository.save(convertDTOToEntidade(itemPedidoDTO));
 		
 		return findItemPedidoById(itemPedidoSalvo.getIdItemPedido());
@@ -95,19 +99,19 @@ public class ItemPedidoService {
 		itemPedido.setPercentualDesconto(itemPedidoDTO.getPercentualDesconto());
 		itemPedido.setQuantidadeProduto(itemPedidoDTO.getQuantidadeProduto());
 		itemPedido.setValorBruto(produtoService.findProdutoById(itemPedidoDTO.getIdProduto()).getValorUnitario());
-		itemPedido.setPrecoVenda(calcService.calcPrecoVenda(itemPedido.getValorBruto(), itemPedidoDTO.getQuantidadeProduto(), itemPedidoDTO.getPercentualDesconto()));
 		itemPedido.setValorLiquido(calcService.calcValorLiquido(itemPedido.getValorBruto(), itemPedidoDTO.getPercentualDesconto()));
+		itemPedido.setPrecoVenda(calcService.calcPrecoVenda(itemPedido.getValorBruto(), itemPedidoDTO.getQuantidadeProduto(), itemPedidoDTO.getPercentualDesconto()));
 
-		ProdutoDTO produtoupdated = produtoService.findProdutoById(itemPedidoDTO.getIdProduto());
+		ProdutoDTO produtoUpdated = produtoService.findProdutoById(itemPedidoDTO.getIdProduto());
 		
 		//Atualiza o estoque do Produto consumido nesse item pedido.
-		if (produtoupdated.getQtdEstoque() - itemPedidoDTO.getQuantidadeProduto() < 0) {
-			throw new TransactionNotAllowedException("Não há estoque suficiente para fazer essa venda. ID: " + itemPedidoDTO.getIdItemPedido());
+		if (produtoUpdated.getQtdEstoque() - itemPedidoDTO.getQuantidadeProduto() < 0) {
+			throw new TransactionNotAllowedException("Não há estoque suficiente para fazer essa venda. ID: " + itemPedidoDTO.getIdProduto());
 		}
 
-		produtoupdated.setQtdEstoque(produtoupdated.getQtdEstoque() - itemPedido.getQuantidadeProduto());
+		produtoUpdated.setQtdEstoque(produtoUpdated.getQtdEstoque() - itemPedido.getQuantidadeProduto());
 
-		produtoService.updateProduto(produtoupdated, produtoupdated.getIdProduto());
+		produtoService.updateProduto(produtoUpdated, produtoUpdated.getIdProduto());
 
 		return itemPedido;
 	}
