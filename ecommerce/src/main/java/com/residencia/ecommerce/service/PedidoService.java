@@ -69,7 +69,6 @@ public class PedidoService {
 		
 		if (pedidoDTO.getDataPedido() == null) {
 			pedidoDTO.setDataPedido(pedidoAntigoDTO.getDataPedido());
-
 		}
 		
 		if (pedidoDTO.getIdCliente() == null) {
@@ -123,7 +122,7 @@ public class PedidoService {
 		Date entrega = c.getTime();
 		pedidoDTO.setDataEntrega(entrega);
 
-		emailService.sendEmailHTML("godbless@godbless.com", "Novo Pedido Cadastrado | ID: " + pedidoDTO.getIdPedido(), pedidoDTO);
+		emailService.sendEmailHTML("mateuspsvreis@gmail.com", "Novo Pedido Cadastrado | ID: " + pedidoDTO.getIdPedido(), pedidoDTO);
 
 		return updatePedido(pedidoDTO, id);
 	}
@@ -157,8 +156,20 @@ public class PedidoService {
 			pedido.setDataPedido(pedidoDTO.getDataPedido());
 		}
 
-		if(pedido.getDataPedido() == null) {
+		if (pedido.getDataPedido() == null) {
 			throw new RuntimeException("Erro ao cadastrar data do pedido.");
+		}
+
+		if (pedidoDTO.getListItemPedidoDTO() == null) {
+			pedidoDTO.setListItemPedidoDTO(new ArrayList<ItemPedidoDTO>());
+		}
+
+		if (!pedidoDTO.getListItemPedidoDTO().isEmpty()) {
+			List<ItemPedido> listItemPedido = new ArrayList<ItemPedido>();
+			for (ItemPedidoDTO itemPedidoDTO : pedidoDTO.getListItemPedidoDTO()) {
+				listItemPedido.add(itemPedidoService.convertDTOToEntidade(itemPedidoDTO));
+			}
+			pedido.setItemPedidoList(listItemPedido);
 		}
 		
 		return pedido;
