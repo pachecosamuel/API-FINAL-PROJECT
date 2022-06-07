@@ -1,7 +1,10 @@
 package com.residencia.ecommerce.service;
 
+import java.nio.charset.StandardCharsets;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Locale;
+import java.util.List;
 import java.util.Map;
 
 import javax.mail.MessagingException;
@@ -9,13 +12,13 @@ import javax.mail.internet.MimeMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
-import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
+import org.thymeleaf.spring5.SpringTemplateEngine;
 
+import com.residencia.ecommerce.dto.ItemPedidoDTO;
 import com.residencia.ecommerce.dto.PedidoDTO;
 
 @Service
@@ -24,7 +27,7 @@ public class EmailService {
 	JavaMailSender mailSender;
 
 	@Autowired
-	TemplateEngine templateEngine;
+	SpringTemplateEngine springTemplateEngine;
 
 	@Value("${spring.mail.host}")
 	private String mailHost;
@@ -45,54 +48,40 @@ public class EmailService {
 		this.mailSender = mailSender;
 	}
 
-	public void sendEmailText(String recipient, String subject, String message) {
-		SimpleMailMessage smm = new SimpleMailMessage();
-
-		smm.setTo(recipient);
-		smm.setSubject(subject);
-		smm.setText(message);
-
-		smm.setFrom(mailDefault);
-
-		mailSender.send(smm);
-	}
-
 	public void sendEmailHTML(String recipient, String subject, PedidoDTO pedidoDTO) throws MessagingException {
 		MimeMessage mimeMessage = mailSender.createMimeMessage();
-		MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, "utf-8");
+		MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED, StandardCharsets.UTF_8.name());
 
-		helper.setText(generateEmailHTML(pedidoDTO), true);
+		Context context = new Context();
+		context.setVariables(mapEmail(pedidoDTO));
+
+		String html = springTemplateEngine.process("pedido", context);
+
 		helper.setTo(recipient);
+		helper.setText(html, true);
 		helper.setSubject(subject);
 		helper.setFrom(mailDefault);
 
 		mailSender.send(mimeMessage);
 	}
-	// Tem que testar!!! -- Mateus
-	private String generateEmailHTML(PedidoDTO pedidoDTO) {
+
+	public Map<String, Object> mapEmail(PedidoDTO pedidoDTO) {
 		Map<String, Object> variables = new HashMap<>();
 		variables.put("idPedido", pedidoDTO.getIdPedido());
-		variables.put("dataPedido", pedidoDTO.getDataPedido());
-		variables.put("dataEntrega", pedidoDTO.getDataEntrega());
-		variables.put("dataEnvio", pedidoDTO.getDataEnvio());
+		variables.put("dataPedido", new SimpleDateFormat("dd-MM-yyyy").format(pedidoDTO.getDataPedido()));
+		variables.put("dataEntrega", new SimpleDateFormat("dd-MM-yyyy").format(pedidoDTO.getDataEntrega()));
+		variables.put("dataEnvio", new SimpleDateFormat("dd-MM-yyyy").format(pedidoDTO.getDataEnvio()));
 		variables.put("idCliente", pedidoDTO.getClienteDTO().getIdCliente());
 		variables.put("clienteNome", pedidoDTO.getClienteDTO().getNomeCompleto());
-		variables.put("listaDeItems", pedidoDTO.getListItemPedidoDTO());
 
-		String status;
-		if (pedidoDTO.getStatus() == true) {
-			status = "ATIVO";
-		} else {
-			status = "INATIVO";
+		List<Integer> listaIDsPedidos = new ArrayList<Integer>();
+		for (ItemPedidoDTO itemPedidoDTO : pedidoDTO.getListItemPedidoDTO()) {
+			listaIDsPedidos.add(itemPedidoDTO.getIdProduto());
 		}
 
-		variables.put("status", status);
+		variables.put("listaDeItems", listaIDsPedidos);
 
-		final String templateFileName = "pedido";
-		String output = this.templateEngine.process(templateFileName, new Context(Locale.getDefault(), variables));
-
-		return output;
+		return variables;
 	}
-	
-	
+
 }

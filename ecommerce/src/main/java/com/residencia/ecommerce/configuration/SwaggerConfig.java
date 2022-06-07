@@ -1,12 +1,13 @@
 package com.residencia.ecommerce.configuration;
 
+import java.nio.charset.StandardCharsets;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
-import org.thymeleaf.templateresolver.ITemplateResolver;
 
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
@@ -36,20 +37,22 @@ public class SwaggerConfig {
 	}
 
 	@Bean
-	public ITemplateResolver templateResolver() {
+	public ClassLoaderTemplateResolver templateResolver() {
 		ClassLoaderTemplateResolver templateResolver = new ClassLoaderTemplateResolver();
-		templateResolver.setPrefix("templates/");
+		templateResolver.setPrefix("/templates/");
 		templateResolver.setSuffix(".html");
 		templateResolver.setTemplateMode(TemplateMode.HTML);
+		templateResolver.setCharacterEncoding(StandardCharsets.UTF_8.name());
+		templateResolver.setCacheable(false);
 
 		return templateResolver;
 	}
 
 	@Bean
-	public TemplateEngine templateEngine() {
-		TemplateEngine templateEngine = new TemplateEngine();
-		templateEngine.setTemplateResolver(this.templateResolver());
+	public SpringTemplateEngine templateEngine() {
+		SpringTemplateEngine springTemplateEngine = new SpringTemplateEngine();
+		springTemplateEngine.addTemplateResolver((templateResolver()));
 
-		return templateEngine;
+		return springTemplateEngine;
 	}
 }

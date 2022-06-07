@@ -1,22 +1,46 @@
-<html>
-<head>
-    <style>
-        li {
-            list-style: none;
-            text-align: center;
-        }
-    </style>
-</head>
-<body>
-    <ul>
-        <li data-th-text="ID do Pedido: ${idPedido}"></li>
-        <li data-th-text="Data do Pedido: ${dataPedido}"></li>
-        <li data-th-text="Data de Entrega: ${dataEntrega}"></li>
-        <li data-th-text="Data de Envio: ${dataEnvio}"></li>
-        <li data-th-text="ID do Cliente: ${idCliente}"></li>
-        <li data-th-text="Nome do Cliente: ${nomeCliente}"></li>
-        <li data-th-text="Lista de Items: ${listaDeItems}"></li>
-        <li data-th-text="Status do Pedido: ${status}"></li>
-    </ul>
-</body>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title th:remove="all">Novo Pedido</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <style>
+            * {
+                font-family: Verdana, Geneva, Tahoma, sans-serif;
+                text-align: justify;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Novo Pedido Cadastrado | ID: <span th:text="${idPedido}"></span></h1>
+        <hr>
+        <ul>
+            <li>
+                Data do Pedido: <span th:text="${dataPedido}"></span>
+            </li>
+
+            <li>
+                Data de Envio prevista: <span th:text="${dataEnvio}"></span>
+            </li>
+
+            <li>
+                Data de Entrega prevista: <span th:text="${dataEntrega}"></span>
+            </li>
+
+            <li>
+                ID do Cliente: <span th:text="${idCliente}"></span>
+            </li>
+
+            <li>
+                Nome do Cliente: <span th:text="${clienteNome}"></span>
+            </li>
+
+            <li>
+                Endereço de Entrega: <span th:text="${endereco}"></span>
+            </li>
+            
+            <li>
+                Lista de IDs dos Itens pedidos: <span th:text="${listaDeItems}"></span>
+            </li>
+        </ul>
+    </body>
 </html>
