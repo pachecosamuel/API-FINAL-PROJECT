@@ -1,8 +1,8 @@
 package com.residencia.ecommerce.service;
 
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -154,7 +154,7 @@ public class ProdutoService {
 		produto.setValorUnitario(produtoDTO.getValorUnitario());
 
 		if (produto.getIdProduto() == null) {
-			produto.setDataCadastroProduto(LocalDate.now());
+			produto.setDataCadastroProduto(new Date());
 		} else {
 			produto.setDataCadastroProduto(produtoDTO.getDataCadastroProduto());
 		}

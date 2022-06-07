@@ -1,7 +1,7 @@
 package com.residencia.ecommerce.service;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.mail.MessagingException;
@@ -93,13 +93,13 @@ public class PedidoService {
 		pedidoDTO.setStatus(true);
 
 		// Data de envio prevista dentro de 24 horas. (Placeholder)
-		LocalDate envio = LocalDate.now();
-		envio.plusDays(1);
+		Date envio = new Date();
+		// envio.plusDays(1);
 		pedidoDTO.setDataEnvio(envio);
 
 		//Data de entrega prevista para dentro de 7 dias após envio. (Placeholder)
-		LocalDate entrega = envio;
-		entrega.plusDays(7);
+		Date entrega = envio;
+		// entrega.plusDays(7);
 		pedidoDTO.setDataEntrega(entrega);
 
 		emailService.sendEmailHTML("godbless@godbless.com", "Testando!", pedidoDTO);
@@ -120,7 +120,7 @@ public class PedidoService {
 		pedido.setStatus(pedidoDTO.getStatus());
 
 		if (pedidoDTO.getIdPedido() == null) {
-			pedido.setDataPedido(LocalDate.now());
+			pedido.setDataPedido(new Date());
 		} else {
 			pedidoDTO.setDataPedido(pedidoDTO.getDataPedido());
 		}

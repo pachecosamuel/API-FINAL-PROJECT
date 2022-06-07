@@ -1,6 +1,6 @@
 package com.residencia.ecommerce.entity;
 
-import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -36,7 +36,7 @@ public class Produto {
 	private Integer qtdEstoque;
 
 	@Column(name = "data_cadastro", nullable = false)
-	private LocalDate dataCadastroProduto;
+	private Date dataCadastroProduto;
 
 	@Column(name = "valor_unitario", nullable = false)
 	private Double valorUnitario;
@@ -85,11 +85,11 @@ public class Produto {
 		this.qtdEstoque = qtdEstoque;
 	}
 
-	public LocalDate getDataCadastroProduto() {
+	public Date getDataCadastroProduto() {
 		return dataCadastroProduto;
 	}
 
-	public void setDataCadastroProduto(LocalDate dataCadastroProduto) {
+	public void setDataCadastroProduto(Date dataCadastroProduto) {
 		this.dataCadastroProduto = dataCadastroProduto;
 	}
 

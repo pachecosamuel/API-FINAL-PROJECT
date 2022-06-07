@@ -1,6 +1,6 @@
 package com.residencia.ecommerce.entity;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -37,7 +37,7 @@ public class Cliente {
 	private String telefone;
 
 	@Column(name = "data_nascimento", nullable = false)
-	private LocalDate dataNascimento;
+	private Date dataNascimento;
 
 	/* ID_ENDERECO VIRÁ COMO FOREIGN KEY REFERENCE ENDERECO */
 	@ManyToOne
@@ -84,11 +84,11 @@ public class Cliente {
 		this.telefone = telefone;
 	}
 
-	public LocalDate getDataNascimento() {
+	public Date getDataNascimento() {
 		return dataNascimento;
 	}
 
-	public void setDataNascimento(LocalDate dataNascimento) {
+	public void setDataNascimento(Date dataNascimento) {
 		this.dataNascimento = dataNascimento;
 	}
 
