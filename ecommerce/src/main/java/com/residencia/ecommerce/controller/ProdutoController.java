@@ -60,7 +60,7 @@ public class ProdutoController {
 	public ResponseEntity<Resource> getProdutoImageById(@PathVariable Integer id) throws IOException {
 		HttpHeaders header = new HttpHeaders();
         header.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=image.png");
-        header.add("Cache-Control", "no-cache, no-store, must-revalidate");
+        header.add("Cache-Control", "no-cache, no-store, must-revaliLocalDate");
         header.add("Pragma", "no-cache");
         header.add("Expires", "0");
 		

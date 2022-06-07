@@ -1,6 +1,6 @@
 package com.residencia.ecommerce.dto;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
@@ -29,7 +29,7 @@ public class ProdutoDTO {
 
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	@JsonFormat(pattern = "dd-MM-yyyy")
-	private Date dataCadastroProduto;
+	private LocalDate dataCadastroProduto;
 
 	@NotNull(message = "Valor unitário não informado")
 	@Min(value = 0, message = "Valor unitário não pode ser menor que 0")
@@ -77,11 +77,11 @@ public class ProdutoDTO {
 		this.qtdEstoque = qtdEstoque;
 	}
 
-	public Date getDataCadastroProduto() {
+	public LocalDate getDataCadastroProduto() {
 		return dataCadastroProduto;
 	}
 
-	public void setDataCadastroProduto(Date dataCadastroProduto) {
+	public void setDataCadastroProduto(LocalDate dataCadastroProduto) {
 		this.dataCadastroProduto = dataCadastroProduto;
 	}
 
