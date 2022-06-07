@@ -1,6 +1,6 @@
 package com.residencia.ecommerce.dto;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -39,7 +39,7 @@ public class ClienteDTO {
 
 	@NotNull(message = "Data de nascimento não informada. (Formatação: DD-MM-YYYY)")
 	@JsonFormat(pattern = "dd-MM-yyyy")
-	private Date dataNascimento;
+	private LocalDate dataNascimento;
 
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	private EnderecoDTO enderecoDTO;
@@ -95,11 +95,11 @@ public class ClienteDTO {
 		this.telefone = telefone;
 	}
 
-	public Date getDataNascimento() {
+	public LocalDate getDataNascimento() {
 		return dataNascimento;
 	}
 
-	public void setDataNascimento(Date dataNascimento) {
+	public void setDataNascimento(LocalDate dataNascimento) {
 		this.dataNascimento = dataNascimento;
 	}
 

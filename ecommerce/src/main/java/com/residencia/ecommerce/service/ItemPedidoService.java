@@ -98,16 +98,16 @@ public class ItemPedidoService {
 		itemPedido.setPrecoVenda(calcService.calcPrecoVenda(itemPedido.getValorBruto(), itemPedidoDTO.getQuantidadeProduto(), itemPedidoDTO.getPercentualDesconto()));
 		itemPedido.setValorLiquido(calcService.calcValorLiquido(itemPedido.getValorBruto(), itemPedidoDTO.getPercentualDesconto()));
 
-		ProdutoDTO produtoUpdated = produtoService.findProdutoById(itemPedidoDTO.getIdProduto());
+		ProdutoDTO produtoupdated = produtoService.findProdutoById(itemPedidoDTO.getIdProduto());
 		
 		//Atualiza o estoque do Produto consumido nesse item pedido.
-		if (produtoUpdated.getQtdEstoque() - itemPedidoDTO.getQuantidadeProduto() < 0) {
+		if (produtoupdated.getQtdEstoque() - itemPedidoDTO.getQuantidadeProduto() < 0) {
 			throw new TransactionNotAllowedException("Não há estoque suficiente para fazer essa venda. ID: " + itemPedidoDTO.getIdItemPedido());
 		}
 
-		produtoUpdated.setQtdEstoque(produtoUpdated.getQtdEstoque() - itemPedido.getQuantidadeProduto());
+		produtoupdated.setQtdEstoque(produtoupdated.getQtdEstoque() - itemPedido.getQuantidadeProduto());
 
-		produtoService.updateProduto(produtoUpdated, produtoUpdated.getIdProduto());
+		produtoService.updateProduto(produtoupdated, produtoupdated.getIdProduto());
 
 		return itemPedido;
 	}

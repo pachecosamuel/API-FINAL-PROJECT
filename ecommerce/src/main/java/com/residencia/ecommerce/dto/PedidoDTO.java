@@ -1,6 +1,6 @@
 package com.residencia.ecommerce.dto;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.OneToMany;
@@ -16,15 +16,15 @@ public class PedidoDTO {
 
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	@JsonFormat(pattern = "dd-MM-yyyy")
-	private Date dataPedido;
+	private LocalDate dataPedido;
 
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	@JsonFormat(pattern = "dd-MM-yyyy")
-	private Date dataEntrega;
+	private LocalDate dataEntrega;
 
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	@JsonFormat(pattern = "dd-MM-yyyy")
-	private Date dataEnvio;
+	private LocalDate dataEnvio;
 
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	private Boolean status;
@@ -51,27 +51,27 @@ public class PedidoDTO {
 		this.idPedido = idPedido;
 	}
 
-	public Date getDataPedido() {
+	public LocalDate getDataPedido() {
 		return dataPedido;
 	}
 
-	public void setDataPedido(Date dataPedido) {
+	public void setDataPedido(LocalDate dataPedido) {
 		this.dataPedido = dataPedido;
 	}
 
-	public Date getDataEntrega() {
+	public LocalDate getDataEntrega() {
 		return dataEntrega;
 	}
 
-	public void setDataEntrega(Date dataEntrega) {
+	public void setDataEntrega(LocalDate dataEntrega) {
 		this.dataEntrega = dataEntrega;
 	}
 
-	public Date getDataEnvio() {
+	public LocalDate getDataEnvio() {
 		return dataEnvio;
 	}
 
-	public void setDataEnvio(Date dataEnvio) {
+	public void setDataEnvio(LocalDate dataEnvio) {
 		this.dataEnvio = dataEnvio;
 	}
 

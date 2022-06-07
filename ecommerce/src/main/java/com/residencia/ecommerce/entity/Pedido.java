@@ -1,6 +1,6 @@
 package com.residencia.ecommerce.entity;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -27,13 +27,13 @@ public class Pedido {
 	private Integer idPedido;
 
 	@Column(name = "data_pedido", nullable = false)
-	private Date dataPedido;
+	private LocalDate dataPedido;
 
 	@Column(name = "data_entrega", nullable = false)
-	private Date dataEntrega;
+	private LocalDate dataEntrega;
 
 	@Column(name = "data_envio", nullable = false)
-	private Date dataEnvio;
+	private LocalDate dataEnvio;
 
 	@Column(name = "status", nullable = false)
 	private Boolean status;
@@ -55,27 +55,27 @@ public class Pedido {
 		this.idPedido = idPedido;
 	}
 
-	public Date getDataPedido() {
+	public LocalDate getDataPedido() {
 		return dataPedido;
 	}
 
-	public void setDataPedido(Date dataPedido) {
+	public void setDataPedido(LocalDate dataPedido) {
 		this.dataPedido = dataPedido;
 	}
 
-	public Date getDataEntrega() {
+	public LocalDate getDataEntrega() {
 		return dataEntrega;
 	}
 
-	public void setDataEntrega(Date dataEntrega) {
+	public void setDataEntrega(LocalDate dataEntrega) {
 		this.dataEntrega = dataEntrega;
 	}
 
-	public Date getDataEnvio() {
+	public LocalDate getDataEnvio() {
 		return dataEnvio;
 	}
 
-	public void setDataEnvio(Date dataEnvio) {
+	public void setDataEnvio(LocalDate dataEnvio) {
 		this.dataEnvio = dataEnvio;
 	}
 
