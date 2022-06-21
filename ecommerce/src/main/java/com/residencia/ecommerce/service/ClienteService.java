@@ -164,4 +164,10 @@ public class ClienteService {
 		return clienteDTO;
 	}
 
+    public Cliente findByEmail(String email) {
+		List<Cliente> clienteEmailLogin = clienteRepository.findByEmail(email);
+		System.out.println(clienteEmailLogin);
+		return clienteEmailLogin.get(0);
+	}
+
 }

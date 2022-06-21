@@ -12,9 +12,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.residencia.ecommerce.dto.ClienteDTO;
+import com.residencia.ecommerce.entity.Cliente;
 import com.residencia.ecommerce.exception.NoSuchElementFoundException;
 import com.residencia.ecommerce.service.ClienteService;
 
@@ -48,6 +50,20 @@ public class ClienteController {
 		else
 			return new ResponseEntity<>(clienteDTO, HttpStatus.OK);
 
+	}
+
+	@GetMapping("/logar_cliente")
+	@Operation(summary = "Endpoint para validar email & senha.")
+	public ResponseEntity<Boolean> logarCliente(@RequestParam String email, @RequestParam String password){
+
+		Cliente cliente = clienteService.findByEmail(email);
+		if(cliente == null) {
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(false);
+		}
+
+		HttpStatus status = (password.equals(cliente.getCpf())) ? HttpStatus.OK : HttpStatus.UNAUTHORIZED;
+
+		return ResponseEntity.status(status).body(password.equals(cliente.getCpf()));
 	}
 
 	@PostMapping

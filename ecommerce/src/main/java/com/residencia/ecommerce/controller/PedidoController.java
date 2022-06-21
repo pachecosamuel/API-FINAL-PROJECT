@@ -53,6 +53,12 @@ public class PedidoController {
 
 	}
 
+	@GetMapping("/cliente/{idCliente}")
+	@Operation(summary = "Listar pedido via ID do cliente Path")
+	public ResponseEntity<List<PedidoDTO>> findPedidoByClienteId(@PathVariable Integer idCliente) {
+		return new ResponseEntity<>(pedidoService.findPedidoByCliente(idCliente), HttpStatus.OK);
+	}
+
 	@PostMapping("/query")
 	@Operation(summary = "Cria um novo Pedido.")
 	public ResponseEntity<PedidoDTO> savePedido(@RequestParam Integer cliente) {

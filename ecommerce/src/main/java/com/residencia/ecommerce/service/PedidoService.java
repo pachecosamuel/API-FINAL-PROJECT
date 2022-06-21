@@ -15,6 +15,7 @@ import com.residencia.ecommerce.dto.PedidoDTO;
 import com.residencia.ecommerce.entity.Cliente;
 import com.residencia.ecommerce.entity.ItemPedido;
 import com.residencia.ecommerce.entity.Pedido;
+import com.residencia.ecommerce.repository.ClienteRepository;
 import com.residencia.ecommerce.repository.PedidoRepository;
 import com.residencia.ecommerce.exception.NoSuchElementFoundException;
 
@@ -23,6 +24,9 @@ public class PedidoService {
 
 	@Autowired
 	PedidoRepository pedidoRepository;
+
+	@Autowired
+	ClienteRepository clienteRepository;
 
 	@Autowired
 	ClienteService clienteService;
@@ -54,6 +58,19 @@ public class PedidoService {
 	public PedidoDTO findPedidoById(Integer id) {
 		return pedidoRepository.findById(id).isPresent() ? converterEntidadeParaDto(pedidoRepository.findById(id).get()) : null;
 	}
+
+	public List<PedidoDTO> findPedidoByCliente(Integer idCliente) {
+		Cliente cliente = clienteRepository.findById(idCliente).get();
+
+        List<Pedido> pedidos = pedidoRepository.findByCliente(cliente);
+        List<PedidoDTO> pedidoDTO = new ArrayList<>();
+        
+		for(Pedido pedido: pedidos){
+            pedidoDTO.add(converterEntidadeParaDto(pedido));
+        }
+
+        return pedidoDTO;
+    }
 
 	public PedidoDTO savePedido(Integer id) {
 		PedidoDTO newPedidoDTO = new PedidoDTO();
